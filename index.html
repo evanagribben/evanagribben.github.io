@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Newsstand — Evan's Weekly Editions</title>
+<style>
+  :root{
+    --ink:#17313b; --sand:#f2ede4; --card:#fffdf9; --line:#e0d8c8; --muted:#6b7a80;
+    --teal:#0e7c86; --green:#0f7a4e; --red:#EF0107; --gold:#b8860b;
+    --serif:Georgia,'Times New Roman',serif;
+    --sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--sand);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none}
+
+  /* top bar */
+  .topbar{background:var(--ink);color:#fff;}
+  .topbar .wrap{max-width:1060px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .brand{font-family:var(--serif);font-size:20px;font-weight:bold;letter-spacing:.5px;}
+  .brand span{color:#a9c3c7;}
+  .nav{font-family:var(--sans);font-size:12.5px;letter-spacing:.4px;display:flex;gap:18px;flex-wrap:wrap;}
+  .nav a{color:#d6e2e4;text-transform:uppercase;font-weight:600;}
+  .nav a:hover{color:#fff;}
+
+  /* preview strip */
+  .preview{background:#fbeecb;color:#7a5a12;font-family:var(--sans);font-size:12px;letter-spacing:.5px;text-align:center;padding:7px 14px;border-bottom:1px solid #ecdca6;}
+
+  .wrap{max-width:1060px;margin:0 auto;padding:0 22px;}
+
+  /* hero */
+  .hero{text-align:center;padding:52px 22px 30px;}
+  .hero .rule{height:2px;background:var(--ink);max-width:520px;margin:0 auto;}
+  .hero h1{font-family:var(--serif);font-weight:bold;font-size:56px;line-height:1.02;margin:18px 0 8px;letter-spacing:.5px;}
+  .hero .kicker{font-family:var(--sans);text-transform:uppercase;letter-spacing:5px;font-size:12px;color:var(--muted);}
+  .hero p{font-family:var(--serif);font-size:17px;color:#33474e;max-width:600px;margin:14px auto 0;line-height:1.55;}
+
+  /* filter chips */
+  .filters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:8px 22px 34px;}
+  .chip{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.4px;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);}
+  .chip .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:middle;}
+  .chip.all{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+  /* section heading */
+  .sechead{font-family:var(--sans);text-transform:uppercase;letter-spacing:3px;font-size:12px;color:var(--muted);border-top:2px solid var(--ink);padding-top:10px;margin:26px 0 16px;}
+
+  /* featured */
+  .feat{display:flex;background:var(--card);border:1px solid var(--line);border-radius:4px;overflow:hidden;box-shadow:0 1px 0 rgba(0,0,0,.03);}
+  .feat .spine{width:8px;background:var(--teal);flex:0 0 8px;}
+  .feat .body{padding:26px 30px;flex:1;}
+  .feat .pub{font-family:var(--sans);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);}
+  .feat h2{font-family:var(--serif);font-size:32px;margin:8px 0 6px;line-height:1.1;}
+  .feat .meta{font-family:var(--sans);font-size:12.5px;color:var(--muted);letter-spacing:.3px;}
+  .feat .dek{font-family:var(--serif);font-size:16px;color:#2a3b42;line-height:1.6;margin:14px 0 18px;max-width:70ch;}
+  .btn{display:inline-block;font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.4px;background:var(--ink);color:#fff;padding:11px 20px;border-radius:3px;}
+  .btn:hover{background:#0c2229;}
+
+  /* grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-bottom:40px;}
+  .cardlink{display:block}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:4px;overflow:hidden;height:100%;transition:transform .12s ease,box-shadow .12s ease;position:relative;}
+  .card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(23,49,59,.12);}
+  .card .top{height:6px;}
+  .card .pad{padding:20px 22px 22px;}
+  .card .pub{font-family:var(--sans);font-size:10.5px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;}
+  .card h3{font-family:var(--serif);font-size:21px;margin:9px 0 5px;line-height:1.15;}
+  .card .meta{font-family:var(--sans);font-size:11.5px;color:var(--muted);letter-spacing:.3px;}
+  .card .dek{font-family:var(--serif);font-size:14.5px;color:#3a4a51;line-height:1.55;margin:11px 0 14px;}
+  .card .read{font-family:var(--sans);font-size:12.5px;font-weight:700;letter-spacing:.3px;}
+
+  .pub-bay{color:var(--teal)} .top-bay{background:var(--teal)} .read-bay{color:var(--teal)}
+  .pub-soc{color:var(--green)} .top-soc{background:var(--green)} .read-soc{color:var(--green)}
+  .pub-ars{color:var(--red)} .top-ars{background:var(--red)} .read-ars{color:var(--red)}
+
+  /* footer */
+  footer{background:var(--ink);color:#cdd9db;font-family:var(--sans);}
+  footer .wrap{padding:30px 22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;}
+  footer .f-brand{font-family:var(--serif);font-size:18px;color:#fff;font-weight:bold;}
+  footer .f-note{font-size:12.5px;line-height:1.6;color:#9fb4b7;max-width:420px;}
+  footer .f-tags{font-size:11.5px;letter-spacing:.5px;color:#84999c;text-transform:uppercase;margin-top:6px;}
+
+  @media(max-width:600px){
+    .hero h1{font-size:40px}
+    .feat{flex-direction:row}
+    .feat .body{padding:20px}
+    .feat h2{font-size:25px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">The&nbsp;Newsstand<span>.</span></div>
+    <nav class="nav">
+      <a href="#">Home</a>
+      <a href="#">The Bay Weekender</a>
+      <a href="#">Soccer Digest</a>
+      <a href="#">Arsenal Digest</a>
+      <a href="#">About</a>
+    </nav>
+  </div>
+</div>
+
+<div class="preview">DESIGN PREVIEW · sample layout &amp; placeholder entries · every card below opens the real July&nbsp;18 Bay&nbsp;Weekender edition</div>
+
+<header class="hero">
+  <div class="rule"></div>
+  <h1>The Newsstand</h1>
+  <div class="kicker">Evan&rsquo;s weekly editions</div>
+  <p>Every edition, in one place — kept exactly as it was meant to be read. Still delivered to your inbox each week; now archived here with a permanent link.</p>
+</header>
+
+<div class="filters">
+  <span class="chip all">All editions</span>
+  <span class="chip"><span class="dot" style="background:#0e7c86"></span>The Bay Weekender</span>
+  <span class="chip"><span class="dot" style="background:#0f7a4e"></span>Soccer Digest</span>
+  <span class="chip"><span class="dot" style="background:#EF0107"></span>Arsenal Digest</span>
+</div>
+
+<main class="wrap">
+
+  <div class="sechead">Latest edition</div>
+  <a class="cardlink" href="edition-sample.html">
+    <div class="feat">
+      <div class="spine"></div>
+      <div class="body">
+        <div class="pub">The Bay Weekender</div>
+        <h2>July 18, 2026</h2>
+        <div class="meta">Covering July 18 – August 16, 2026 · Edition No. 4</div>
+        <div class="dek">Peak Bay summer: the SF Marathon takes over the waterfront, the Aug 7–9 weekend stacks Outside Lands, San Jose Jazz, Pistahan and two county fairs at once, and Stern Grove closes its season with Public Enemy and Al Green — free in the grove.</div>
+        <span class="btn">Read edition →</span>
+      </div>
+    </div>
+  </a>
+
+  <div class="sechead">All editions</div>
+  <div class="grid">
+
+    <a class="cardlink" href="edition-sample.html"><div class="card"><div class="top top-bay"></div><div class="pad">
+      <div class="pub pub-bay">The Bay Weekender</div>
+      <h3>July 18, 2026</h3>
+      <div class="meta">Jul 18 – Aug 16 · SF &amp; the Bay Area</div>
+      <div class="dek">Marathon weekend, Outside Lands, Stern Grove’s free finale, and a four-week events calendar.</div>
+      <div class="read read-bay">Read edition →</div>
+    </div></div></a>
+
+    <a class="cardlink" href="edition-sample.html"><div class="card"><div class="top top-soc"></div><div class="pad">
+      <div class="pub pub-soc">Soccer Digest</div>
+      <h3>July 15, 2026</h3>
+      <div class="meta">Six leagues · transfers &amp; the window</div>
+      <div class="dek">The summer window heats up across the Premier League, La Liga and Serie A, with the biggest live sagas tracked by certainty.</div>
+      <div class="read read-soc">Read edition →</div>
+    </div></div></a>
+
+    <a class="cardlink" href="edition-sample.html"><div class="card"><div class="top top-ars"></div><div class="pad">
+      <div class="pub pub-ars">Arsenal Digest</div>
+      <h3>July 15, 2026</h3>
+      <div class="meta">All Arsenal · squad, targets &amp; Hale End</div>
+      <div class="dek">Pre-season sharpens up, the recruitment board firms its shortlist, and the academy’s brightest push for minutes.</div>
+      <div class="read read-ars">Read edition →</div>
+    </div></div></a>
+
+    <a class="cardlink" href="edition-sample.html"><div class="card"><div class="top top-bay"></div><div class="pad">
+      <div class="pub pub-bay">The Bay Weekender</div>
+      <h3>July 11, 2026</h3>
+      <div class="meta">Jul 11 – Aug 9 · SF &amp; the Bay Area</div>
+      <div class="dek">Fillmore Jazz, Stern Grove’s opening weeks, and a run of night markets across the city.</div>
+      <div class="read read-bay">Read edition →</div>
+    </div></div></a>
+
+    <a class="cardlink" href="edition-sample.html"><div class="card"><div class="top top-soc"></div><div class="pad">
+      <div class="pub pub-soc">Soccer Digest</div>
+      <h3>July 8, 2026</h3>
+      <div class="meta">Six leagues · pre-season &amp; moves</div>
+      <div class="dek">Managers reshape squads, the first marquee fees land, and the rumour mill spins across Europe.</div>
+      <div class="read read-soc">Read edition →</div>
+    </div></div></a>
+
+    <a class="cardlink" href="edition-sample.html"><div class="card"><div class="top top-ars"></div><div class="pad">
+      <div class="pub pub-ars">Arsenal Digest</div>
+      <h3>July 8, 2026</h3>
+      <div class="meta">All Arsenal · window &amp; tactics</div>
+      <div class="dek">Contract talks, a new-signing profile, and where the gaffer’s plans are pointing for the season ahead.</div>
+      <div class="read read-ars">Read edition →</div>
+    </div></div></a>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="f-brand">The Newsstand<span style="color:#a9c3c7">.</span></div>
+      <div class="f-tags">Free &nbsp;·&nbsp; Ad-free &nbsp;·&nbsp; Archived weekly</div>
+    </div>
+    <div class="f-note">Each edition is still delivered to your distribution list by email. This site keeps the full back catalogue with a permanent, shareable link to every issue — formatted exactly as written.</div>
+  </div>
+</footer>
+
+</body>
+</html>
