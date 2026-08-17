@@ -287,7 +287,13 @@ def main():
     if refreshed:
         log(f"refreshed {refreshed} dek(s)")
 
-    if (added or refreshed) and not DRY:
+    # ALWAYS write the manifest, never conditionally. An earlier version only
+    # wrote it when something was added or a dek changed, which meant a
+    # cutoff-only run pruned entries in memory, never saved them, and then let
+    # the orphan sweep below delete the raw files anyway. That left the site
+    # pointing at editions whose content was gone. Writing unconditionally is
+    # harmless when nothing changed and removes that whole class of bug.
+    if not DRY:
         manifest["editions"].sort(key=lambda e: (e["date"], e["slug"]),
                                   reverse=True)
         with open(MANIFEST, "w", encoding="utf-8") as fh:
