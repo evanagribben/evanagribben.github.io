@@ -88,15 +88,21 @@ def build_home(eds):
                 f'<span>{len(eds)} edition{"s" if len(eds)!=1 else ""} archived</span>'
                 f'<span>Updated {datetime.now(timezone.utc).strftime("%B %-d, %Y")}</span></div>')
 
-    if eds:
-        body.append('<div class="kicker sans">Latest edition</div>')
-        body.append(lead_card(eds[0]))
-        rest = eds[1:7]
-        if rest:
-            body.append('<div class="kicker sans">Also new</div>')
-            body.append('<div class="grid">' + "".join(small_card(e) for e in rest) + "</div>")
+    # One card per publication: its most recent edition, newest publication
+    # first. eds is already sorted newest-first, so the first time a pub is
+    # seen is its latest.
+    latest = []
+    seen = set()
+    for e in eds:
+        if e["pub"] not in seen:
+            seen.add(e["pub"])
+            latest.append(e)
+
+    body.append('<div class="kicker sans">Latest edition</div>')
+    if latest:
+        body.append('<div class="grid">'
+                    + "".join(small_card(e) for e in latest) + "</div>")
     else:
-        body.append('<div class="kicker sans">Latest edition</div>')
         body.append('<p style="color:#6b6459">No editions published yet. '
                     'The first one lands here automatically.</p>')
 
