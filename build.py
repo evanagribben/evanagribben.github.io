@@ -101,9 +101,11 @@ def build_home(eds):
     if latest:
         body.append("".join(ed_row(e) for e in latest))
     else:
-        body.append('<p style="color:#8f8571;text-align:center">'
-                    'No editions published yet. The first one lands here '
-                    'automatically.</p>')
+        body.append('<p style="color:#8f8571;text-align:center;max-width:52ch;'
+                    'margin:0 auto">This week\'s editions appear here as they '
+                    'are written. The Bay Weekender publishes Monday, '
+                    'The Weekly Arsenal Digest Tuesday, and '
+                    'The Weekly Soccer Digest Wednesday.</p>')
 
     body.append(section("The Publications"))
     body.append('<div class="pubs">')
