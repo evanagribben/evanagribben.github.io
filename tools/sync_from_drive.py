@@ -111,12 +111,53 @@ def extract_dek(html, fallback):
     text = re.sub(r"(?s)<[^>]+>", " ", body)
     text = htmllib.unescape(text).replace("\xa0", " ")
     text = re.sub(r"\s+", " ", text).strip()
-    # Skip the masthead words and find something sentence-shaped.
+
+    # Everything before the real writing starts is masthead furniture: the
+    # nameplate, a tagline in caps, a dateline, a table-of-contents line. Taking
+    # the first long-enough chunk grabs that junk, which is what produced deks
+    # like "WORLD FOOTBALL - REPORTED & ANALYSED The Weekly Soccer Digest Six
+    # leagues...". So score candidates and pick a real sentence instead.
+    JUNK = ("weekly", "digest", "weekender", "newsstand", "edition",
+            "the lead", "in this", "reported", "analysed", "analyzed",
+            "wednesday edition", "vol.", "san francisco & the bay area")
+
+    def looks_like_furniture(c):
+        low = c.lower()
+        letters = [ch for ch in c if ch.isalpha()]
+        # mostly capitals is a nameplate or a kicker, not prose
+        if letters and sum(ch.isupper() for ch in letters) / len(letters) > 0.4:
+            return True
+        if sum(low.count(w) for w in JUNK) >= 2:
+            return True
+        if low.startswith(("the bay weekender", "the weekly", "evan's weekly")):
+            return True
+        # a dateline, e.g. "Wednesday, August 12, 2026"
+        if re.fullmatch(r"[A-Z][a-z]+day,? [A-Z][a-z]+ \d{1,2},? \d{4}\.?", c):
+            return True
+        # pipe-separated banners: "Vol. 31 | Wednesday, August 5 | North London"
+        if c.count("|") >= 1 or c.count("·") >= 2:
+            return True
+        # starts with a volume or issue number rather than a word
+        if re.match(r"^\d", c):
+            return True
+        # a dateline sitting anywhere inside a short banner line
+        if re.search(r"\b(Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,\s+"
+                     r"[A-Z][a-z]+\s+\d{1,2}", c) and len(c) < 160:
+            return True
+        return False
+
+    best = None
     for chunk in re.split(r"(?<=[.!?])\s+", text):
         c = chunk.strip()
-        if 60 <= len(c) <= 300:
-            return c
-    return fallback
+        if not (60 <= len(c) <= 300):
+            continue
+        if looks_like_furniture(c):
+            continue
+        # A real sentence has lowercase words and ends in a full stop.
+        if not re.search(r"[a-z]{3}", c):
+            continue
+        return c if c.endswith((".", "!", "?")) else c + "."
+    return best or fallback
 
 
 def main():
@@ -207,7 +248,24 @@ def main():
             added.append(slug)
             log(f"    wrote {len(blob):,} bytes")
 
-    if added and not DRY:
+    # Recompute EVERY edition's dek from its local file each run. Deks are
+    # derived, not authored, so improving the extractor should repair the whole
+    # archive rather than only affecting editions fetched from now on. Costs
+    # nothing: the files are already on disk, no network involved.
+    refreshed = 0
+    for e in manifest.get("editions", []):
+        path = os.path.join(RAW_DIR, f"{e['slug']}.html")
+        if not os.path.isfile(path):
+            continue
+        with open(path, encoding="utf-8", errors="replace") as fh:
+            new_dek = extract_dek(fh.read(), e.get("title", ""))
+        if new_dek and new_dek != e.get("dek"):
+            e["dek"] = new_dek
+            refreshed += 1
+    if refreshed:
+        log(f"refreshed {refreshed} dek(s)")
+
+    if (added or refreshed) and not DRY:
         manifest["editions"].sort(key=lambda e: (e["date"], e["slug"]),
                                   reverse=True)
         with open(MANIFEST, "w", encoding="utf-8") as fh:
