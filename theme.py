@@ -117,8 +117,14 @@ a{color:inherit}
 .sub{background:#1b1b1b;color:#f4f1ea;padding:38px 34px;margin:52px 0 0}
 .sub h2{margin:0 0 10px;font-size:27px;color:#fff}
 .sub p{margin:0 0 20px;color:#c9c3b6;font-size:15.5px;max-width:560px}
-.sub .slot{background:#2a2a2a;border:1px dashed #575043;padding:22px;
-  font-size:13.5px;color:#a49d90;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+.sub .subbtn{display:inline-block;background:#f4f1ea;color:#1b1b1b;
+  text-decoration:none;font-size:14px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;padding:15px 30px;min-height:44px;
+  border:2px solid #f4f1ea;transition:background .15s,color .15s}
+.sub .subbtn:hover{background:transparent;color:#f4f1ea}
+.sub .subbtn:focus-visible{outline:3px solid #b8860b;outline-offset:3px}
+.sub .subnote{margin:16px 0 0;font-size:13.5px;color:#a49d90;max-width:520px}
+.sub .subnote a{color:#f4f1ea}
 
 /* footer */
 footer{border-top:3px double #1b1b1b;margin-top:56px;padding:26px 0 60px;
@@ -203,20 +209,32 @@ def footer():
 </div>"""
 
 
-SUBSCRIBE_PLACEHOLDER = """<!-- SUBSCRIBE-EMBED-START
-     Replace everything between these markers with the beehiiv embed <script> tag.
-     beehiiv → your publication → Grow → Subscribe Forms → Embed.
-     SUBSCRIBE-EMBED-END -->
-<div class="slot">Subscribe form goes here &mdash; paste the beehiiv embed snippet
-into <code>theme.py</code> (SUBSCRIBE_PLACEHOLDER) and re-run <code>build.py</code>.</div>"""
+# Replace everything between the SUBSCRIBE-EMBED markers below with a real
+# signup embed (beehiiv, Buttondown, etc.) when one exists. Until then this
+# mailto form genuinely works: it opens the reader's mail app with the whole
+# message pre-written, so all they do is press send.
+SUBSCRIBE_EMAIL = "evangribben@gmail.com"
+
+_SUB_SUBJECT = "Subscribe%20to%20The%20Newsstand"
+_SUB_BODY = ("Hi%20Evan%2C%0A%0AI%27d%20like%20to%20subscribe.%0A%0A"
+             "Send%20me%3A%0A%20%20-%20The%20Bay%20Weekender%0A"
+             "%20%20-%20The%20Weekly%20Soccer%20Digest%0A"
+             "%20%20-%20The%20Weekly%20Arsenal%20Digest%0A%0A"
+             "%28delete%20any%20you%20don%27t%20want%29%0A%0AThanks%21%0A")
 
 
 def subscribe_block():
+    mailto = f"mailto:{SUBSCRIBE_EMAIL}?subject={_SUB_SUBJECT}&body={_SUB_BODY}"
     return f"""<div class="wrap">
 <section class="sub">
   <h2>Get these in your inbox</h2>
-  <p class="sans">Every edition is published here first, then sent out the same day.
-     Free, no spam, unsubscribe in one click.</p>
-  {SUBSCRIBE_PLACEHOLDER}
+  <p class="sans">Every edition is published here first, then sent out the same
+     day. Free, and you can stop any time by replying.</p>
+  <!-- SUBSCRIBE-EMBED-START -->
+  <a class="subbtn sans" href="{mailto}">Subscribe by email &rarr;</a>
+  <p class="subnote sans">Opens your mail app with the message already written.
+     Just press send, and say which of the three you want.
+     Prefer a reader? <a href="/feed.xml">Grab the RSS feed</a>.</p>
+  <!-- SUBSCRIBE-EMBED-END -->
 </section>
 </div>"""
