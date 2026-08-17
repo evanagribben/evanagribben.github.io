@@ -1,0 +1,54 @@
+name: Sync editions from Drive
+
+# Pulls any new edition out of Google Drive, rebuilds the site, and commits.
+# Runs on a schedule, and can be run by hand from the Actions tab.
+#
+# Public repositories get unlimited free Actions minutes on standard runners,
+# so this costs nothing.
+
+on:
+  schedule:
+    # Every hour, at :20. Cron here is UTC.
+    - cron: "20 * * * *"
+  workflow_dispatch:        # the "Run workflow" button
+
+permissions:
+  contents: write           # lets the built-in token commit; no PAT needed
+
+concurrency:
+  group: sync-editions      # never let two runs commit at once
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Pull new editions from Drive
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: python3 tools/sync_from_drive.py
+
+      - name: Rebuild the site
+        run: python3 build.py
+
+      - name: Commit anything new
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No new editions. Nothing to commit."
+            exit 0
+          fi
+          git config user.name  "The Newsstand"
+          git config user.email "newsstand@users.noreply.github.com"
+          git add -A
+          COUNT=$(git diff --cached --name-only | grep -c '^editions/raw/' || true)
+          git commit -m "Sync ${COUNT} new edition(s) from Drive"
+          git push
+          echo "Committed and pushed."
