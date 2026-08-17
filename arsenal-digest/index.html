@@ -33,8 +33,8 @@ a{color:inherit;text-decoration:none}
 .nav{display:flex;justify-content:center;gap:44px;flex-wrap:wrap;padding:16px 0;
   border-bottom:1px solid #cec5b2}
 .nav a{font-size:11.5px;letter-spacing:2.2px;text-transform:uppercase;
-  color:#5b5344;padding-bottom:3px;border-bottom:2px solid transparent}
-.nav a:hover,.nav a:focus-visible{border-bottom-color:#1a1713;color:#1a1713}
+  font-weight:700;padding-bottom:4px;border-bottom:2px solid transparent}
+.nav a:hover,.nav a:focus-visible{border-bottom-color:currentColor}
 
 /* section heads: a centred label sitting on a rule */
 .sec{margin:58px 0 4px;text-align:center}
@@ -154,7 +154,7 @@ footer a{text-decoration:underline}
   <div class="rule"></div>
   <div class="dateline"><span>Tuesdays</span><span>5 editions</span><span>One club, covered properly</span></div>
 </header>
-<nav class="nav sans"><a href="/bay-weekender/">The Bay Weekender</a><a href="/soccer-digest/">The Weekly Soccer Digest</a><a href="/arsenal-digest/">The Weekly Arsenal Digest</a></nav>
+<nav class="nav sans"><a href="/bay-weekender/" style="color:#8a6410">The Bay Weekender</a><a href="/soccer-digest/" style="color:#0f7a4e">The Weekly Soccer Digest</a><a href="/arsenal-digest/" style="color:#b00105">The Weekly Arsenal Digest</a></nav>
 <div class="sec sans"><h2>The Weekly Arsenal Digest</h2></div><div class="secline"></div>
 <div class="pubintro"><p>Everything Arsenal: the first team, transfers, tactics, Hale End, Arsenal Women and Gunners on international duty.</p></div>
 <div style="margin-top:26px"><a class="ed" href="/editions/arsenal-digest-2026-08-12.html">
@@ -212,7 +212,7 @@ footer a{text-decoration:underline}
   <h2>Get these in your inbox</h2>
   <p class="lede">Published here first, then sent the same day. Free, and one click to stop.</p>
   <div class="subrow"><div class="subcard" style="border-top-color:#EF0107">
-  <h3>The Weekly Arsenal Digest</h3>
+  <h3 style="color:#b00105">The Weekly Arsenal Digest</h3>
   <div class="cad sans">Tuesdays</div>
   <!-- SUBSCRIBE-EMBED-START arsenal-digest -->
   <form action="mailto:evangribben@gmail.com" method="get" enctype="text/plain"><input type="hidden" name="subject" value="Subscribe to The Weekly Arsenal Digest"><label class="sans" style="position:absolute;left:-9999px" for="e-arsenal-digest">Your email address</label><input class="sans" id="e-arsenal-digest" type="email" name="body" placeholder="you@example.com" required><button class="sans" type="submit">Subscribe</button></form>

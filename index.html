@@ -33,8 +33,8 @@ a{color:inherit;text-decoration:none}
 .nav{display:flex;justify-content:center;gap:44px;flex-wrap:wrap;padding:16px 0;
   border-bottom:1px solid #cec5b2}
 .nav a{font-size:11.5px;letter-spacing:2.2px;text-transform:uppercase;
-  color:#5b5344;padding-bottom:3px;border-bottom:2px solid transparent}
-.nav a:hover,.nav a:focus-visible{border-bottom-color:#1a1713;color:#1a1713}
+  font-weight:700;padding-bottom:4px;border-bottom:2px solid transparent}
+.nav a:hover,.nav a:focus-visible{border-bottom-color:currentColor}
 
 /* section heads: a centred label sitting on a rule */
 .sec{margin:58px 0 4px;text-align:center}
@@ -154,7 +154,7 @@ footer a{text-decoration:underline}
   <div class="rule"></div>
   <div class="dateline"><span>Three publications</span><span>18 editions archived</span><span>Updated August 17, 2026</span></div>
 </header>
-<nav class="nav sans"><a href="/bay-weekender/">The Bay Weekender</a><a href="/soccer-digest/">The Weekly Soccer Digest</a><a href="/arsenal-digest/">The Weekly Arsenal Digest</a></nav>
+<nav class="nav sans"><a href="/bay-weekender/" style="color:#8a6410">The Bay Weekender</a><a href="/soccer-digest/" style="color:#0f7a4e">The Weekly Soccer Digest</a><a href="/arsenal-digest/" style="color:#b00105">The Weekly Arsenal Digest</a></nav>
 <div class="sec sans"><h2>Latest Edition</h2></div><div class="secline"></div>
 <a class="ed" href="/editions/soccer-digest-2026-08-12.html">
   <div class="side sans">
@@ -168,7 +168,7 @@ footer a{text-decoration:underline}
   </div>
 </a><a class="ed" href="/editions/arsenal-digest-2026-08-12.html">
   <div class="side sans">
-    <div class="pubname" style="color:#EF0107">The Weekly Arsenal Digest</div>
+    <div class="pubname" style="color:#b00105">The Weekly Arsenal Digest</div>
     <div class="when">Aug 12, 2026</div>
   </div>
   <div>
@@ -178,7 +178,7 @@ footer a{text-decoration:underline}
   </div>
 </a><a class="ed" href="/editions/bay-weekender-2026-08-10.html">
   <div class="side sans">
-    <div class="pubname" style="color:#b8860b">The Bay Weekender</div>
+    <div class="pubname" style="color:#8a6410">The Bay Weekender</div>
     <div class="when">Aug 10, 2026</div>
   </div>
   <div>
@@ -193,7 +193,7 @@ footer a{text-decoration:underline}
   <h3>The Bay Weekender</h3>
   <div class="cad sans">Every other Monday &middot; 6 editions</div>
   <p>Events across San Francisco and the wider Bay Area: music, arts and nightlife; food, drink and festivals; outdoors, sports and active.</p>
-  <a class="go sans" style="color:#b8860b" href="/bay-weekender/">Read them all &rarr;</a>
+  <a class="go sans" style="color:#8a6410" href="/bay-weekender/">Read them all &rarr;</a>
 </div>
 <div class="pub" style="border-top:4px solid #0f7a4e">
   <h3>The Weekly Soccer Digest</h3>
@@ -205,26 +205,26 @@ footer a{text-decoration:underline}
   <h3>The Weekly Arsenal Digest</h3>
   <div class="cad sans">Tuesdays &middot; 5 editions</div>
   <p>Everything Arsenal: the first team, transfers, tactics, Hale End, Arsenal Women and Gunners on international duty.</p>
-  <a class="go sans" style="color:#EF0107" href="/arsenal-digest/">Read them all &rarr;</a>
+  <a class="go sans" style="color:#b00105" href="/arsenal-digest/">Read them all &rarr;</a>
 </div>
 </div>
 <section class="sub">
   <h2>Get these in your inbox</h2>
   <p class="lede">Every edition is published here first, then sent the same day. Free, and one click to stop. Pick the ones you want.</p>
   <div class="subrow"><div class="subcard" style="border-top-color:#b8860b">
-  <h3>The Bay Weekender</h3>
+  <h3 style="color:#8a6410">The Bay Weekender</h3>
   <div class="cad sans">Every other Monday</div>
   <!-- SUBSCRIBE-EMBED-START bay-weekender -->
   <form action="mailto:evangribben@gmail.com" method="get" enctype="text/plain"><input type="hidden" name="subject" value="Subscribe to The Bay Weekender"><label class="sans" style="position:absolute;left:-9999px" for="e-bay-weekender">Your email address</label><input class="sans" id="e-bay-weekender" type="email" name="body" placeholder="you@example.com" required><button class="sans" type="submit">Subscribe</button></form>
   <!-- SUBSCRIBE-EMBED-END bay-weekender -->
 </div><div class="subcard" style="border-top-color:#0f7a4e">
-  <h3>The Weekly Soccer Digest</h3>
+  <h3 style="color:#0f7a4e">The Weekly Soccer Digest</h3>
   <div class="cad sans">Wednesdays</div>
   <!-- SUBSCRIBE-EMBED-START soccer-digest -->
   <form action="mailto:evangribben@gmail.com" method="get" enctype="text/plain"><input type="hidden" name="subject" value="Subscribe to The Weekly Soccer Digest"><label class="sans" style="position:absolute;left:-9999px" for="e-soccer-digest">Your email address</label><input class="sans" id="e-soccer-digest" type="email" name="body" placeholder="you@example.com" required><button class="sans" type="submit">Subscribe</button></form>
   <!-- SUBSCRIBE-EMBED-END soccer-digest -->
 </div><div class="subcard" style="border-top-color:#EF0107">
-  <h3>The Weekly Arsenal Digest</h3>
+  <h3 style="color:#b00105">The Weekly Arsenal Digest</h3>
   <div class="cad sans">Tuesdays</div>
   <!-- SUBSCRIBE-EMBED-START arsenal-digest -->
   <form action="mailto:evangribben@gmail.com" method="get" enctype="text/plain"><input type="hidden" name="subject" value="Subscribe to The Weekly Arsenal Digest"><label class="sans" style="position:absolute;left:-9999px" for="e-arsenal-digest">Your email address</label><input class="sans" id="e-arsenal-digest" type="email" name="body" placeholder="you@example.com" required><button class="sans" type="submit">Subscribe</button></form>
