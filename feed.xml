@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>The Newsstand</title>
+  <link>https://evanagribben.github.io/</link>
+  <atom:link href="https://evanagribben.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Three independent weekly editions.</description>
+  <language>en-us</language>
+  <lastBuildDate>Sun, 16 Aug 2026 20:03:22 +0000</lastBuildDate>
+  <item>
+    <title>August 12, 2026 · The Weekly Soccer Digest</title>
+    <link>https://evanagribben.github.io/editions/soccer-digest-2026-08-12.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-08-12.html</guid>
+    <category>The Weekly Soccer Digest</category>
+    <pubDate>Wed, 12 Aug 2026 00:00:00 +0000</pubDate>
+    <description>Real Madrid broke their transfer record for Yan Diománde and extended Vinícius Júnior to 2032, but Mourinho still lacks the one player he asked for.</description>
+  </item>
+  <item>
+    <title>August 12, 2026 · The Weekly Arsenal Digest</title>
+    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-08-12.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-08-12.html</guid>
+    <category>The Weekly Arsenal Digest</category>
+    <pubDate>Wed, 12 Aug 2026 00:00:00 +0000</pubDate>
+    <description>Champions for the first time in 22 years, Arsenal face Manchester City in Cardiff on Sunday with Saliba and Timber injured after two pre-season defeats.</description>
+  </item>
+  <item>
+    <title>August 10, 2026 · The Bay Weekender</title>
+    <link>https://evanagribben.github.io/editions/bay-weekender-2026-08-10.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/bay-weekender-2026-08-10.html</guid>
+    <category>The Bay Weekender</category>
+    <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
+    <description>Stern Grove closes its 89th season, the Perseids peak, and neighborhood street festivals fill late August. Six of the picks below are free.</description>
+  </item>
+</channel>
+</rss>
