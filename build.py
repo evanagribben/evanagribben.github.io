@@ -50,7 +50,7 @@ def plural(n, word="edition"):
 def ed_row(e, show_pub=True):
     """A generous edition row: publication and date at left, story at right."""
     p = PUBS[e["pub"]]
-    side = (f'<div class="pubname" style="color:{p["spine"]}">'
+    side = (f'<div class="pubname" style="color:{p["text"]}">'
             f'{esc(p["title"])}</div>' if show_pub else "")
     return f"""<a class="ed" href="/editions/{e['slug']}.html">
   <div class="side sans">
@@ -69,7 +69,7 @@ def arch_rows(eds, show_pub=True):
     out = []
     for e in eds:
         p = PUBS[e["pub"]]
-        pub = (f'<span class="p sans" style="color:{p["spine"]}">'
+        pub = (f'<span class="p sans" style="color:{p["text"]}">'
                f'{esc(p["short"])}</span>' if show_pub else "")
         out.append(f"""<li><a href="/editions/{e['slug']}.html">
   <span class="dot" style="background:{p['spine']}"></span>
@@ -114,7 +114,7 @@ def build_home(eds):
   <h3>{esc(p['title'])}</h3>
   <div class="cad sans">{esc(p['cadence'])} &middot; {plural(n)}</div>
   <p>{esc(p['blurb'])}</p>
-  <a class="go sans" style="color:{p['spine']}" href="/{slug}/">Read them all &rarr;</a>
+  <a class="go sans" style="color:{p['text']}" href="/{slug}/">Read them all &rarr;</a>
 </div>""")
     body.append("</div>")
 
@@ -179,7 +179,7 @@ def build_edition(e, eds):
     body = [masthead([p["title"], pretty(e["date"]), p["cadence"]])]
     body.append(f"""<div class="ed-head">
   <a class="back sans" href="/{e['pub']}/">&larr; {esc(p['title'])}</a>
-  <div class="pubname sans" style="color:{p['spine']}">{esc(p['title'])}</div>
+  <div class="pubname sans" style="color:{p['text']}">{esc(p['title'])}</div>
   <h1>{esc(e['title'])}</h1>
   <p class="dek">{esc(e.get('dek',''))}</p>
   <div class="meta sans">Published {pretty(e['date'])}</div>
