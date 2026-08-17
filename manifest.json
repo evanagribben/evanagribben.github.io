@@ -1,0 +1,27 @@
+{
+  "site": "The Newsstand",
+  "url": "https://evanagribben.github.io",
+  "editions": [
+    {
+      "slug": "soccer-digest-2026-08-12",
+      "pub": "soccer-digest",
+      "date": "2026-08-12",
+      "title": "August 12, 2026",
+      "dek": "Real Madrid broke their transfer record for Yan Diománde and extended Vinícius Júnior to 2032, but Mourinho still lacks the one player he asked for."
+    },
+    {
+      "slug": "arsenal-digest-2026-08-12",
+      "pub": "arsenal-digest",
+      "date": "2026-08-12",
+      "title": "August 12, 2026",
+      "dek": "Champions for the first time in 22 years, Arsenal face Manchester City in Cardiff on Sunday with Saliba and Timber injured after two pre-season defeats."
+    },
+    {
+      "slug": "bay-weekender-2026-08-10",
+      "pub": "bay-weekender",
+      "date": "2026-08-10",
+      "title": "August 10, 2026",
+      "dek": "Stern Grove closes its 89th season, the Perseids peak, and neighborhood street festivals fill late August. Six of the picks below are free."
+    }
+  ]
+}
