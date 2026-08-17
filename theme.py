@@ -34,7 +34,7 @@ PUBS = {
                  "Arsenal Women and Gunners on international duty.",
         "spine": "#EF0107",
         "ink": "#023474",
-        "cadence": "Wednesdays",
+        "cadence": "Tuesdays",
     },
 }
 
