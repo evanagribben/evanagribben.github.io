@@ -18,8 +18,8 @@ import os
 from datetime import datetime, timezone
 from email.utils import format_datetime
 
-from theme import (PUBS, PUB_ORDER, shell, esc, masthead, footer,
-                  subscribe_block)
+from theme import (PUBS, PUB_ORDER, shell, esc, masthead, footer, section,
+                   subscribe_block)
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = "https://evanagribben.github.io"
@@ -29,7 +29,6 @@ def load():
     with open(os.path.join(ROOT, "manifest.json")) as f:
         m = json.load(f)
     eds = m.get("editions", [])
-    # newest first, stable
     eds.sort(key=lambda e: (e["date"], e["slug"]), reverse=True)
     return m, eds
 
@@ -42,25 +41,27 @@ def short(d):
     return datetime.strptime(d, "%Y-%m-%d").strftime("%b %-d, %Y")
 
 
+def plural(n, word="edition"):
+    return f"{n} {word}{'s' if n != 1 else ''}"
+
+
 # ------------------------------------------------------------------ components
 
-def lead_card(e):
+def ed_row(e, show_pub=True):
+    """A generous edition row: publication and date at left, story at right."""
     p = PUBS[e["pub"]]
-    return f"""<a class="lead" style="border-left-color:{p['spine']}" href="/editions/{e['slug']}.html">
-  <div class="pubname sans" style="color:{p['spine']}">{esc(p['title'])}</div>
-  <h2>{esc(e['title'])}</h2>
-  <p class="dek">{esc(e.get('dek',''))}</p>
-  <div class="meta sans">{pretty(e['date'])} &nbsp;·&nbsp; Read the edition &rarr;</div>
-</a>"""
-
-
-def small_card(e):
-    p = PUBS[e["pub"]]
-    return f"""<a class="card" style="border-left-color:{p['spine']}" href="/editions/{e['slug']}.html">
-  <div class="pubname sans" style="color:{p['spine']}">{esc(p['title'])}</div>
-  <h3>{esc(e['title'])}</h3>
-  <p class="dek">{esc(e.get('dek',''))}</p>
-  <div class="meta sans">{short(e['date'])}</div>
+    side = (f'<div class="pubname" style="color:{p["spine"]}">'
+            f'{esc(p["title"])}</div>' if show_pub else "")
+    return f"""<a class="ed" href="/editions/{e['slug']}.html">
+  <div class="side sans">
+    {side}
+    <div class="when">{short(e['date'])}</div>
+  </div>
+  <div>
+    <h3>{esc(e['title'])}</h3>
+    <p>{esc(e.get('dek',''))}</p>
+    <div class="go sans">Read the edition &rarr;</div>
+  </div>
 </a>"""
 
 
@@ -68,8 +69,8 @@ def arch_rows(eds, show_pub=True):
     out = []
     for e in eds:
         p = PUBS[e["pub"]]
-        pub = (f'<span class="p sans" style="color:{p["spine"]}">{esc(p["title"])}</span>'
-               if show_pub else "")
+        pub = (f'<span class="p sans" style="color:{p["spine"]}">'
+               f'{esc(p["short"])}</span>' if show_pub else "")
         out.append(f"""<li><a href="/editions/{e['slug']}.html">
   <span class="dot" style="background:{p['spine']}"></span>
   <span class="d sans">{short(e['date'])}</span>
@@ -82,88 +83,79 @@ def arch_rows(eds, show_pub=True):
 # ----------------------------------------------------------------------- pages
 
 def build_home(eds):
-    body = [masthead()]
-    body.append('<div class="wrap">')
-    body.append(f'<div class="rule-row sans"><span>Three publications</span>'
-                f'<span>{len(eds)} edition{"s" if len(eds)!=1 else ""} archived</span>'
-                f'<span>Updated {datetime.now(timezone.utc).strftime("%B %-d, %Y")}</span></div>')
-
-    # One card per publication: its most recent edition, newest publication
-    # first. eds is already sorted newest-first, so the first time a pub is
-    # seen is its latest.
-    latest = []
-    seen = set()
+    # One row per publication: its most recent edition. eds is newest-first,
+    # so the first time a publication appears is its latest.
+    latest, seen = [], set()
     for e in eds:
         if e["pub"] not in seen:
             seen.add(e["pub"])
             latest.append(e)
 
-    body.append('<div class="kicker sans">Latest edition</div>')
-    if latest:
-        body.append('<div class="grid">'
-                    + "".join(small_card(e) for e in latest) + "</div>")
-    else:
-        body.append('<p style="color:#6b6459">No editions published yet. '
-                    'The first one lands here automatically.</p>')
+    body = [masthead([
+        "Three publications",
+        plural(len(eds)) + " archived",
+        "Updated " + datetime.now(timezone.utc).strftime("%B %-d, %Y"),
+    ])]
 
-    body.append('<div class="kicker sans">The publications</div>')
-    body.append('<div class="grid">')
+    body.append(section("Latest Edition"))
+    if latest:
+        body.append("".join(ed_row(e) for e in latest))
+    else:
+        body.append('<p style="color:#8f8571;text-align:center">'
+                    'No editions published yet. The first one lands here '
+                    'automatically.</p>')
+
+    body.append(section("The Publications"))
+    body.append('<div class="pubs">')
     for slug in PUB_ORDER:
         p = PUBS[slug]
         n = sum(1 for e in eds if e["pub"] == slug)
-        body.append(f"""<div class="pubcard" style="border-top-color:{p['spine']}">
+        body.append(f"""<div class="pub" style="border-top:4px solid {p['spine']}">
   <h3>{esc(p['title'])}</h3>
-  <div class="cad sans">{esc(p['cadence'])} &nbsp;·&nbsp; {n} edition{"s" if n!=1 else ""}</div>
+  <div class="cad sans">{esc(p['cadence'])} &middot; {plural(n)}</div>
   <p>{esc(p['blurb'])}</p>
-  <a class="more sans" style="color:{p['spine']}" href="/{slug}/">Read {esc(p['title'])} &rarr;</a>
+  <a class="go sans" style="color:{p['spine']}" href="/{slug}/">Read them all &rarr;</a>
 </div>""")
     body.append("</div>")
-    body.append("</div>")
+
     body.append(subscribe_block())
     body.append(footer())
     return shell("The Newsstand", "\n".join(body),
-                 desc="Three independent weekly editions: Bay Area events, world "
-                      "football, and Arsenal.",
+                 desc="Three independent weekly publications: Bay Area events, "
+                      "world football, and Arsenal.",
                  canonical=SITE_URL + "/")
 
 
 def build_pub(slug, eds):
     p = PUBS[slug]
     mine = [e for e in eds if e["pub"] == slug]
-    body = [masthead(active=slug)]
-    body.append('<div class="wrap">')
-    body.append(f'<div class="kicker sans" style="border-bottom-color:{p["spine"]}">'
-                f'{esc(p["title"])}</div>')
-    body.append(f'<p style="font-size:17px;color:#4f4a42;max-width:660px">{esc(p["blurb"])}</p>')
-    body.append(f'<div class="rule-row sans"><span>{esc(p["cadence"])}</span>'
-                f'<span>{len(mine)} edition{"s" if len(mine)!=1 else ""}</span></div>')
+    body = [masthead([p["cadence"], plural(len(mine)), p["tagline"]])]
+    body.append(section(p["title"]))
+    body.append(f'<div class="pubintro"><p>{esc(p["blurb"])}</p></div>')
     if mine:
-        body.append(lead_card(mine[0]))
-        if mine[1:]:
-            body.append('<div class="kicker sans">Every edition</div>')
-            body.append(arch_rows(mine[1:], show_pub=False))
+        body.append('<div style="margin-top:26px">'
+                    + "".join(ed_row(e, show_pub=False) for e in mine)
+                    + "</div>")
     else:
-        body.append('<p style="color:#6b6459">No editions yet.</p>')
-    body.append("</div>")
-    body.append(subscribe_block())
+        body.append('<p style="color:#8f8571;text-align:center">No editions yet.</p>')
+    body.append(subscribe_block(only=slug))
     body.append(footer())
     return shell(p["title"] + " · The Newsstand", "\n".join(body),
                  desc=p["blurb"], canonical=f"{SITE_URL}/{slug}/")
 
 
 def build_archive(eds):
-    body = [masthead()]
-    body.append('<div class="wrap">')
-    body.append('<div class="kicker sans">Full archive</div>')
+    body = [masthead(["Full archive", plural(len(eds)),
+                      "Three publications"])]
     by_year = {}
     for e in eds:
         by_year.setdefault(e["date"][:4], []).append(e)
     for year in sorted(by_year, reverse=True):
-        body.append(f'<div class="kicker sans">{year}</div>')
+        body.append(section(year))
         body.append(arch_rows(by_year[year]))
     if not eds:
-        body.append('<p style="color:#6b6459">Nothing archived yet.</p>')
-    body.append("</div>")
+        body.append('<p style="color:#8f8571;text-align:center">'
+                    'Nothing archived yet.</p>')
     body.append(footer())
     return shell("Archive · The Newsstand", "\n".join(body),
                  canonical=SITE_URL + "/archive.html")
@@ -176,32 +168,32 @@ def build_edition(e, eds):
     newer = same[i - 1] if i > 0 else None
     older = same[i + 1] if i + 1 < len(same) else None
 
-    nav = []
-    nav.append(f'<a href="/editions/{newer["slug"]}.html">&larr; Newer</a>'
-               if newer else "<span></span>")
-    nav.append(f'<a href="/{e["pub"]}/">All {esc(p["title"])} editions</a>')
-    nav.append(f'<a href="/editions/{older["slug"]}.html">Older &rarr;</a>'
-               if older else "<span></span>")
+    nav = [
+        (f'<a href="/editions/{newer["slug"]}.html">&larr; Newer</a>'
+         if newer else "<span></span>"),
+        f'<a href="/{e["pub"]}/">All {esc(p["short"])} editions</a>',
+        (f'<a href="/editions/{older["slug"]}.html">Older &rarr;</a>'
+         if older else "<span></span>"),
+    ]
 
-    body = [masthead(active=e["pub"])]
-    body.append('<div class="wrap">')
+    body = [masthead([p["title"], pretty(e["date"]), p["cadence"]])]
     body.append(f"""<div class="ed-head">
   <a class="back sans" href="/{e['pub']}/">&larr; {esc(p['title'])}</a>
   <div class="pubname sans" style="color:{p['spine']}">{esc(p['title'])}</div>
   <h1>{esc(e['title'])}</h1>
-  <p style="font-size:17px;color:#4f4a42;max-width:660px;margin:4px 0 12px">{esc(e.get('dek',''))}</p>
+  <p class="dek">{esc(e.get('dek',''))}</p>
   <div class="meta sans">Published {pretty(e['date'])}</div>
-</div>""")
-    body.append(f"""<div class="ed-body">
+</div>
+<div class="ed-body">
   <iframe id="ed" src="/editions/raw/{e['slug']}.html"
           title="{esc(e['title'])}" loading="lazy"></iframe>
 </div>
 <div class="ed-nav sans">{''.join(nav)}</div>
-<p class="sans" style="font-size:12px;color:#8a8377;margin-top:18px">
-  <a href="/editions/raw/{e['slug']}.html">Open this edition on its own &rarr;</a>
+<p class="sans" style="font-size:11px;color:#8f8571;margin-top:16px">
+  <a href="/editions/raw/{e['slug']}.html" style="text-decoration:underline">
+  Open this edition on its own &rarr;</a>
 </p>""")
-    body.append("</div>")
-    body.append(subscribe_block())
+    body.append(subscribe_block(only=e["pub"]))
     body.append(footer())
     body.append("""<script>
 (function(){
@@ -230,7 +222,7 @@ def build_feed(eds):
         dt = datetime.strptime(e["date"], "%Y-%m-%d").replace(tzinfo=timezone.utc)
         link = f"{SITE_URL}/editions/{e['slug']}.html"
         items.append(f"""  <item>
-    <title>{esc(e['title'])} · {esc(p['title'])}</title>
+    <title>{esc(p['title'])}: {esc(e['title'])}</title>
     <link>{link}</link>
     <guid isPermaLink="true">{link}</guid>
     <category>{esc(p['title'])}</category>
@@ -243,7 +235,7 @@ def build_feed(eds):
   <title>The Newsstand</title>
   <link>{SITE_URL}/</link>
   <atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
-  <description>Three independent weekly editions.</description>
+  <description>Three independent weekly publications.</description>
   <language>en-us</language>
   <lastBuildDate>{format_datetime(datetime.now(timezone.utc))}</lastBuildDate>
 {chr(10).join(items)}
@@ -272,8 +264,6 @@ def main():
         written.append(write(f"editions/{e['slug']}.html", build_edition(e, eds)))
     written.append(write("feed.xml", build_feed(eds)))
     print(f"built {len(written)} files from {len(eds)} editions")
-    for w in written:
-        print("  ", w)
 
 
 if __name__ == "__main__":
