@@ -51,6 +51,16 @@ DATE_RE = re.compile(r"([A-Z][a-z]+)\s+(\d{1,2}),\s*(\d{4})")
 MIN_BYTES = 4000          # same stub guard publish.py uses
 DRY = "--dry-run" in sys.argv
 
+# Only publish editions dated on or after this. Everything older is hidden from
+# the site AND pruned from the manifest, because the newsletters were
+# substantially reformatted on 2026-08-17 and older editions look nothing like
+# the current ones.
+#
+# This is fully reversible: nothing in Google Drive is ever touched, so moving
+# this date back makes the sync re-fetch and republish the older editions on
+# its next run. Set it to "" to publish everything.
+EARLIEST = "2026-08-17"
+
 
 def log(msg):
     print(msg, flush=True)
@@ -170,6 +180,16 @@ def main():
     # A slug only counts as "have" if its raw file is ACTUALLY on disk. A
     # manifest entry whose file is missing renders as an empty iframe on the
     # site, so treat it as absent and re-fetch it.
+    # Drop anything older than the cutoff. Drive is never touched, so this is
+    # undone by moving EARLIEST back and re-running.
+    if EARLIEST:
+        keep, drop = [], []
+        for e in manifest.get("editions", []):
+            (keep if e["date"] >= EARLIEST else drop).append(e)
+        if drop:
+            log(f"cutoff {EARLIEST}: hiding {len(drop)} older edition(s)")
+            manifest["editions"] = keep
+
     listed = {e["slug"] for e in manifest.get("editions", [])}
     have = {s for s in listed
             if os.path.isfile(os.path.join(RAW_DIR, f"{s}.html"))}
@@ -207,6 +227,8 @@ def main():
             if not date:
                 log(f"  ? no date in name, skipping: {name}")
                 continue
+            if EARLIEST and date < EARLIEST:
+                continue            # older than the cutoff, not published
             if date in seen_dates:
                 continue            # older duplicate of a date already taken
             seen_dates.add(date)
@@ -271,6 +293,23 @@ def main():
         with open(MANIFEST, "w", encoding="utf-8") as fh:
             json.dump(manifest, fh, indent=2, ensure_ascii=False)
             fh.write("\n")
+
+    # Remove files left behind by editions no longer in the manifest, so a
+    # hidden edition does not stay reachable by its old URL.
+    if not DRY:
+        keep_slugs = {e["slug"] for e in manifest.get("editions", [])}
+        removed = 0
+        for d, suffix in ((RAW_DIR, ""), (os.path.join(ROOT, "editions"), "")):
+            if not os.path.isdir(d):
+                continue
+            for fn in os.listdir(d):
+                if not fn.endswith(".html"):
+                    continue
+                if fn[:-5] not in keep_slugs:
+                    os.remove(os.path.join(d, fn))
+                    removed += 1
+        if removed:
+            log(f"removed {removed} orphaned page(s)")
 
     log(f"\nadded {len(added)}, already had {skipped}, failed {len(failed)}")
     if failed:
