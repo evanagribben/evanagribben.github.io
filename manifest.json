@@ -1,5 +1,13 @@
 {
   "site": "The Newsstand",
   "url": "https://evanagribben.github.io",
-  "editions": []
+  "editions": [
+    {
+      "slug": "bay-weekender-2026-08-17",
+      "pub": "bay-weekender",
+      "date": "2026-08-17",
+      "title": "August 17, 2026",
+      "dek": "Outside Lands packed up ten days ago and Stern Grove closed with Al Green yesterday afternoon."
+    }
+  ]
 }
