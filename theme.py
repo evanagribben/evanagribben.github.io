@@ -19,6 +19,7 @@ PUBS = {
                  "and nightlife; food, drink and festivals; outdoors, sports and "
                  "active.",
         "spine": "#b8860b",
+        "text": "#8a6410",
         "cadence": "Every other Monday",
     },
     "soccer-digest": {
@@ -29,6 +30,7 @@ PUBS = {
                  "MLS. Transfers, tactics, and the stories breaking before they "
                  "are fully public.",
         "spine": "#0f7a4e",
+        "text": "#0f7a4e",
         "cadence": "Wednesdays",
     },
     "arsenal-digest": {
@@ -38,6 +40,7 @@ PUBS = {
         "blurb": "Everything Arsenal: the first team, transfers, tactics, Hale "
                  "End, Arsenal Women and Gunners on international duty.",
         "spine": "#EF0107",
+        "text": "#b00105",
         "cadence": "Tuesdays",
     },
 }
@@ -72,8 +75,8 @@ a{color:inherit;text-decoration:none}
 .nav{display:flex;justify-content:center;gap:44px;flex-wrap:wrap;padding:16px 0;
   border-bottom:1px solid #cec5b2}
 .nav a{font-size:11.5px;letter-spacing:2.2px;text-transform:uppercase;
-  color:#5b5344;padding-bottom:3px;border-bottom:2px solid transparent}
-.nav a:hover,.nav a:focus-visible{border-bottom-color:#1a1713;color:#1a1713}
+  font-weight:700;padding-bottom:4px;border-bottom:2px solid transparent}
+.nav a:hover,.nav a:focus-visible{border-bottom-color:currentColor}
 
 /* section heads: a centred label sitting on a rule */
 .sec{margin:58px 0 4px;text-align:center}
@@ -216,8 +219,9 @@ def shell(title, body, desc="", canonical=""):
 
 def masthead(dateline=None):
     cells = "".join(f"<span>{esc(c)}</span>" for c in (dateline or []))
-    nav = "".join(f'<a href="/{s}/">{esc(PUBS[s]["title"])}</a>'
-                  for s in PUB_ORDER)
+    nav = "".join(
+        f'<a href="/{s}/" style="color:{PUBS[s]["text"]}">'
+        f'{esc(PUBS[s]["title"])}</a>' for s in PUB_ORDER)
     return f"""<header class="mast sans">
   <div class="kick">Independent &middot; Weekly &middot; San Francisco</div>
   <h1 style="font-family:Georgia,serif"><a href="/">The Newsstand</a></h1>
@@ -277,7 +281,7 @@ def subscribe_block(only=None):
         p = PUBS[s]
         form = FORM_EMBEDS.get(s) or _fallback_form(s)
         cards.append(f"""<div class="subcard" style="border-top-color:{p['spine']}">
-  <h3>{esc(p['title'])}</h3>
+  <h3 style="color:{p['text']}">{esc(p['title'])}</h3>
   <div class="cad sans">{esc(p['cadence'])}</div>
   <!-- SUBSCRIBE-EMBED-START {s} -->
   {form}
