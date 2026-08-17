@@ -3,6 +3,9 @@ The Newsstand: shared design system and page templates.
 
 Every page this generates is SELF-CONTAINED (CSS inlined in a <style> block),
 so any page renders correctly opened straight off disk, emailed, or served.
+
+Design: a restrained newspaper. Centred nameplate, real rules, generous rows,
+colour used only as a hairline accent so the writing carries the page.
 """
 
 # ---------------------------------------------------------------- publications
@@ -10,30 +13,31 @@ so any page renders correctly opened straight off disk, emailed, or served.
 PUBS = {
     "bay-weekender": {
         "title": "The Bay Weekender",
-        "tagline": "San Francisco & the Bay Area · The Month Ahead",
-        "blurb": "A digest of events across San Francisco and the wider Bay Area: "
-                 "music, arts and nightlife; food, drink and festivals; outdoors, sports and active.",
+        "short": "Bay Weekender",
+        "tagline": "San Francisco & the Bay Area",
+        "blurb": "Events across San Francisco and the wider Bay Area: music, arts "
+                 "and nightlife; food, drink and festivals; outdoors, sports and "
+                 "active.",
         "spine": "#b8860b",
-        "ink": "#17313b",
         "cadence": "Every other Monday",
     },
     "soccer-digest": {
         "title": "The Weekly Soccer Digest",
+        "short": "Soccer Digest",
         "tagline": "World football, everything but Arsenal",
-        "blurb": "A long-form, newspaper-style edition covering the Premier League, La Liga, "
-                 "Bundesliga, Serie A, Ligue 1 and MLS. Transfers, tactics and the stories "
-                 "breaking before they are fully public.",
+        "blurb": "The Premier League, La Liga, Bundesliga, Serie A, Ligue 1 and "
+                 "MLS. Transfers, tactics, and the stories breaking before they "
+                 "are fully public.",
         "spine": "#0f7a4e",
-        "ink": "#0f2e22",
         "cadence": "Wednesdays",
     },
     "arsenal-digest": {
         "title": "The Weekly Arsenal Digest",
+        "short": "Arsenal Digest",
         "tagline": "One club, covered properly",
-        "blurb": "Everything Arsenal: the first team, transfers, tactics, Hale End, "
-                 "Arsenal Women and Gunners on international duty.",
+        "blurb": "Everything Arsenal: the first team, transfers, tactics, Hale "
+                 "End, Arsenal Women and Gunners on international duty.",
         "spine": "#EF0107",
-        "ink": "#023474",
         "cadence": "Tuesdays",
     },
 }
@@ -44,120 +48,150 @@ PUB_ORDER = ["bay-weekender", "soccer-digest", "arsenal-digest"]
 
 BASE_CSS = """
 *,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:#f4f1ea;color:#1b1b1b;
-  font-family:Georgia,'Times New Roman',serif;line-height:1.65;
+body{margin:0;background:#f3efe6;color:#1a1713;
+  font-family:Georgia,'Times New Roman',serif;line-height:1.68;
   -webkit-font-smoothing:antialiased}
-a{color:inherit}
-.wrap{max-width:940px;margin:0 auto;padding:0 24px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:900px;margin:0 auto;padding:0 30px}
 .sans{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
 
 /* masthead */
-.masthead{border-bottom:3px double #1b1b1b;padding:44px 0 20px;text-align:center}
-.masthead .nameplate{font-size:60px;font-weight:700;letter-spacing:-1px;margin:0;
-  color:#141414;line-height:1.05}
-.masthead .nameplate a{text-decoration:none}
-.masthead .tag{font-size:11px;letter-spacing:3.5px;text-transform:uppercase;
-  color:#6b6459;margin-top:12px}
-.rule-row{border-top:1px solid #ccc5b8;border-bottom:1px solid #ccc5b8;
-  font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#6b6459;
-  padding:9px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.mast{text-align:center;padding:58px 0 0}
+.mast .kick{font-size:10px;letter-spacing:5px;text-transform:uppercase;
+  color:#9a8f7c;margin-bottom:20px}
+.mast h1{font-size:66px;margin:0;letter-spacing:-1.5px;line-height:1;
+  color:#12100d;font-weight:400}
+.mast h1 a{text-decoration:none}
+.mast .rule{border-top:1px solid #1a1713;border-bottom:3px solid #1a1713;
+  height:5px;margin:26px 0 0}
+.mast .dateline{display:flex;justify-content:space-between;flex-wrap:wrap;
+  gap:12px;font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;
+  color:#7d7466;padding:11px 2px;border-bottom:1px solid #cec5b2}
 
 /* nav */
-.pubnav{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid #ddd6c9}
-.pubnav a{flex:1 1 200px;text-decoration:none;padding:14px 16px;font-size:12px;
-  letter-spacing:1.6px;text-transform:uppercase;color:#4a453d;
-  border-bottom:4px solid transparent;transition:background .15s}
-.pubnav a:hover{background:#ece7dc}
+.nav{display:flex;justify-content:center;gap:44px;flex-wrap:wrap;padding:16px 0;
+  border-bottom:1px solid #cec5b2}
+.nav a{font-size:11.5px;letter-spacing:2.2px;text-transform:uppercase;
+  color:#5b5344;padding-bottom:3px;border-bottom:2px solid transparent}
+.nav a:hover,.nav a:focus-visible{border-bottom-color:#1a1713;color:#1a1713}
 
-/* section headings */
-.kicker{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#6b6459;
-  margin:46px 0 14px;padding-bottom:8px;border-bottom:2px solid #1b1b1b}
+/* section heads: a centred label sitting on a rule */
+.sec{margin:58px 0 4px;text-align:center}
+.sec h2{font-size:11px;letter-spacing:4.5px;text-transform:uppercase;
+  color:#1a1713;margin:0;font-weight:700;display:inline-block;
+  background:#f3efe6;padding:0 18px;position:relative;top:9px}
+.secline{border-top:1px solid #b9ae99;margin-bottom:30px}
 
-/* lead edition card */
-.lead{display:block;text-decoration:none;background:#fffdf8;border:1px solid #ddd6c9;
-  border-left-width:8px;padding:30px 32px;margin-bottom:26px;transition:box-shadow .15s}
-.lead:hover{box-shadow:0 3px 14px rgba(0,0,0,.09)}
-.lead .pubname{font-size:11px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700}
-.lead h2{font-size:31px;margin:10px 0 8px;line-height:1.22;color:#141414}
-.lead .dek{color:#4f4a42;margin:0 0 14px;font-size:16.5px}
-.lead .meta{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:#8a8377}
+/* edition rows */
+.ed{display:grid;grid-template-columns:150px 1fr;gap:28px;padding:26px 0;
+  border-bottom:1px solid #ddd4c1;align-items:start;transition:background .13s}
+.ed:hover{background:#eee9dd}
+.ed:focus-visible{outline:2px solid #1a1713;outline-offset:2px}
+.ed .side{text-align:right}
+.ed .pubname{font-size:10px;letter-spacing:2.2px;text-transform:uppercase;
+  font-weight:700;line-height:1.5}
+.ed .when{font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;
+  color:#8f8571;margin-top:7px}
+.ed h3{font-size:26px;margin:0 0 8px;line-height:1.22;letter-spacing:-.3px}
+.ed p{margin:0;font-size:16.5px;color:#4d4638;max-width:60ch}
+.ed .go{margin-top:12px;font-size:10.5px;letter-spacing:2.2px;
+  text-transform:uppercase;color:#8f8571}
 
-/* grid of recent */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:18px}
-.card{display:block;text-decoration:none;background:#fffdf8;border:1px solid #ddd6c9;
-  border-left-width:6px;padding:20px 22px;transition:box-shadow .15s}
-.card:hover{box-shadow:0 3px 12px rgba(0,0,0,.08)}
-.card .pubname{font-size:10px;letter-spacing:2.2px;text-transform:uppercase;font-weight:700}
-.card h3{font-size:19px;margin:9px 0 7px;line-height:1.3;color:#141414}
-.card .dek{font-size:14.5px;color:#57524a;margin:0 0 12px}
-.card .meta{font-size:11px;letter-spacing:1.3px;text-transform:uppercase;color:#8a8377}
+/* publication columns */
+.pubs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:34px;margin-top:8px}
+.pub{padding-top:16px}
+.pub h3{font-size:21px;margin:0 0 5px;line-height:1.2}
+.pub .cad{font-size:10px;letter-spacing:2.2px;text-transform:uppercase;
+  color:#8f8571;margin-bottom:12px}
+.pub p{font-size:14.5px;color:#4d4638;margin:0 0 14px}
+.pub .go{font-size:10.5px;letter-spacing:2.2px;text-transform:uppercase;
+  font-weight:700}
 
-/* publication strip on home */
-.pubcard{background:#fffdf8;border:1px solid #ddd6c9;border-top-width:5px;padding:24px 26px}
-.pubcard h3{margin:0 0 6px;font-size:22px;color:#141414}
-.pubcard .cad{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8a8377;
-  margin-bottom:10px}
-.pubcard p{margin:0 0 16px;font-size:15px;color:#57524a}
-.pubcard a.more{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;
-  text-decoration:none;font-weight:700}
+/* publication page intro */
+.pubintro{text-align:center;max-width:60ch;margin:0 auto}
+.pubintro p{font-size:17px;color:#4d4638}
 
-/* archive list */
+/* compact archive list */
 .arch{list-style:none;margin:0;padding:0}
-.arch li{border-bottom:1px solid #e2dbcd}
-.arch a{display:flex;gap:18px;align-items:baseline;text-decoration:none;padding:15px 4px;
+.arch li{border-bottom:1px solid #ddd4c1}
+.arch a{display:flex;gap:18px;align-items:baseline;padding:14px 4px;
   transition:background .12s}
-.arch a:hover{background:#ece7dc}
-.arch .dot{width:9px;height:9px;border-radius:50%;flex:0 0 9px;transform:translateY(-1px)}
-.arch .d{font-size:12px;letter-spacing:1.3px;text-transform:uppercase;color:#8a8377;
-  flex:0 0 128px}
-.arch .t{flex:1;color:#141414;font-size:16.5px}
-.arch .p{font-size:10.5px;letter-spacing:1.8px;text-transform:uppercase;font-weight:700}
+.arch a:hover{background:#eee9dd}
+.arch .dot{width:8px;height:8px;border-radius:50%;flex:0 0 8px;
+  transform:translateY(-1px)}
+.arch .d{font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;
+  color:#8f8571;flex:0 0 118px}
+.arch .t{flex:1;font-size:16.5px}
+.arch .p{font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  font-weight:700}
 
 /* subscribe */
-.sub{background:#1b1b1b;color:#f4f1ea;padding:38px 34px;margin:52px 0 0}
-.sub h2{margin:0 0 10px;font-size:27px;color:#fff}
-.sub p{margin:0 0 20px;color:#c9c3b6;font-size:15.5px;max-width:560px}
-.sub .subbtn{display:inline-block;background:#f4f1ea;color:#1b1b1b;
-  text-decoration:none;font-size:14px;font-weight:700;letter-spacing:1.2px;
-  text-transform:uppercase;padding:15px 30px;min-height:44px;
-  border:2px solid #f4f1ea;transition:background .15s,color .15s}
-.sub .subbtn:hover{background:transparent;color:#f4f1ea}
-.sub .subbtn:focus-visible{outline:3px solid #b8860b;outline-offset:3px}
-.sub .subnote{margin:16px 0 0;font-size:13.5px;color:#a49d90;max-width:520px}
-.sub .subnote a{color:#f4f1ea}
+.sub{margin:66px 0 0;border:1px solid #1a1713;padding:44px 42px;
+  text-align:center;background:#fbf8f1}
+.sub h2{font-size:32px;margin:0 0 8px;letter-spacing:-.5px}
+.sub .lede{margin:0 auto 28px;color:#5b5344;font-size:16px;max-width:48ch}
+.subrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:26px;text-align:left;margin-top:6px}
+.subcard{border-top:3px solid #ccc;padding-top:14px}
+.subcard h3{font-size:16px;margin:0 0 4px;line-height:1.25}
+.subcard .cad{font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:#8f8571;margin-bottom:12px}
+.subcard form{display:flex;gap:8px;flex-wrap:wrap}
+.subcard input[type=email]{flex:1 1 150px;padding:11px 12px;font-size:14.5px;
+  border:1px solid #b9ae99;background:#fff;min-height:44px}
+.subcard input[type=email]:focus-visible{outline:2px solid #1a1713;
+  outline-offset:1px}
+.subcard button{padding:11px 18px;background:#1a1713;color:#f3efe6;border:0;
+  font-size:11.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  cursor:pointer;min-height:44px}
+.subcard button:hover{background:#3a332a}
+.subnote{margin:26px 0 0;font-size:13px;color:#8f8571}
+.subnote a{text-decoration:underline}
 
-/* footer */
-footer{border-top:3px double #1b1b1b;margin-top:56px;padding:26px 0 60px;
-  font-size:12.5px;color:#6b6459;display:flex;justify-content:space-between;
-  flex-wrap:wrap;gap:14px}
-footer a{color:#6b6459}
+footer{padding:34px 0 66px;font-size:11.5px;color:#8f8571;display:flex;
+  justify-content:space-between;gap:14px;flex-wrap:wrap;
+  border-top:3px double #1a1713;margin-top:46px}
+footer a{text-decoration:underline}
 
 /* edition page chrome */
-.ed-head{padding:34px 0 26px;border-bottom:1px solid #ddd6c9}
-.ed-head .back{font-size:11px;letter-spacing:2.2px;text-transform:uppercase;
-  text-decoration:none;color:#8a8377}
-.ed-head .pubname{font-size:12px;letter-spacing:3px;text-transform:uppercase;
-  font-weight:700;margin:16px 0 8px}
-.ed-head h1{font-size:40px;margin:0 0 10px;line-height:1.15;color:#141414}
-.ed-head .meta{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#8a8377}
-.ed-body{background:#fff;border:1px solid #ddd6c9;margin:26px 0;padding:0;overflow:hidden}
+.ed-head{padding:30px 0 24px;border-bottom:1px solid #cec5b2;text-align:center}
+.ed-head .back{font-size:10.5px;letter-spacing:2.2px;text-transform:uppercase;
+  color:#8f8571}
+.ed-head .pubname{font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  font-weight:700;margin:18px 0 10px}
+.ed-head h1{font-size:42px;margin:0 0 12px;line-height:1.12;letter-spacing:-1px;
+  font-weight:400}
+.ed-head .dek{font-size:17.5px;color:#4d4638;max-width:58ch;margin:0 auto 14px}
+.ed-head .meta{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;
+  color:#8f8571}
+.ed-body{background:#fff;border:1px solid #cec5b2;margin:26px 0;overflow:hidden}
 .ed-body iframe{width:100%;border:0;display:block;min-height:2400px}
 .ed-nav{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  font-size:12px;letter-spacing:1.5px;text-transform:uppercase;padding:6px 0 0}
-.ed-nav a{text-decoration:none;color:#4a453d}
+  font-size:10.5px;letter-spacing:2px;text-transform:uppercase;padding:6px 0 0}
+.ed-nav a{color:#5b5344}
 
 @media(max-width:640px){
-  .masthead .nameplate{font-size:38px}
-  .lead h2{font-size:25px}
+  .mast h1{font-size:40px}
+  .ed{grid-template-columns:1fr;gap:8px}
+  .ed .side{text-align:left}
+  .ed h3{font-size:22px}
+  .sub{padding:32px 22px}
+  .sub h2{font-size:25px}
   .ed-head h1{font-size:29px}
   .arch a{flex-wrap:wrap;gap:6px}
   .arch .d{flex:0 0 100%}
 }
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 """
 
 
-def shell(title, body, css_extra="", desc="", canonical=""):
-    """Wrap body content in a complete self-contained HTML document."""
+def esc(s):
+    return (str(s).replace("&", "&amp;").replace("<", "&lt;")
+            .replace(">", "&gt;").replace('"', "&quot;"))
+
+
+def shell(title, body, desc="", canonical=""):
     meta_desc = f'<meta name="description" content="{esc(desc)}">' if desc else ""
     canon = f'<link rel="canonical" href="{canonical}">' if canonical else ""
     return f"""<!DOCTYPE html>
@@ -169,72 +203,92 @@ def shell(title, body, css_extra="", desc="", canonical=""):
 {meta_desc}
 {canon}
 <link rel="alternate" type="application/rss+xml" title="The Newsstand" href="/feed.xml">
-<style>{BASE_CSS}{css_extra}</style>
+<style>{BASE_CSS}</style>
 </head>
 <body>
+<div class="wrap">
 {body}
+</div>
 </body>
 </html>
 """
 
 
-def esc(s):
-    return (str(s).replace("&", "&amp;").replace("<", "&lt;")
-            .replace(">", "&gt;").replace('"', "&quot;"))
-
-
-def masthead(active=None):
-    nav = []
-    for slug in PUB_ORDER:
-        p = PUBS[slug]
-        style = f"border-bottom-color:{p['spine']}" if active == slug else ""
-        nav.append(f'<a class="sans" style="{style}" href="/{slug}/">{esc(p["title"])}</a>')
-    return f"""<header class="masthead">
-  <div class="wrap">
-    <h1 class="nameplate"><a href="/">The Newsstand</a></h1>
-    <div class="tag sans">Independent weekly editions · Published from San Francisco</div>
-  </div>
+def masthead(dateline=None):
+    cells = "".join(f"<span>{esc(c)}</span>" for c in (dateline or []))
+    nav = "".join(f'<a href="/{s}/">{esc(PUBS[s]["title"])}</a>'
+                  for s in PUB_ORDER)
+    return f"""<header class="mast sans">
+  <div class="kick">Independent &middot; Weekly &middot; San Francisco</div>
+  <h1 style="font-family:Georgia,serif"><a href="/">The Newsstand</a></h1>
+  <div class="rule"></div>
+  <div class="dateline">{cells}</div>
 </header>
-<div class="wrap">
-  <nav class="pubnav">{''.join(nav)}</nav>
-</div>"""
+<nav class="nav sans">{nav}</nav>"""
+
+
+def section(title):
+    return (f'<div class="sec sans"><h2>{esc(title)}</h2></div>'
+            f'<div class="secline"></div>')
 
 
 def footer():
-    return """<div class="wrap">
-<footer class="sans">
-  <div>The Newsstand · Written and researched weekly.</div>
-  <div><a href="/feed.xml">RSS</a> · <a href="/archive.html">Full archive</a></div>
-</footer>
-</div>"""
+    return """<footer class="sans">
+  <div>The Newsstand &middot; Written and researched weekly.</div>
+  <div><a href="/feed.xml">RSS</a> &middot; <a href="/archive.html">Full archive</a></div>
+</footer>"""
 
 
-# Replace everything between the SUBSCRIBE-EMBED markers below with a real
-# signup embed (beehiiv, Buttondown, etc.) when one exists. Until then this
-# mailto form genuinely works: it opens the reader's mail app with the whole
-# message pre-written, so all they do is press send.
+# ---------------------------------------------------------------- subscribe
+# One signup box per publication, because each publication keeps its own list.
+# Replace the FORM_EMBEDS values with the real beehiiv embed for each
+# publication. Until a value is filled in, that box falls back to a mailto so
+# it still does something rather than looking broken.
+
 SUBSCRIBE_EMAIL = "evangribben@gmail.com"
 
-_SUB_SUBJECT = "Subscribe%20to%20The%20Newsstand"
-_SUB_BODY = ("Hi%20Evan%2C%0A%0AI%27d%20like%20to%20subscribe.%0A%0A"
-             "Send%20me%3A%0A%20%20-%20The%20Bay%20Weekender%0A"
-             "%20%20-%20The%20Weekly%20Soccer%20Digest%0A"
-             "%20%20-%20The%20Weekly%20Arsenal%20Digest%0A%0A"
-             "%28delete%20any%20you%20don%27t%20want%29%0A%0AThanks%21%0A")
+# slug -> beehiiv embed HTML. Empty string means "not set up yet".
+FORM_EMBEDS = {
+    "bay-weekender": "",
+    "soccer-digest": "",
+    "arsenal-digest": "",
+}
 
 
-def subscribe_block():
-    mailto = f"mailto:{SUBSCRIBE_EMAIL}?subject={_SUB_SUBJECT}&body={_SUB_BODY}"
-    return f"""<div class="wrap">
-<section class="sub">
+def _fallback_form(slug):
+    p = PUBS[slug]
+    subject = f"Subscribe to {p['title']}".replace(" ", "%20")
+    return (f'<form action="mailto:{SUBSCRIBE_EMAIL}" method="get" '
+            f'enctype="text/plain">'
+            f'<input type="hidden" name="subject" value="Subscribe to {esc(p["title"])}">'
+            f'<label class="sans" style="position:absolute;left:-9999px" '
+            f'for="e-{slug}">Your email address</label>'
+            f'<input class="sans" id="e-{slug}" type="email" name="body" '
+            f'placeholder="you@example.com" required>'
+            f'<button class="sans" type="submit">Subscribe</button>'
+            f'</form>')
+
+
+def subscribe_block(only=None):
+    """only: a publication slug to show just that one box, or None for all."""
+    slugs = [only] if only else PUB_ORDER
+    cards = []
+    for s in slugs:
+        p = PUBS[s]
+        form = FORM_EMBEDS.get(s) or _fallback_form(s)
+        cards.append(f"""<div class="subcard" style="border-top-color:{p['spine']}">
+  <h3>{esc(p['title'])}</h3>
+  <div class="cad sans">{esc(p['cadence'])}</div>
+  <!-- SUBSCRIBE-EMBED-START {s} -->
+  {form}
+  <!-- SUBSCRIBE-EMBED-END {s} -->
+</div>""")
+    lede = ("Every edition is published here first, then sent the same day. "
+            "Free, and one click to stop. Pick the ones you want.") if not only \
+        else ("Published here first, then sent the same day. Free, and one "
+              "click to stop.")
+    return f"""<section class="sub">
   <h2>Get these in your inbox</h2>
-  <p class="sans">Every edition is published here first, then sent out the same
-     day. Free, and you can stop any time by replying.</p>
-  <!-- SUBSCRIBE-EMBED-START -->
-  <a class="subbtn sans" href="{mailto}">Subscribe by email &rarr;</a>
-  <p class="subnote sans">Opens your mail app with the message already written.
-     Just press send, and say which of the three you want.
-     Prefer a reader? <a href="/feed.xml">Grab the RSS feed</a>.</p>
-  <!-- SUBSCRIBE-EMBED-END -->
-</section>
-</div>"""
+  <p class="lede">{lede}</p>
+  <div class="subrow">{''.join(cards)}</div>
+</section>"""
