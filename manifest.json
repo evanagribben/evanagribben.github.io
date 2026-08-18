@@ -3,6 +3,13 @@
   "url": "https://evanagribben.github.io",
   "editions": [
     {
+      "slug": "arsenal-digest-2026-08-18",
+      "pub": "arsenal-digest",
+      "date": "2026-08-18",
+      "title": "August 18, 2026",
+      "dek": "That is how long Arsenal waited to score the first goal of their post-championship life."
+    },
+    {
       "slug": "bay-weekender-2026-08-17",
       "pub": "bay-weekender",
       "date": "2026-08-17",
