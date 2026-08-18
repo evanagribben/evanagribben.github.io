@@ -253,9 +253,11 @@ SUBSCRIBE_EMAIL = "evangribben@gmail.com"
 
 # slug -> beehiiv embed HTML. Empty string means "not set up yet".
 FORM_EMBEDS = {
-    "bay-weekender": "",
-    "soccer-digest": "",
-    "arsenal-digest": "",
+    # beehiiv subscribe forms, one per publication. Each publication keeps its
+    # own subscriber list, so these must not be swapped.
+    "bay-weekender":  '<script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2302d445-e133-4158-b4ef-c443d72ff16d"></script>',
+    "soccer-digest":  '<script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="cb8efe77-7469-4940-97a7-af3a61b2d755"></script>',
+    "arsenal-digest": '<script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="7f19d80f-156f-4d19-957a-4aabdc8bf624"></script>',
 }
 
 
