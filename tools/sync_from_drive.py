@@ -190,6 +190,13 @@ def main():
             log(f"cutoff {EARLIEST}: hiding {len(drop)} older edition(s)")
             manifest["editions"] = keep
 
+    # What Drive file each published edition came from, as "fileId@modifiedTime".
+    # If the winning candidate for a date no longer matches, the edition is
+    # republished. That is what lets a run repair itself: when a task saves only
+    # a Google Doc and the proper .html file arrives later, the later file wins
+    # instead of being skipped as a date we already have.
+    known = {e["slug"]: e.get("src") for e in manifest.get("editions", [])}
+
     listed = {e["slug"] for e in manifest.get("editions", [])}
     have = {s for s in listed
             if os.path.isfile(os.path.join(RAW_DIR, f"{s}.html"))}
@@ -234,11 +241,15 @@ def main():
             seen_dates.add(date)
 
             slug = f"{pub}-{date}"
-            if slug in have:
+            src = f"{f['id']}@{f.get('modifiedTime', '')}"
+            if slug in have and known.get(slug) == src:
                 skipped += 1
                 continue
 
-            log(f"  + {slug}  <- {name}")
+            if slug in have:
+                log(f"  ~ {slug}  republishing, Drive has a newer file <- {name}")
+            else:
+                log(f"  + {slug}  <- {name}")
             if DRY:
                 added.append(slug)
                 continue
@@ -262,10 +273,18 @@ def main():
                 fh.write(html)
 
             title = datetime.strptime(date, "%Y-%m-%d").strftime("%B %-d, %Y")
-            manifest.setdefault("editions", []).append({
+            entry = {
                 "slug": slug, "pub": pub, "date": date, "title": title,
-                "dek": extract_dek(html, title),
-            })
+                "dek": extract_dek(html, title), "src": src,
+            }
+            eds = manifest.setdefault("editions", [])
+            for k, prev in enumerate(eds):
+                if prev["slug"] == slug:
+                    eds[k] = entry          # replace, do not duplicate
+                    break
+            else:
+                eds.append(entry)
+            known[slug] = src
             have.add(slug)
             added.append(slug)
             log(f"    wrote {len(blob):,} bytes")
