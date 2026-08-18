@@ -198,8 +198,18 @@ def build_edition(e, eds):
     body.append(subscribe_block(only=e["pub"]))
     body.append(footer())
     body.append("""<script>
+/* The edition renders in a same-origin iframe so its own styling survives
+   byte-for-byte. Newsletters are authored to an email-safe sheet width
+   (roughly 620-760px). On a desktop screen that leaves the page mostly
+   margin, so we widen the sheet in place: any container whose own width
+   sits in the email-sheet range is stretched to fill the frame. Narrow
+   elements (cards, sidebars, images) are left alone, and everything is
+   restored when the viewport gets small, so phones and the emailed
+   version are untouched. */
 (function(){
   var f=document.getElementById('ed');
+  var MIN=520, MAX=1000, FLOOR=900;
+
   function fit(){
     try{
       var d=f.contentDocument;
@@ -208,13 +218,72 @@ def build_edition(e, eds):
       if(h>200)f.style.height=(h+60)+'px';
     }catch(e){}
   }
-  f.addEventListener('load',function(){fit();setTimeout(fit,300);setTimeout(fit,1200);});
-  window.addEventListener('resize',fit);
+
+  /* Fixed-width tables in the source overflow a phone screen. This is
+     site-side only; the emailed version is untouched. */
+  function inject(d){
+    if(d.getElementById('ns-fit'))return;
+    var s=d.createElement('style');
+    s.id='ns-fit';
+    s.textContent='img,video{max-width:100%;height:auto}'
+      +'@media(max-width:820px){table[width]{width:100%!important}'
+      +'table{max-width:100%}}';
+    (d.head||d.documentElement).appendChild(s);
+  }
+
+  function restore(d){
+    (d.__wide||[]).forEach(function(o){
+      o.el.style.maxWidth=o.mw;
+      if(o.w===null)o.el.removeAttribute('width');
+      else if(o.w!==undefined)o.el.setAttribute('width',o.w);
+    });
+    d.__wide=null;
+  }
+
+  function widen(){
+    try{
+      var d=f.contentDocument;
+      if(!d||!d.body)return;
+      var avail=f.clientWidth;
+      if(avail<FLOOR){ if(d.__wide)restore(d); return; }
+      if(d.__wide)restore(d);
+      var target=avail-24, store=[];
+      var all=d.querySelectorAll('body, body *');
+      for(var i=0;i<all.length;i++){
+        var el=all[i], cs=getComputedStyle(el);
+        var mw=parseFloat(cs.maxWidth);
+        var wa=(el.tagName==='TABLE')?parseInt(el.getAttribute('width'),10):NaN;
+        var hitMw=(mw>=MIN&&mw<=MAX);
+        var hitWa=(wa>=MIN&&wa<=MAX);
+        if(!hitMw&&!hitWa)continue;
+        var pad=0;
+        if(cs.boxSizing!=='border-box'){
+          pad=(parseFloat(cs.paddingLeft)||0)+(parseFloat(cs.paddingRight)||0)
+             +(parseFloat(cs.borderLeftWidth)||0)+(parseFloat(cs.borderRightWidth)||0);
+        }
+        store.push({el:el, mw:el.style.maxWidth,
+                    w: hitWa ? el.getAttribute('width') : undefined});
+        el.style.maxWidth=Math.max(MIN,target-pad)+'px';
+        if(hitWa)el.setAttribute('width','100%');
+      }
+      d.__wide=store;
+    }catch(e){}
+  }
+
+  function run(){
+    try{ var d=f.contentDocument; if(d)inject(d); }catch(e){}
+    widen(); fit();
+  }
+  f.addEventListener('load',function(){
+    run();setTimeout(run,300);setTimeout(run,1200);
+  });
+  window.addEventListener('resize',run);
 })();
 </script>""")
     return shell(f"{e['title']} · {p['title']}", "\n".join(body),
                  desc=e.get("dek", ""),
-                 canonical=f"{SITE_URL}/editions/{e['slug']}.html")
+                 canonical=f"{SITE_URL}/editions/{e['slug']}.html",
+                 wide=True)
 
 
 def build_feed(eds):
