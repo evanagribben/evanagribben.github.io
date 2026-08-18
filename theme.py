@@ -56,6 +56,8 @@ body{margin:0;background:#f3efe6;color:#1a1713;
   -webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:900px;margin:0 auto;padding:0 30px}
+/* Edition pages run wider on desktop so the newsletter itself can breathe. */
+.wrap.wide{max-width:1180px}
 .sans{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
 
 /* masthead */
@@ -194,9 +196,10 @@ def esc(s):
             .replace(">", "&gt;").replace('"', "&quot;"))
 
 
-def shell(title, body, desc="", canonical=""):
+def shell(title, body, desc="", canonical="", wide=False):
     meta_desc = f'<meta name="description" content="{esc(desc)}">' if desc else ""
     canon = f'<link rel="canonical" href="{canonical}">' if canonical else ""
+    wrapcls = "wrap wide" if wide else "wrap"
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -209,7 +212,7 @@ def shell(title, body, desc="", canonical=""):
 <style>{BASE_CSS}</style>
 </head>
 <body>
-<div class="wrap">
+<div class="{wrapcls}">
 {body}
 </div>
 </body>
