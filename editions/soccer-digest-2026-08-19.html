@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Weekly Soccer Digest · The Newsstand</title>
-<meta name="description" content="The Premier League, La Liga, Bundesliga, Serie A, Ligue 1 and MLS. Transfers, tactics, and the stories breaking before they are fully public.">
-<link rel="canonical" href="https://evanagribben.github.io/soccer-digest/">
+<title>August 19, 2026 · The Weekly Soccer Digest</title>
+<meta name="description" content="Europe restarts 33 days after the World Cup with ten new Premier League managers, Rodri sold to Barcelona and Pep Guardiola gone after a decade.">
+<link rel="canonical" href="https://evanagribben.github.io/editions/soccer-digest-2026-08-19.html">
 <link rel="alternate" type="application/rss+xml" title="The Newsstand" href="/feed.xml">
 <style>
 /* Sizes are in rem and spacing in em, so a reader who raises their
@@ -152,27 +152,30 @@ footer a{text-decoration:underline}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap wide">
 <header class="mast sans">
   <div class="kick">Independent &middot; Weekly &middot; San Francisco</div>
   <h1 style="font-family:Georgia,serif"><a href="/">The Newsstand</a></h1>
   <div class="rule"></div>
-  <div class="dateline"><span>Wednesdays</span><span>1 edition</span><span>World football, everything but Arsenal</span></div>
+  <div class="dateline"><span>The Weekly Soccer Digest</span><span>August 19, 2026</span><span>Wednesdays</span></div>
 </header>
 <nav class="nav sans"><a href="/bay-weekender/" style="color:#8a6410">The Bay Weekender</a><a href="/soccer-digest/" style="color:#0f7a4e">The Weekly Soccer Digest</a><a href="/arsenal-digest/" style="color:#b00105">The Weekly Arsenal Digest</a></nav>
-<div class="sec sans"><h2>The Weekly Soccer Digest</h2></div><div class="secline"></div>
-<div class="pubintro"><p>The Premier League, La Liga, Bundesliga, Serie A, Ligue 1 and MLS. Transfers, tactics, and the stories breaking before they are fully public.</p></div>
-<div style="margin-top:26px"><a class="ed" href="/editions/soccer-digest-2026-08-19.html">
-  <div class="side sans">
-    
-    <div class="when">Aug 19, 2026</div>
-  </div>
-  <div>
-    <h3>August 19, 2026</h3>
-    <p>Europe restarts 33 days after the World Cup with ten new Premier League managers, Rodri sold to Barcelona and Pep Guardiola gone after a decade.</p>
-    <div class="go sans">Read the edition &rarr;</div>
-  </div>
-</a></div>
+<div class="ed-head">
+  <a class="back sans" href="/soccer-digest/">&larr; The Weekly Soccer Digest</a>
+  <div class="pubname sans" style="color:#0f7a4e">The Weekly Soccer Digest</div>
+  <h1>August 19, 2026</h1>
+  <p class="dek">Europe restarts 33 days after the World Cup with ten new Premier League managers, Rodri sold to Barcelona and Pep Guardiola gone after a decade.</p>
+  <div class="meta sans">Published August 19, 2026</div>
+</div>
+<div class="ed-body">
+  <iframe id="ed" src="/editions/raw/soccer-digest-2026-08-19.html"
+          title="August 19, 2026" loading="lazy"></iframe>
+</div>
+<div class="ed-nav sans"><span></span><a href="/soccer-digest/">All Soccer Digest editions</a><span></span></div>
+<p class="sans" style="font-size:11px;color:#8f8571;margin-top:16px">
+  <a href="/editions/raw/soccer-digest-2026-08-19.html" style="text-decoration:underline">
+  Open this edition on its own &rarr;</a>
+</p>
 <section class="sub">
   <h2>Get these in your inbox</h2>
   <p class="lede">Published here first, then sent the same day. Free, and one click to stop.</p>
@@ -188,6 +191,89 @@ footer a{text-decoration:underline}
   <div>The Newsstand &middot; Written and researched weekly.</div>
   <div><a href="/feed.xml">RSS</a> &middot; <a href="/archive.html">Full archive</a></div>
 </footer>
+<script>
+/* The edition renders in a same-origin iframe so its own styling survives
+   byte-for-byte. Newsletters are authored to an email-safe sheet width
+   (roughly 620-760px). On a desktop screen that leaves the page mostly
+   margin, so we widen the sheet in place: any container whose own width
+   sits in the email-sheet range is stretched to fill the frame. Narrow
+   elements (cards, sidebars, images) are left alone, and everything is
+   restored when the viewport gets small, so phones and the emailed
+   version are untouched. */
+(function(){
+  var f=document.getElementById('ed');
+  var MIN=520, MAX=1000, FLOOR=900;
+
+  function fit(){
+    try{
+      var d=f.contentDocument;
+      if(!d||!d.body)return;
+      var h=Math.max(d.body.scrollHeight,d.documentElement.scrollHeight);
+      if(h>200)f.style.height=(h+60)+'px';
+    }catch(e){}
+  }
+
+  /* Fixed-width tables in the source overflow a phone screen. This is
+     site-side only; the emailed version is untouched. */
+  function inject(d){
+    if(d.getElementById('ns-fit'))return;
+    var s=d.createElement('style');
+    s.id='ns-fit';
+    s.textContent='img,video{max-width:100%;height:auto}'
+      +'@media(max-width:820px){table[width]{width:100%!important}'
+      +'table{max-width:100%}}';
+    (d.head||d.documentElement).appendChild(s);
+  }
+
+  function restore(d){
+    (d.__wide||[]).forEach(function(o){
+      o.el.style.maxWidth=o.mw;
+      if(o.w===null)o.el.removeAttribute('width');
+      else if(o.w!==undefined)o.el.setAttribute('width',o.w);
+    });
+    d.__wide=null;
+  }
+
+  function widen(){
+    try{
+      var d=f.contentDocument;
+      if(!d||!d.body)return;
+      var avail=f.clientWidth;
+      if(avail<FLOOR){ if(d.__wide)restore(d); return; }
+      if(d.__wide)restore(d);
+      var target=avail-24, store=[];
+      var all=d.querySelectorAll('body, body *');
+      for(var i=0;i<all.length;i++){
+        var el=all[i], cs=getComputedStyle(el);
+        var mw=parseFloat(cs.maxWidth);
+        var wa=(el.tagName==='TABLE')?parseInt(el.getAttribute('width'),10):NaN;
+        var hitMw=(mw>=MIN&&mw<=MAX);
+        var hitWa=(wa>=MIN&&wa<=MAX);
+        if(!hitMw&&!hitWa)continue;
+        var pad=0;
+        if(cs.boxSizing!=='border-box'){
+          pad=(parseFloat(cs.paddingLeft)||0)+(parseFloat(cs.paddingRight)||0)
+             +(parseFloat(cs.borderLeftWidth)||0)+(parseFloat(cs.borderRightWidth)||0);
+        }
+        store.push({el:el, mw:el.style.maxWidth,
+                    w: hitWa ? el.getAttribute('width') : undefined});
+        el.style.maxWidth=Math.max(MIN,target-pad)+'px';
+        if(hitWa)el.setAttribute('width','100%');
+      }
+      d.__wide=store;
+    }catch(e){}
+  }
+
+  function run(){
+    try{ var d=f.contentDocument; if(d)inject(d); }catch(e){}
+    widen(); fit();
+  }
+  f.addEventListener('load',function(){
+    run();setTimeout(run,300);setTimeout(run,1200);
+  });
+  window.addEventListener('resize',run);
+})();
+</script>
 </div>
 </body>
 </html>

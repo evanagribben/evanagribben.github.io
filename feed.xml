@@ -6,7 +6,15 @@
   <atom:link href="https://evanagribben.github.io/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Three independent weekly publications.</description>
   <language>en-us</language>
-  <lastBuildDate>Wed, 19 Aug 2026 19:42:14 +0000</lastBuildDate>
+  <lastBuildDate>Wed, 19 Aug 2026 21:43:51 +0000</lastBuildDate>
+  <item>
+    <title>The Weekly Soccer Digest: August 19, 2026</title>
+    <link>https://evanagribben.github.io/editions/soccer-digest-2026-08-19.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-08-19.html</guid>
+    <category>The Weekly Soccer Digest</category>
+    <pubDate>Wed, 19 Aug 2026 00:00:00 +0000</pubDate>
+    <description>Europe restarts 33 days after the World Cup with ten new Premier League managers, Rodri sold to Barcelona and Pep Guardiola gone after a decade.</description>
+  </item>
   <item>
     <title>The Weekly Arsenal Digest: August 18, 2026</title>
     <link>https://evanagribben.github.io/editions/arsenal-digest-2026-08-18.html</link>
