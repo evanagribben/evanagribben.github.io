@@ -131,6 +131,19 @@ footer a{text-decoration:underline}
 .ed-head .dek{font-size:1.0938rem;color:#4d4638;max-width:58ch;margin:0 auto 14px}
 .ed-head .meta{font-size:0.6562rem;letter-spacing:0.19em;text-transform:uppercase;
   color:#8f8571}
+/* Contents shortcuts above the edition. Built by the site from the edition's
+   own sections, for editions that do not already carry their own. */
+.ed-toc{margin:26px 0 0;border-top:3px solid #cec5b2;padding:.75rem 0 .9rem}
+.ed-toc[hidden]{display:none}
+.ed-toc .toc-h{font-size:.625rem;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:700;margin-bottom:.55rem}
+.ed-toc ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;
+  gap:.15rem 1.1rem}
+.ed-toc li{display:flex;align-items:center;gap:1.1rem}
+.ed-toc li+li::before{content:"·";color:#b9ae99}
+.ed-toc a{font-size:.8125rem;line-height:1.7;color:#5b5344;
+  border-bottom:1px solid transparent}
+.ed-toc a:hover{color:#1a1713;border-bottom-color:#1a1713}
 .ed-body{background:#fff;border:1px solid #cec5b2;margin:26px 0;overflow:hidden}
 .ed-body iframe{width:100%;border:0;display:block;min-height:2400px}
 .ed-nav{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
