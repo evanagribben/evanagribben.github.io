@@ -186,6 +186,10 @@ def build_edition(e, eds):
   <p class="dek">{esc(e.get('dek',''))}</p>
   <div class="meta sans">Published {pretty(e['date'])}</div>
 </div>
+<nav class="ed-toc sans" id="toc" hidden aria-label="In this edition">
+  <div class="toc-h" style="color:{p['text']}">In this edition</div>
+  <ul id="toclist"></ul>
+</nav>
 <div class="ed-body">
   <iframe id="ed" src="/editions/raw/{e['slug']}.html"
           title="{esc(e['title'])}" loading="lazy"></iframe>
@@ -197,6 +201,7 @@ def build_edition(e, eds):
 </p>""")
     body.append(subscribe_block(only=e["pub"]))
     body.append(footer())
+    skip = json.dumps([p["title"], p["short"], e["title"], "The Newsstand"])
     body.append("""<script>
 /* The edition renders in a same-origin iframe so its own styling survives
    byte-for-byte. Newsletters are authored to an email-safe sheet width
@@ -270,16 +275,106 @@ def build_edition(e, eds):
     }catch(e){}
   }
 
+  /* Section shortcuts above the edition. Editions written from August 2026
+     onwards carry their own contents block, so this only fills the gap for
+     ones that do not: it reads the edition's sections and links to them.
+     The frame is sized to its full content and never scrolls internally, so
+     a jump is a scroll of the parent page. */
+  var TOC=document.getElementById('toc'),
+      LIST=document.getElementById('toclist'),
+      SKIP={SKIP_JSON};
+
+  function labelOf(el){
+    var t=(el.textContent||'').replace(/\s+/g,' ').trim();
+    if(t.length<3||t.length>72)return null;
+    if((t.match(/[A-Za-z]/g)||[]).length<3)return null;  /* skips stat headings like 40,000 */
+    return t;
+  }
+
+  function isNameplate(t){
+    var k=t.toLowerCase().replace(/[^a-z]/g,'');
+    for(var i=0;i<SKIP.length;i++){
+      var s=SKIP[i].toLowerCase().replace(/[^a-z]/g,'');
+      if(s&&k===s)return true;
+    }
+    return false;
+  }
+
+  function findSections(d){
+    var out=[], tagged=d.querySelectorAll('[data-toc]');
+    if(tagged.length>=3){
+      tagged.forEach(function(el){
+        var l=(el.getAttribute('data-toc')||'').trim()||labelOf(el);
+        if(l)out.push({el:el,label:l});
+      });
+      return out.slice(0,14);
+    }
+    var els=d.querySelectorAll('h2'), n=0;
+    els.forEach(function(el){ if(labelOf(el))n++; });
+    if(n<3)els=d.querySelectorAll('h1,h2,h3');
+    els.forEach(function(el){
+      var t=labelOf(el);
+      if(t&&!isNameplate(t))out.push({el:el,label:t});
+    });
+    return out.slice(0,14);
+  }
+
+  function ownTocNearTop(d){
+    var els=d.querySelectorAll('h1,h2,h3,h4,div,p,td,span,strong,b');
+    var all=d.querySelectorAll('*'), total=all.length||1;
+    for(var i=0;i<els.length;i++){
+      var t=(els[i].textContent||'').replace(/\s+/g,' ').trim();
+      if(t.length>24||!/^in this edition$/i.test(t))continue;
+      /* Must be near the top in DOM ORDER, not just on screen. A script-built
+         panel appended to the end of the body can be pinned into view while
+         sitting last in the document, and that is not a contents block a
+         reader can use. */
+      var pos=Array.prototype.indexOf.call(all,els[i])/total;
+      if(pos<0.25&&els[i].getBoundingClientRect().top<1400)return true;
+    }
+    return false;
+  }
+
+  function buildToc(){
+    var d;
+    try{ d=f.contentDocument; }catch(err){ return; }
+    if(!d||!d.body||LIST.children.length)return;
+    /* If the edition already prints its own shortcuts near the top, do not add
+       a second set. Test for its label rather than for anchors in general:
+       editions are full of in-page links, and one edition builds a contents
+       list with script and dumps it off the bottom of the page where nobody
+       sees it. Only a visible block near the top counts. */
+    if(ownTocNearTop(d))return;
+    var found=findSections(d);
+    if(found.length<3)return;
+    found.forEach(function(h){
+      var li=document.createElement('li'), a=document.createElement('a');
+      a.href='#'; a.textContent=h.label;
+      a.addEventListener('click',function(ev){
+        ev.preventDefault();
+        var y=f.getBoundingClientRect().top+window.scrollY
+              +h.el.getBoundingClientRect().top-14;
+        var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        /* Animate short hops, jump long ones. A smooth scroll across ten
+           thousand pixels is a wall of blur and reads as broken. */
+        var far=Math.abs(y-window.scrollY)>1800;
+        window.scrollTo({top:y,behavior:(reduce||far)?'auto':'smooth'});
+      });
+      li.appendChild(a); LIST.appendChild(li);
+    });
+    TOC.hidden=false;
+  }
+
   function run(){
     try{ var d=f.contentDocument; if(d)inject(d); }catch(e){}
-    widen(); fit();
+    widen(); fit(); buildToc();
   }
   f.addEventListener('load',function(){
     run();setTimeout(run,300);setTimeout(run,1200);
   });
   window.addEventListener('resize',run);
 })();
-</script>""")
+</script>""".replace("{SKIP_JSON}", skip))
     return shell(f"{e['title']} · {p['title']}", "\n".join(body),
                  desc=e.get("dek", ""),
                  canonical=f"{SITE_URL}/editions/{e['slug']}.html",
