@@ -50,7 +50,7 @@ def plural(n, word="edition"):
 def ed_row(e, show_pub=True):
     """A generous edition row: publication and date at left, story at right."""
     p = PUBS[e["pub"]]
-    side = (f'<div class="pubname" style="color:{p["text"]}">'
+    side = (f'<div class="pubname" style="color:var(--pub-' + e["pub"] + ')">'
             f'{esc(p["title"])}</div>' if show_pub else "")
     return f"""<a class="ed" href="/editions/{e['slug']}.html">
   <div class="side sans">
@@ -69,10 +69,10 @@ def arch_rows(eds, show_pub=True):
     out = []
     for e in eds:
         p = PUBS[e["pub"]]
-        pub = (f'<span class="p sans" style="color:{p["text"]}">'
+        pub = ('<span class="p sans" style="color:var(--pub-' + e["pub"] + ')">'
                f'{esc(p["short"])}</span>' if show_pub else "")
         out.append(f"""<li><a href="/editions/{e['slug']}.html">
-  <span class="dot" style="background:{p['spine']}"></span>
+  <span class="dot" style="background:var(--spine-{e['pub']})"></span>
   <span class="d sans">{short(e['date'])}</span>
   <span class="t">{esc(e['title'])}</span>
   {pub}
@@ -112,11 +112,11 @@ def build_home(eds):
     for slug in PUB_ORDER:
         p = PUBS[slug]
         n = sum(1 for e in eds if e["pub"] == slug)
-        body.append(f"""<div class="pub" style="border-top:4px solid {p['spine']}">
+        body.append(f"""<div class="pub" style="border-top:4px solid var(--spine-{slug})">
   <h3>{esc(p['title'])}</h3>
   <div class="cad sans">{esc(p['cadence'])} &middot; {plural(n)}</div>
   <p>{esc(p['blurb'])}</p>
-  <a class="go sans" style="color:{p['text']}" href="/{slug}/">Read them all &rarr;</a>
+  <a class="go sans" style="color:var(--pub-{slug})" href="/{slug}/">Read them all &rarr;</a>
 </div>""")
     body.append("</div>")
 
@@ -181,13 +181,13 @@ def build_edition(e, eds):
     body = [masthead([p["title"], pretty(e["date"]), p["cadence"]])]
     body.append(f"""<div class="ed-head">
   <a class="back sans" href="/{e['pub']}/">&larr; {esc(p['title'])}</a>
-  <div class="pubname sans" style="color:{p['text']}">{esc(p['title'])}</div>
+  <div class="pubname sans" style="color:var(--pub-{e['pub']})">{esc(p['title'])}</div>
   <h1>{esc(e['title'])}</h1>
   <p class="dek">{esc(e.get('dek',''))}</p>
   <div class="meta sans">Published {pretty(e['date'])}</div>
 </div>
 <nav class="ed-toc sans" id="toc" hidden aria-label="In this edition">
-  <div class="toc-h" style="color:{p['text']}">In this edition</div>
+  <div class="toc-h" style="color:var(--pub-{e['pub']})">In this edition</div>
   <ul id="toclist"></ul>
 </nav>
 <div class="ed-body">
@@ -233,6 +233,31 @@ def build_edition(e, eds):
     s.textContent='img,video{max-width:100%;height:auto}'
       +'@media(max-width:820px){table[width]{width:100%!important}'
       +'table{max-width:100%}}';
+    (d.head||d.documentElement).appendChild(s);
+  }
+
+  /* Dark theme inside the frame. The edition is authored as a light document
+     we do not control, so rather than restyle it we invert it and flip the hue
+     back, which preserves relative colour, then invert media and map tiles a
+     second time so photographs and maps come back the right way round. */
+  function themeIsDark(){
+    var set=document.documentElement.getAttribute('data-theme');
+    if(set)return set==='dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  function paint(){
+    var d;
+    try{ d=f.contentDocument; }catch(e){ return; }
+    if(!d||!d.documentElement)return;
+    var s=d.getElementById('ns-dark');
+    if(!themeIsDark()){ if(s)s.parentNode.removeChild(s); return; }
+    if(s)return;
+    s=d.createElement('style');
+    s.id='ns-dark';
+    s.textContent='html{filter:invert(1) hue-rotate(180deg);background:#111}'
+      +'img,video,canvas,picture,.leaflet-container,.leaflet-tile,.leaflet-tile-pane,'
+      +'[style*="background-image"]{filter:invert(1) hue-rotate(180deg)}';
     (d.head||d.documentElement).appendChild(s);
   }
 
@@ -367,8 +392,14 @@ def build_edition(e, eds):
 
   function run(){
     try{ var d=f.contentDocument; if(d)inject(d); }catch(e){}
-    widen(); fit(); buildToc();
+    widen(); fit(); buildToc(); paint();
   }
+  /* Repaint the frame whenever the reader flips the theme. */
+  try{
+    new MutationObserver(paint).observe(document.documentElement,
+      {attributes:true,attributeFilter:['data-theme']});
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',paint);
+  }catch(e){}
   f.addEventListener('load',function(){
     run();setTimeout(run,300);setTimeout(run,1200);
   });
