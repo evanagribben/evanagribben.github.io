@@ -219,8 +219,12 @@ def build_edition(e, eds):
     try{
       var d=f.contentDocument;
       if(!d||!d.body)return;
-      var h=Math.max(d.body.scrollHeight,d.documentElement.scrollHeight);
-      if(h>200)f.style.height=(h+60)+'px';
+      /* Measure the BODY only. documentElement.scrollHeight is at least the
+         frame's own height, so feeding it back in grows the frame a little
+         on every call. */
+      var h=Math.max(d.body.scrollHeight,
+                     Math.ceil(d.body.getBoundingClientRect().height));
+      if(h>200)f.style.height=(h+40)+'px';
     }catch(e){}
   }
 
@@ -260,6 +264,43 @@ def build_edition(e, eds):
       +'[style*="background-image"]{filter:invert(1) hue-rotate(180deg)}';
     (d.head||d.documentElement).appendChild(s);
   }
+
+  /* Text size inside the frame. The edition is authored in px for email, so
+     the root-font-size trick that scales the site does nothing here. Instead
+     record each element's ORIGINAL size once, before any scaling, and set
+     every one from that baseline. Scaling from the current value instead
+     would compound on each press and drift. */
+  var BASE=null, BASEDOC=null, TEXT=1;
+
+  function baseline(d){
+    /* Key the baseline to the document it came from. A frame starts life on a
+       blank document, so a capture taken before the edition loads would find
+       one element and, if memoised, silently freeze the whole feature. */
+    if(BASE&&BASEDOC===d&&BASE.length>3)return;
+    BASE=[]; BASEDOC=d;
+    var all=d.querySelectorAll('body, body *');
+    for(var i=0;i<all.length;i++){
+      var px=parseFloat(getComputedStyle(all[i]).fontSize);
+      if(px)BASE.push({el:all[i],px:px,inline:all[i].style.fontSize});
+    }
+  }
+
+  function scaleText(){
+    var d;
+    try{ d=f.contentDocument; }catch(e){ return; }
+    if(!d||!d.body)return;
+    baseline(d);
+    for(var i=0;i<BASE.length;i++){
+      var o=BASE[i];
+      o.el.style.fontSize = TEXT===1 ? o.inline : (o.px*TEXT)+'px';
+    }
+    widen(); fit();
+  }
+
+  window.addEventListener('newsstand-text',function(ev){
+    var s=ev&&ev.detail;
+    if(typeof s==='number'&&s>0){ TEXT=s; scaleText(); }
+  });
 
   function restore(d){
     (d.__wide||[]).forEach(function(o){
@@ -393,6 +434,7 @@ def build_edition(e, eds):
   function run(){
     try{ var d=f.contentDocument; if(d)inject(d); }catch(e){}
     widen(); fit(); buildToc(); paint();
+    if(TEXT!==1)scaleText();
   }
   /* Repaint the frame whenever the reader flips the theme. */
   try{
