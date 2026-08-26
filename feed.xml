@@ -6,7 +6,15 @@
   <atom:link href="https://evanagribben.github.io/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Three independent weekly publications.</description>
   <language>en-us</language>
-  <lastBuildDate>Wed, 26 Aug 2026 20:14:20 +0000</lastBuildDate>
+  <lastBuildDate>Wed, 26 Aug 2026 23:46:08 +0000</lastBuildDate>
+  <item>
+    <title>The Weekly Soccer Digest: August 26, 2026</title>
+    <link>https://evanagribben.github.io/editions/soccer-digest-2026-08-26.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-08-26.html</guid>
+    <category>The Weekly Soccer Digest</category>
+    <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
+    <description>Six days from the September 1 deadline, a World Cup summer has pushed Europe</description>
+  </item>
   <item>
     <title>The Weekly Arsenal Digest: August 25, 2026</title>
     <link>https://evanagribben.github.io/editions/arsenal-digest-2026-08-25.html</link>
