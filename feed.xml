@@ -6,7 +6,15 @@
   <atom:link href="https://evanagribben.github.io/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Three independent weekly publications.</description>
   <language>en-us</language>
-  <lastBuildDate>Sun, 30 Aug 2026 17:37:13 +0000</lastBuildDate>
+  <lastBuildDate>Sun, 30 Aug 2026 21:14:43 +0000</lastBuildDate>
+  <item>
+    <title>The Bay Weekender: August 31, 2026</title>
+    <link>https://evanagribben.github.io/editions/bay-weekender-2026-08-31.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/bay-weekender-2026-08-31.html</guid>
+    <category>The Bay Weekender</category>
+    <pubDate>Mon, 31 Aug 2026 00:00:00 +0000</pubDate>
+    <description>Labor Day weekend opens a five-week run that ends with Hardly Strictly free in the park, plus Portola, Folsom and the Giants' last homestand.</description>
+  </item>
   <item>
     <title>The Weekly Soccer Digest: August 26, 2026</title>
     <link>https://evanagribben.github.io/editions/soccer-digest-2026-08-26.html</link>
