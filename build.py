@@ -202,7 +202,7 @@ def build_edition(e, eds):
     body.append(subscribe_block(only=e["pub"]))
     body.append(footer())
     skip = json.dumps([p["title"], p["short"], e["title"], "The Newsstand"])
-    body.append("""<script>
+    body.append(r"""<script>
 /* The edition renders in a same-origin iframe so its own styling survives
    byte-for-byte. Newsletters are authored to an email-safe sheet width
    (roughly 620-760px). On a desktop screen that leaves the page mostly
@@ -238,6 +238,53 @@ def build_edition(e, eds):
       +'@media(max-width:820px){table[width]{width:100%!important}'
       +'table{max-width:100%}}';
     (d.head||d.documentElement).appendChild(s);
+  }
+
+  /* Trim the event detail rows on older Bay editions. "Getting there" and
+     "Good for" were dropped from the publication, and the date and start time
+     are now labelled separately. Editions written after that change already
+     look like this, so the pass simply finds nothing and stops. */
+  var DATE_TIME=/^\s*(.*\b\d{4})\.\s*(\S.*)$/;
+
+  function trimDetails(d){
+    var rows=d.querySelectorAll('p.em');
+    for(var i=0;i<rows.length;i++){
+      var p=rows[i];
+      if(p.getAttribute('data-trimmed'))continue;
+      p.setAttribute('data-trimmed','1');
+      var parts=p.innerHTML.split('<br>'), out=[], changed=false;
+      for(var j=0;j<parts.length;j++){
+        var seg=parts[j], plain=seg.replace(/<[^>]+>/g,'').trim();
+        if(/^(Getting there|Good for)\b/i.test(plain)){ changed=true; continue; }
+        var w=seg.match(/^\s*<b>\s*When\s*<\/b>([\s\S]*)$/i);
+        if(w){
+          var m=w[1].replace(/<[^>]+>/g,'').match(DATE_TIME);
+          if(m){
+            out.push('<b>When</b> '+m[1].trim());
+            out.push('<b>Time</b> '+m[2].trim());
+            changed=true;
+            continue;
+          }
+        }
+        out.push(seg);
+      }
+      if(changed)p.innerHTML=out.join('<br>');
+    }
+  }
+
+  /* Send outbound links to a new tab. The edition sits in a frame, so a plain
+     link loads the destination INSIDE that frame: the reader gets someone
+     else's site wearing our page furniture, with no way back. Same-page
+     anchors are left alone so the contents shortcuts still work. */
+  function externalLinks(d){
+    var as=d.querySelectorAll('a[href]');
+    for(var i=0;i<as.length;i++){
+      var h=as[i].getAttribute('href')||'';
+      if(!/^(https?:)?\/\//i.test(h))continue;      /* skip #anchors and relative links */
+      if(as[i].getAttribute('target')==='_blank')continue;
+      as[i].setAttribute('target','_blank');
+      as[i].setAttribute('rel','noopener noreferrer');
+    }
   }
 
   /* Dark theme inside the frame. The edition is authored as a light document
@@ -432,7 +479,7 @@ def build_edition(e, eds):
   }
 
   function run(){
-    try{ var d=f.contentDocument; if(d)inject(d); }catch(e){}
+    try{ var d=f.contentDocument; if(d){inject(d);externalLinks(d);trimDetails(d);} }catch(e){}
     widen(); fit(); buildToc(); paint();
     if(TEXT!==1)scaleText();
   }
