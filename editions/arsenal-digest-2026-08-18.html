@@ -357,6 +357,53 @@ footer a{text-decoration:underline}
     (d.head||d.documentElement).appendChild(s);
   }
 
+  /* Trim the event detail rows on older Bay editions. "Getting there" and
+     "Good for" were dropped from the publication, and the date and start time
+     are now labelled separately. Editions written after that change already
+     look like this, so the pass simply finds nothing and stops. */
+  var DATE_TIME=/^\s*(.*\b\d{4})\.\s*(\S.*)$/;
+
+  function trimDetails(d){
+    var rows=d.querySelectorAll('p.em');
+    for(var i=0;i<rows.length;i++){
+      var p=rows[i];
+      if(p.getAttribute('data-trimmed'))continue;
+      p.setAttribute('data-trimmed','1');
+      var parts=p.innerHTML.split('<br>'), out=[], changed=false;
+      for(var j=0;j<parts.length;j++){
+        var seg=parts[j], plain=seg.replace(/<[^>]+>/g,'').trim();
+        if(/^(Getting there|Good for)\b/i.test(plain)){ changed=true; continue; }
+        var w=seg.match(/^\s*<b>\s*When\s*<\/b>([\s\S]*)$/i);
+        if(w){
+          var m=w[1].replace(/<[^>]+>/g,'').match(DATE_TIME);
+          if(m){
+            out.push('<b>When</b> '+m[1].trim());
+            out.push('<b>Time</b> '+m[2].trim());
+            changed=true;
+            continue;
+          }
+        }
+        out.push(seg);
+      }
+      if(changed)p.innerHTML=out.join('<br>');
+    }
+  }
+
+  /* Send outbound links to a new tab. The edition sits in a frame, so a plain
+     link loads the destination INSIDE that frame: the reader gets someone
+     else's site wearing our page furniture, with no way back. Same-page
+     anchors are left alone so the contents shortcuts still work. */
+  function externalLinks(d){
+    var as=d.querySelectorAll('a[href]');
+    for(var i=0;i<as.length;i++){
+      var h=as[i].getAttribute('href')||'';
+      if(!/^(https?:)?\/\//i.test(h))continue;      /* skip #anchors and relative links */
+      if(as[i].getAttribute('target')==='_blank')continue;
+      as[i].setAttribute('target','_blank');
+      as[i].setAttribute('rel','noopener noreferrer');
+    }
+  }
+
   /* Dark theme inside the frame. The edition is authored as a light document
      we do not control, so rather than restyle it we invert it and flip the hue
      back, which preserves relative colour, then invert media and map tiles a
@@ -549,7 +596,7 @@ footer a{text-decoration:underline}
   }
 
   function run(){
-    try{ var d=f.contentDocument; if(d)inject(d); }catch(e){}
+    try{ var d=f.contentDocument; if(d){inject(d);externalLinks(d);trimDetails(d);} }catch(e){}
     widen(); fit(); buildToc(); paint();
     if(TEXT!==1)scaleText();
   }
