@@ -272,6 +272,47 @@ def build_edition(e, eds):
     }
   }
 
+  /* In-page jumps land the target in the middle of the window instead of
+     jammed against the top. The edition fills a frame as tall as its own
+     content, so the browser's anchor handling scrolls the PARENT page and
+     pins the target to the very top edge, half of it hidden behind the page
+     furniture. Take the jump over: unfold whatever the target is collapsed
+     inside, then place it in comfortable view. */
+  function anchorJump(d){
+    if(d.__anchors)return;
+    d.__anchors=1;
+    d.addEventListener('click',function(ev){
+      var a=(ev.target&&ev.target.closest)?ev.target.closest('a[href^="#"]'):null;
+      if(!a)return;
+      var id=(a.getAttribute('href')||'').slice(1);
+      if(!id)return;
+      var el=null;
+      try{ el=d.getElementById(id); }catch(e){}
+      if(!el)return;
+      ev.preventDefault();
+      /* An event sits inside a collapsed disclosure. Landing on a folded row
+         is not arriving anywhere, so open every one above it first. */
+      var p=el;
+      while(p&&p!==d.body){ if(p.tagName==='DETAILS'&&!p.open)p.open=true; p=p.parentElement; }
+      var place=function(){
+        fit();                                  /* the frame just got taller */
+        var r=el.getBoundingClientRect(),
+            top=f.getBoundingClientRect().top+window.scrollY+r.top,
+            vh=window.innerHeight,
+            /* An individual event is the thing you came to read, so put it in
+               the middle of the window. A section heading is a starting point,
+               so sit it near the top with its contents below, which is what a
+               heading is for. Anything taller than the window cannot be
+               centred meaningfully, so start it a quarter of the way down. */
+            isEvent=/^ev-/.test(el.id)||(el.className||'').split(' ').indexOf('ev')>-1,
+            pad=!isEvent?vh*0.12:(r.height<vh*0.8?(vh-r.height)/2:vh*0.25),
+            reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({top:Math.max(0,top-pad),behavior:reduce?'auto':'smooth'});
+      };
+      if(window.requestAnimationFrame)requestAnimationFrame(place); else setTimeout(place,0);
+    },true);
+  }
+
   /* Send outbound links to a new tab. The edition sits in a frame, so a plain
      link loads the destination INSIDE that frame: the reader gets someone
      else's site wearing our page furniture, with no way back. Same-page
@@ -479,7 +520,8 @@ def build_edition(e, eds):
   }
 
   function run(){
-    try{ var d=f.contentDocument; if(d){inject(d);externalLinks(d);trimDetails(d);} }catch(e){}
+    try{ var d=f.contentDocument;
+         if(d){inject(d);externalLinks(d);trimDetails(d);anchorJump(d);} }catch(e){}
     widen(); fit(); buildToc(); paint();
     if(TEXT!==1)scaleText();
   }
