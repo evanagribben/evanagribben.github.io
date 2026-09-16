@@ -6,7 +6,15 @@
   <atom:link href="https://evanagribben.github.io/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Three independent weekly publications.</description>
   <language>en-us</language>
-  <lastBuildDate>Wed, 16 Sep 2026 17:08:07 +0000</lastBuildDate>
+  <lastBuildDate>Wed, 16 Sep 2026 20:14:57 +0000</lastBuildDate>
+  <item>
+    <title>The Weekly Soccer Digest: September 16, 2026</title>
+    <link>https://evanagribben.github.io/editions/soccer-digest-2026-09-16.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-09-16.html</guid>
+    <category>The Weekly Soccer Digest</category>
+    <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
+    <description>Europe's great managerial reshuffle faces its first verdicts as Maresca's Manchester City go four from four and Mourinho's Real Madrid chase Barcelona.</description>
+  </item>
   <item>
     <title>The Weekly Arsenal Digest: September 15, 2026</title>
     <link>https://evanagribben.github.io/editions/arsenal-digest-2026-09-15.html</link>
