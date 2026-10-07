@@ -6,7 +6,15 @@
   <atom:link href="https://evanagribben.github.io/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Three independent weekly publications.</description>
   <language>en-us</language>
-  <lastBuildDate>Tue, 06 Oct 2026 20:25:24 +0000</lastBuildDate>
+  <lastBuildDate>Wed, 07 Oct 2026 00:49:59 +0000</lastBuildDate>
+  <item>
+    <title>The Weekly Arsenal Digest: October 6, 2026</title>
+    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-10-06.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-10-06.html</guid>
+    <category>The Weekly Arsenal Digest</category>
+    <pubDate>Tue, 06 Oct 2026 00:00:00 +0000</pubDate>
+    <description>Arsenal return from a three week international break second in the table with eight goals in five games and the sharpest question of their season still unanswered.</description>
+  </item>
   <item>
     <title>The Weekly Soccer Digest: September 30, 2026</title>
     <link>https://evanagribben.github.io/editions/soccer-digest-2026-09-30.html</link>
