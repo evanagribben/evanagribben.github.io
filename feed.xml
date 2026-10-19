@@ -6,7 +6,23 @@
   <atom:link href="https://evanagribben.github.io/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Three independent weekly publications.</description>
   <language>en-us</language>
-  <lastBuildDate>Mon, 19 Oct 2026 17:34:27 +0000</lastBuildDate>
+  <lastBuildDate>Mon, 19 Oct 2026 22:28:55 +0000</lastBuildDate>
+  <item>
+    <title>The Weekly Arsenal Digest: October 19, 2026</title>
+    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-10-19.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-10-19.html</guid>
+    <category>The Weekly Arsenal Digest</category>
+    <pubDate>Mon, 19 Oct 2026 00:00:00 +0000</pubDate>
+    <description>On Wednesday Arteta brings the best defensive record in the Champions League to the Allianz Arena, where Harry Kane is waiting and Michael Olise is suspended.</description>
+  </item>
+  <item>
+    <title>The Weekly Soccer Digest: October 14, 2026</title>
+    <link>https://evanagribben.github.io/editions/soccer-digest-2026-10-14.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-10-14.html</guid>
+    <category>The Weekly Soccer Digest</category>
+    <pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate>
+    <description>Paris Saint-Germain, winners of the last two Champions Leagues, visit an unbeaten Manchester City on a matchday that has already produced 32 goals in nine games.</description>
+  </item>
   <item>
     <title>The Weekly Arsenal Digest: October 6, 2026</title>
     <link>https://evanagribben.github.io/editions/arsenal-digest-2026-10-06.html</link>
