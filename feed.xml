@@ -6,7 +6,15 @@
   <atom:link href="https://evanagribben.github.io/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Three independent weekly publications.</description>
   <language>en-us</language>
-  <lastBuildDate>Thu, 22 Oct 2026 13:54:55 +0000</lastBuildDate>
+  <lastBuildDate>Thu, 22 Oct 2026 18:38:28 +0000</lastBuildDate>
+  <item>
+    <title>The Weekly Soccer Digest: October 21, 2026</title>
+    <link>https://evanagribben.github.io/editions/soccer-digest-2026-10-21.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-10-21.html</guid>
+    <category>The Weekly Soccer Digest</category>
+    <pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate>
+    <description>Jose Mourinho takes Real Madrid back to the Camp Nou on Sunday six points adrift of an unbeaten Barcelona and without Vinicius Junior.</description>
+  </item>
   <item>
     <title>The Weekly Arsenal Digest: October 20, 2026</title>
     <link>https://evanagribben.github.io/editions/arsenal-digest-2026-10-20.html</link>
