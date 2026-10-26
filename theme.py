@@ -227,13 +227,18 @@ a{color:inherit;text-decoration:none}
   text-align:center;background:var(--panel)}
 .sub h2{font-size:2rem;margin:0 0 8px;letter-spacing:-0.016em}
 .sub .lede{margin:0 auto 28px;color:var(--body-soft);font-size:1rem;max-width:48ch}
-.subrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(13.75rem,100%),1fr));
-  gap:26px;text-align:left;margin-top:6px}
-.subcard{border-top:3px solid var(--rule-hard);padding-top:14px}
-.subcard h3{font-size:1rem;margin:0 0 4px;line-height:1.25}
+/* One publication per row, so each signup form gets enough width to show the
+   whole email field and button instead of being squeezed into a third. */
+.subrow{display:flex;flex-direction:column;gap:48px;text-align:center;margin-top:14px}
+.subcard{border-top:3px solid var(--rule-hard);padding-top:22px;
+  display:flex;flex-direction:column;align-items:center}
+.subcard h3{font-size:1.25rem;margin:0 0 6px;line-height:1.25}
 .subcard .cad{font-size:0.625rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:12px}
-.subcard form{display:flex;gap:8px;flex-wrap:wrap}
+  color:var(--muted);margin-bottom:16px}
+.subembed{width:100%;max-width:46rem;margin:0 auto}
+.subembed iframe,.subembed > div{max-width:100%;margin-left:auto;margin-right:auto;
+  display:block}
+.subcard form{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .subcard input[type=email]{color:var(--ink);flex:1 1 9.4rem;padding:11px 12px;font-size:0.9062rem;
   border:1px solid var(--rule-hard);background:var(--field);min-height:44px}
 .subcard input[type=email]:focus-visible{outline:2px solid var(--ink);
@@ -483,9 +488,11 @@ def subscribe_block(only=None):
         cards.append(f"""<div class="subcard" style="border-top-color:var(--spine-{s})">
   <h3 style="color:var(--pub-{s})">{esc(p['title'])}</h3>
   <div class="cad sans">{esc(p['cadence'])}</div>
+  <div class="subembed">
   <!-- SUBSCRIBE-EMBED-START {s} -->
   {form}
   <!-- SUBSCRIBE-EMBED-END {s} -->
+  </div>
 </div>""")
     lede = ("Every edition is published here first, then sent the same day. "
             "Free, and one click to stop. Pick the ones you want.") if not only \

@@ -61,6 +61,35 @@ DRY = "--dry-run" in sys.argv
 # its next run. Set it to "" to publish everything.
 EARLIEST = "2026-08-17"
 
+# Editions deliberately kept off the site even though their files are still in
+# Drive. arsenal-digest-2026-10-19 was an off-schedule Monday re-run that
+# duplicated the October 20 edition.
+EXCLUDE = {"arsenal-digest-2026-10-19"}
+
+# The Arsenal Digest is numbered in order, one per Tuesday: August 18, 2026 is
+# No. 1. Runs have historically invented their own numbers, so any "No. N" in a
+# newly fetched edition's masthead is corrected to the right one.
+ARSENAL_NO1 = "2026-08-18"
+
+
+def arsenal_number(date):
+    d0 = datetime.strptime(ARSENAL_NO1, "%Y-%m-%d")
+    d = datetime.strptime(date, "%Y-%m-%d")
+    return (d - d0).days // 7 + 1
+
+
+def fix_arsenal_number(html, date):
+    """Rewrite the first 'No. N' in the top of the page (the masthead
+    dateline) to the correct sequence number. Leaves the page alone if the
+    masthead carries no number."""
+    n = arsenal_number(date)
+    # The number sits at the start of a masthead cell, right after a tag.
+    m = re.search(r">\s*(?:Edition\s+)?No\.\s?\d+", html[:40000])
+    if not m:
+        return html
+    fixed = re.sub(r"No\.\s?\d+", f"No. {n}", m.group(0), count=1)
+    return html[:m.start()] + fixed + html[m.end():]
+
 
 def log(msg):
     print(msg, flush=True)
@@ -112,10 +141,12 @@ def download(f):
 def extract_dek(html, fallback):
     """Prefer an explicit <meta name="dek">; otherwise take the first real
     sentence of visible text. Never invent anything."""
-    m = re.search(r'<meta\s+name=["\']dek["\']\s+content=["\'](.*?)["\']',
+    # Match the closing quote to the opening one, so an apostrophe inside a
+    # double-quoted dek ("Arsenal's ...") does not cut it short.
+    m = re.search(r'<meta\s+name=["\']dek["\']\s+content=(["\'])(.*?)\1',
                   html, re.I | re.S)
     if m:
-        return htmllib.unescape(re.sub(r"\s+", " ", m.group(1))).strip()[:400]
+        return htmllib.unescape(re.sub(r"\s+", " ", m.group(2))).strip()[:400]
 
     body = re.sub(r"(?is)<(script|style|head)[^>]*>.*?</\1>", " ", html)
     text = re.sub(r"(?s)<[^>]+>", " ", body)
@@ -195,6 +226,9 @@ def main():
     # republished. That is what lets a run repair itself: when a task saves only
     # a Google Doc and the proper .html file arrives later, the later file wins
     # instead of being skipped as a date we already have.
+    if EXCLUDE:
+        manifest["editions"] = [e for e in manifest.get("editions", [])
+                                if e["slug"] not in EXCLUDE]
     known = {e["slug"]: e.get("src") for e in manifest.get("editions", [])}
 
     listed = {e["slug"] for e in manifest.get("editions", [])}
@@ -241,6 +275,8 @@ def main():
             seen_dates.add(date)
 
             slug = f"{pub}-{date}"
+            if slug in EXCLUDE:
+                continue            # deliberately kept off the site
             src = f"{f['id']}@{f.get('modifiedTime', '')}"
             if slug in have and known.get(slug) == src:
                 skipped += 1
@@ -267,6 +303,8 @@ def main():
                 continue
 
             html = blob.decode("utf-8", errors="replace")
+            if pub == "arsenal-digest":
+                html = fix_arsenal_number(html, date)
             os.makedirs(RAW_DIR, exist_ok=True)
             with open(os.path.join(RAW_DIR, f"{slug}.html"), "w",
                       encoding="utf-8") as fh:
