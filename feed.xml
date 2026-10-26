@@ -6,7 +6,7 @@
   <atom:link href="https://evanagribben.github.io/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Three independent weekly publications.</description>
   <language>en-us</language>
-  <lastBuildDate>Mon, 26 Oct 2026 07:55:17 +0000</lastBuildDate>
+  <lastBuildDate>Mon, 26 Oct 2026 15:17:40 +0000</lastBuildDate>
   <item>
     <title>The Weekly Soccer Digest: October 21, 2026</title>
     <link>https://evanagribben.github.io/editions/soccer-digest-2026-10-21.html</link>
@@ -40,6 +40,30 @@
     <description>Paris Saint-Germain, winners of the last two Champions Leagues, visit an unbeaten Manchester City on a matchday that has already produced 32 goals in nine games.</description>
   </item>
   <item>
+    <title>The Weekly Arsenal Digest: October 13, 2026</title>
+    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-10-13.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-10-13.html</guid>
+    <category>The Weekly Arsenal Digest</category>
+    <pubDate>Tue, 13 Oct 2026 00:00:00 +0000</pubDate>
+    <description>Arsenal followed Mikel Arteta's new contract to 2030 with a comeback win over Leeds and a 3-0 Champions League rout of Lille, in a week that ended with the death of Ken Friar.</description>
+  </item>
+  <item>
+    <title>The Bay Weekender: October 12, 2026</title>
+    <link>https://evanagribben.github.io/editions/bay-weekender-2026-10-12.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/bay-weekender-2026-10-12.html</guid>
+    <category>The Bay Weekender</category>
+    <pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate>
+    <description>The Valkyries host the first WNBA Finals games ever played in San Francisco, the Warriors open at home, and autumn festivals run from Half Moon Bay to Sonoma.</description>
+  </item>
+  <item>
+    <title>The Weekly Soccer Digest: October 7, 2026</title>
+    <link>https://evanagribben.github.io/editions/soccer-digest-2026-10-07.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-10-07.html</guid>
+    <category>The Weekly Soccer Digest</category>
+    <pubDate>Wed, 07 Oct 2026 00:00:00 +0000</pubDate>
+    <description>Manchester City lodged their appeal against the guilty verdict at 7pm on 1 October, starting a twelve-week clock that will decide when, and how hard, any punishment lands.</description>
+  </item>
+  <item>
     <title>The Weekly Arsenal Digest: October 6, 2026</title>
     <link>https://evanagribben.github.io/editions/arsenal-digest-2026-10-06.html</link>
     <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-10-06.html</guid>
@@ -54,6 +78,22 @@
     <category>The Weekly Soccer Digest</category>
     <pubDate>Wed, 30 Sep 2026 00:00:00 +0000</pubDate>
     <description>An independent commission found Manchester City guilty of serious financial breaches across nine seasons, and the sanction is still to come.</description>
+  </item>
+  <item>
+    <title>The Weekly Arsenal Digest: September 29, 2026</title>
+    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-09-29.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-09-29.html</guid>
+    <category>The Weekly Arsenal Digest</category>
+    <pubDate>Tue, 29 Sep 2026 00:00:00 +0000</pubDate>
+    <description>With no Arsenal men</description>
+  </item>
+  <item>
+    <title>The Bay Weekender: September 28, 2026</title>
+    <link>https://evanagribben.github.io/editions/bay-weekender-2026-09-28.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/bay-weekender-2026-09-28.html</guid>
+    <category>The Bay Weekender</category>
+    <pubDate>Mon, 28 Sep 2026 00:00:00 +0000</pubDate>
+    <description>A catch-up edition for five weeks of fall: Fleet Week, Hardly Strictly, Valkyries playoff nights, pumpkins on the coast and a Halloween weekend.</description>
   </item>
   <item>
     <title>The Weekly Soccer Digest: September 23, 2026</title>
@@ -86,6 +126,14 @@
     <category>The Weekly Arsenal Digest</category>
     <pubDate>Tue, 15 Sep 2026 00:00:00 +0000</pubDate>
     <description>Arsenal begin the Carabao Cup at Ipswich six months after losing its final, unbeaten in six and missing half a back four.</description>
+  </item>
+  <item>
+    <title>The Bay Weekender: September 14, 2026</title>
+    <link>https://evanagribben.github.io/editions/bay-weekender-2026-09-14.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/bay-weekender-2026-09-14.html</guid>
+    <category>The Bay Weekender</category>
+    <pubDate>Mon, 14 Sep 2026 00:00:00 +0000</pubDate>
+    <description>A catch-up edition for mid-September to mid-October: Portola, Folsom, Hardly Strictly, Fleet Week, the Giants' last homestand and the Valkyries' run-in.</description>
   </item>
   <item>
     <title>The Weekly Soccer Digest: September 9, 2026</title>
