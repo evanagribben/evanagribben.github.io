@@ -6,7 +6,15 @@
   <atom:link href="https://evanagribben.github.io/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Three independent weekly publications.</description>
   <language>en-us</language>
-  <lastBuildDate>Mon, 26 Oct 2026 16:02:06 +0000</lastBuildDate>
+  <lastBuildDate>Mon, 26 Oct 2026 20:38:08 +0000</lastBuildDate>
+  <item>
+    <title>The Bay Weekender: October 26, 2026</title>
+    <link>https://evanagribben.github.io/editions/bay-weekender-2026-10-26.html</link>
+    <guid isPermaLink="true">https://evanagribben.github.io/editions/bay-weekender-2026-10-26.html</guid>
+    <category>The Bay Weekender</category>
+    <pubDate>Mon, 26 Oct 2026 00:00:00 +0000</pubDate>
+    <description>Day of the Dead fills the Mission, nine Warriors home dates land at Chase Center, and Dickens Fair Early Bird pricing ends October 31.</description>
+  </item>
   <item>
     <title>The Weekly Soccer Digest: October 21, 2026</title>
     <link>https://evanagribben.github.io/editions/soccer-digest-2026-10-21.html</link>
