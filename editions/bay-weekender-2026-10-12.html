@@ -203,8 +203,13 @@ a{color:inherit;text-decoration:none}
 .subcard .cad{font-size:0.625rem;letter-spacing:0.2em;text-transform:uppercase;
   color:var(--muted);margin-bottom:16px}
 .subembed{width:100%;max-width:46rem;margin:0 auto}
-.subembed iframe,.subembed > div{max-width:100%;margin-left:auto;margin-right:auto;
-  display:block}
+/* beehiiv's loader resizes its iframe to a fixed pixel width after load, which
+   overflows this box and leaves the form hanging off to one side. Pin it to
+   the box's width and centre it; the form centres itself inside the iframe. */
+.subembed > div{width:100% !important;max-width:100% !important;
+  margin-left:auto !important;margin-right:auto !important}
+.subembed iframe{width:100% !important;max-width:100% !important;
+  margin-left:auto !important;margin-right:auto !important;display:block}
 .subcard form{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .subcard input[type=email]{color:var(--ink);flex:1 1 9.4rem;padding:11px 12px;font-size:0.9062rem;
   border:1px solid var(--rule-hard);background:var(--field);min-height:44px}
