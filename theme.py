@@ -236,13 +236,9 @@ a{color:inherit;text-decoration:none}
 .subcard .cad{font-size:0.625rem;letter-spacing:0.2em;text-transform:uppercase;
   color:var(--muted);margin-bottom:16px}
 .subembed{width:100%;max-width:560px;margin:0 auto}
-/* beehiiv's loader resizes its iframe to a fixed pixel width after load, which
-   overflows this box and leaves the form hanging off to one side. Pin it to
-   the box's width and centre it; the form centres itself inside the iframe. */
-.subembed > div{width:100% !important;max-width:100% !important;
-  margin-left:auto !important;margin-right:auto !important}
-.subembed iframe{width:100% !important;max-width:100% !important;
-  margin-left:auto !important;margin-right:auto !important;display:block}
+.vh{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.subok{flex-basis:100%;margin:10px 0 0;font-size:0.875rem;color:var(--body-soft)}
+.subok:empty{display:none}
 .subcard form{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .subcard input[type=email]{color:var(--ink);flex:1 1 9.4rem;padding:11px 12px;font-size:0.9062rem;
   border:1px solid var(--rule-hard);background:var(--field);min-height:44px}
@@ -562,35 +558,55 @@ def footer():
 
 
 # ---------------------------------------------------------------- subscribe
-# One signup box per publication, because each publication keeps its own list.
-# Replace the FORM_EMBEDS values with the real beehiiv embed for each
-# publication. Until a value is filled in, that box falls back to a mailto so
-# it still does something rather than looking broken.
+# One signup box per publication. Each box posts straight to a free Google Form
+# ("Newsletter Signup"), whose answers land in the "Newsletter Signup
+# (Responses)" Google Sheet. The newsletter tasks read that sheet each edition
+# and add new addresses to the right list, so nothing is copied by hand.
+# The form has two questions: the email address, and a checkbox list whose
+# options are the publication titles exactly as written in PUBS.
 
 SUBSCRIBE_EMAIL = "evangribben@gmail.com"
-
-# slug -> beehiiv embed HTML. Empty string means "not set up yet".
-FORM_EMBEDS = {
-    # beehiiv subscribe forms, one per publication. Each publication keeps its
-    # own subscriber list, so these must not be swapped.
-    "bay-weekender":  '<script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2302d445-e133-4158-b4ef-c443d72ff16d"></script>',
-    "soccer-digest":  '<script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="cb8efe77-7469-4940-97a7-af3a61b2d755"></script>',
-    "arsenal-digest": '<script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="7f19d80f-156f-4d19-957a-4aabdc8bf624"></script>',
-}
+GOOGLE_FORM_ID = "1FAIpQLSf1xx7_r8ufRYLWFrWVtncrZgrnE5cstwiOtM_B0JcoXab77w"
+GOOGLE_FORM_ACTION = f"https://docs.google.com/forms/d/e/{GOOGLE_FORM_ID}/formResponse"
+GF_EMAIL_FIELD = "entry.892928037"
+GF_PUBS_FIELD = "entry.2139873147"
 
 
-def _fallback_form(slug):
+def signup_form(slug):
     p = PUBS[slug]
-    subject = f"Subscribe to {p['title']}".replace(" ", "%20")
-    return (f'<form action="mailto:{SUBSCRIBE_EMAIL}" method="get" '
-            f'enctype="text/plain">'
-            f'<input type="hidden" name="subject" value="Subscribe to {esc(p["title"])}">'
-            f'<label class="sans" style="position:absolute;left:-9999px" '
-            f'for="e-{slug}">Your email address</label>'
-            f'<input class="sans" id="e-{slug}" type="email" name="body" '
-            f'placeholder="you@example.com" required>'
+    # Without JavaScript the form opens Google's own "response recorded" page
+    # in a new tab. With JavaScript (SUBSCRIBE_JS) it posts quietly into a
+    # hidden frame and shows a thank-you line in place.
+    return (f'<form class="gform" action="{GOOGLE_FORM_ACTION}" method="post" '
+            f'target="_blank" data-pub="{esc(p["title"])}">'
+            f'<input type="hidden" name="{GF_PUBS_FIELD}" value="{esc(p["title"])}">'
+            f'<label class="sans vh" for="e-{slug}">Your email address</label>'
+            f'<input class="sans" id="e-{slug}" type="email" name="{GF_EMAIL_FIELD}" '
+            f'placeholder="you@example.com" autocomplete="email" required>'
             f'<button class="sans" type="submit">Subscribe</button>'
+            f'<p class="subok sans" role="status" aria-live="polite"></p>'
             f'</form>')
+
+
+SUBSCRIBE_JS = """<iframe name="gf-sink" title="" aria-hidden="true" tabindex="-1"
+  style="display:none" src="about:blank"></iframe>
+<script>
+(function(){
+  document.querySelectorAll('form.gform').forEach(function(f){
+    f.target = 'gf-sink';
+    f.addEventListener('submit', function(){
+      var btn = f.querySelector('button'), ok = f.querySelector('.subok'),
+          em = f.querySelector('input[type=email]'), addr = em.value;
+      btn.disabled = true; btn.textContent = 'Sending';
+      setTimeout(function(){
+        ok.textContent = 'Thanks. ' + addr + ' is signed up for ' +
+          f.getAttribute('data-pub') + ', starting with the next edition.';
+        em.value = ''; btn.disabled = false; btn.textContent = 'Subscribe';
+      }, 900);
+    });
+  });
+})();
+</script>"""
 
 
 def subscribe_block(only=None):
@@ -599,7 +615,7 @@ def subscribe_block(only=None):
     cards = []
     for s in slugs:
         p = PUBS[s]
-        form = FORM_EMBEDS.get(s) or _fallback_form(s)
+        form = signup_form(s)
         cards.append(f"""<div class="subcard" style="border-top-color:var(--spine-{s})">
   <h3 style="color:var(--pub-{s})">{esc(p['title'])}</h3>
   <div class="cad sans">{esc(p['cadence'])}</div>
@@ -610,11 +626,13 @@ def subscribe_block(only=None):
   </div>
 </div>""")
     lede = ("Every edition is published here first, then sent the same day. "
-            "Free, and one click to stop. Pick the ones you want.") if not only \
-        else ("Published here first, then sent the same day. Free, and one "
-              "click to stop.")
+            "Free. Every email has an unsubscribe link at the bottom. Pick the "
+            "ones you want.") if not only \
+        else ("Published here first, then sent the same day. Free, with an "
+              "unsubscribe link at the bottom of every email.")
     return f"""<section class="sub">
   <h2>Get these in your inbox</h2>
   <p class="lede">{lede}</p>
   <div class="subrow">{''.join(cards)}</div>
-</section>"""
+</section>
+{SUBSCRIBE_JS}"""
