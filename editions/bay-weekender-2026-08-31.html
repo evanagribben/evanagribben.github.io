@@ -15,6 +15,18 @@ if(s>=0.9&&s<=1.6)document.documentElement.style.fontSize=(16*s)+'px';}catch(e){
 </script>
 <meta name="description" content="Labor Day weekend opens a five-week run that ends with Hardly Strictly free in the park, plus Portola, Folsom and the Giants' last homestand.">
 <link rel="canonical" href="https://evanagribben.github.io/editions/bay-weekender-2026-08-31.html">
+<meta property="og:site_name" content="The Newsstand">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Bay Weekender: August 31, 2026">
+<meta property="og:description" content="Labor Day weekend opens a five-week run that ends with Hardly Strictly free in the park, plus Portola, Folsom and the Giants' last homestand.">
+<meta property="og:url" content="https://evanagribben.github.io/editions/bay-weekender-2026-08-31.html">
+<meta property="og:image" content="https://evanagribben.github.io/img/og-bay-weekender.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Bay Weekender: August 31, 2026">
+<meta name="twitter:description" content="Labor Day weekend opens a five-week run that ends with Hardly Strictly free in the park, plus Portola, Folsom and the Giants' last homestand.">
+<meta name="twitter:image" content="https://evanagribben.github.io/img/og-bay-weekender.png">
 <link rel="alternate" type="application/rss+xml" title="The Newsstand" href="/feed.xml">
 <style>
 /* ------------------------------------------------------------------ palette
@@ -257,7 +269,74 @@ footer a{text-decoration:underline}
   font-size:0.6562rem;letter-spacing:0.19em;text-transform:uppercase;padding:6px 0 0}
 .ed-nav a{color:var(--body-soft)}
 
+/* secondary links under the publication nav */
+.subnav{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;padding:10px 0;
+  border-bottom:1px solid var(--rule)}
+.subnav a{font-size:0.6562rem;letter-spacing:0.19em;text-transform:uppercase;
+  color:var(--muted-2);padding:6px 0;border-bottom:1px solid transparent}
+.subnav a:hover,.subnav a:focus-visible,.subnav a[aria-current]{color:var(--ink);
+  border-bottom-color:currentColor}
+
+/* previous / next above an edition */
+.ed-topnav{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  margin:18px 0 0;font-size:0.6875rem;letter-spacing:0.12em;text-transform:uppercase}
+.ed-topnav a{display:inline-flex;flex-direction:column;gap:2px;padding:10px 14px;
+  border:1px solid var(--rule);color:var(--body-soft);min-height:44px;max-width:48%}
+.ed-topnav a:hover,.ed-topnav a:focus-visible{border-color:var(--ink);color:var(--ink)}
+.ed-topnav a .lbl{font-size:0.5938rem;letter-spacing:0.22em;color:var(--muted)}
+.ed-topnav .nx{margin-left:auto;text-align:right}
+
+/* plain prose pages (About) */
+.prose{max-width:62ch;margin:0 auto}
+.prose p{font-size:1.0625rem;color:var(--body)}
+.prose h3{font-size:1.375rem;margin:34px 0 4px}
+.prose .cad{font-size:0.625rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px}
+
+/* search */
+.searchbox{display:flex;gap:8px;max-width:640px;margin:0 auto 10px}
+.searchbox input{flex:1;font-size:1.0625rem;padding:12px 14px;min-height:48px;
+  border:1px solid var(--rule-hard);background:var(--field);color:var(--ink)}
+.searchbox input:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.searchfilters{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;
+  font-size:0.75rem;color:var(--muted-2);margin:6px 0 18px}
+.searchfilters label{display:inline-flex;align-items:center;gap:6px;min-height:36px;cursor:pointer}
+.searchstatus{text-align:center;font-size:0.75rem;letter-spacing:.08em;color:var(--muted);
+  margin:0 0 14px}
+.hits{list-style:none;margin:0;padding:0}
+.hits li{border-bottom:1px solid var(--rule-soft)}
+.hits a{display:block;padding:18px 4px}
+.hits a:hover{background:var(--hover)}
+.hits .hp{font-size:0.625rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700}
+.hits .hd{font-size:0.6562rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);
+  margin-left:10px}
+.hits .hs{margin:6px 0 0;font-size:0.9688rem;color:var(--body)}
+.hits mark{background:#f6e3a8;color:inherit;padding:0 1px}
+:root[data-theme="dark"] .hits mark{background:#5a4a17}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .hits mark{background:#5a4a17}}
+
+/* What's on now */
+.nowintro{text-align:center;max-width:58ch;margin:0 auto 6px;color:var(--body);font-size:1rem}
+.nowfilters{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-size:0.75rem;
+  color:var(--muted-2);margin:12px 0 4px}
+.nowfilters label{display:inline-flex;align-items:center;gap:6px;min-height:36px;cursor:pointer}
+.nowfilters .sw{width:10px;height:10px;border-radius:50%;display:inline-block}
+.nowday{margin:30px 0 0}
+.nowday h3{font-size:0.6875rem;letter-spacing:0.25em;text-transform:uppercase;
+  border-bottom:1px solid var(--rule-hard);padding-bottom:6px;margin:0 0 4px}
+.nowev{display:grid;grid-template-columns:4px 1fr;gap:14px;padding:14px 0;
+  border-bottom:1px solid var(--rule-soft)}
+.nowev .spine{border-radius:2px}
+.nowev h4{font-size:1.125rem;margin:0 0 3px;line-height:1.3}
+.nowev .m{font-size:0.75rem;color:var(--muted-2);letter-spacing:.04em}
+.nowev p{margin:6px 0 4px;font-size:0.9688rem;color:var(--body)}
+.nowev .lk{font-size:0.6562rem;letter-spacing:0.18em;text-transform:uppercase}
+.nowev .lk a{text-decoration:underline;margin-right:16px}
+.nowempty{text-align:center;color:var(--muted);margin:30px 0}
+
 @media(max-width:640px){
+  .ed-topnav a{max-width:100%;flex:1 1 100%}
+  .ed-topnav .nx{margin-left:0}
   .mast h1{font-size:2.5rem}
   .ed{grid-template-columns:1fr;gap:8px}
   .ed .side{text-align:left}
@@ -294,6 +373,8 @@ footer a{text-decoration:underline}
   <div class="dateline"><span>The Bay Weekender</span><span>August 31, 2026</span><span>Every other Monday</span></div>
 </header>
 <nav class="nav sans"><a href="/bay-weekender/" style="color:var(--pub-bay-weekender)">The Bay Weekender</a><a href="/soccer-digest/" style="color:var(--pub-soccer-digest)">The Weekly Soccer Digest</a><a href="/arsenal-digest/" style="color:var(--pub-arsenal-digest)">The Weekly Arsenal Digest</a></nav>
+<nav class="subnav sans" aria-label="More"><a href="/bay-weekender/now.html">What's on in the Bay</a><a href="/search.html">Search</a><a href="/archive.html">Archive</a><a href="/about.html">About</a></nav>
+<nav class="ed-topnav sans" aria-label="Other editions"><a class="pv" href="/editions/bay-weekender-2026-08-17.html" rel="prev"><span class="lbl">&larr; Previous edition</span>Aug 17, 2026</a><a class="nx" href="/editions/bay-weekender-2026-09-14.html" rel="next"><span class="lbl">Next edition &rarr;</span>Sep 14, 2026</a></nav>
 <div class="ed-head">
   <a class="back sans" href="/bay-weekender/">&larr; The Bay Weekender</a>
   <div class="pubname sans" style="color:var(--pub-bay-weekender)">The Bay Weekender</div>
@@ -309,7 +390,7 @@ footer a{text-decoration:underline}
   <iframe id="ed" src="/editions/raw/bay-weekender-2026-08-31.html"
           title="August 31, 2026" loading="lazy"></iframe>
 </div>
-<div class="ed-nav sans"><a href="/editions/bay-weekender-2026-09-14.html">&larr; Newer</a><a href="/bay-weekender/">All Bay Weekender editions</a><a href="/editions/bay-weekender-2026-08-17.html">Older &rarr;</a></div>
+<div class="ed-nav sans"><a href="/editions/bay-weekender-2026-08-17.html">&larr; Previous: Aug 17, 2026</a><a href="/bay-weekender/">All Bay Weekender editions</a><a href="/editions/bay-weekender-2026-09-14.html">Next: Sep 14, 2026 &rarr;</a></div>
 <p class="sans" style="font-size:11px;color:#8f8571;margin-top:16px">
   <a href="/editions/raw/bay-weekender-2026-08-31.html" style="text-decoration:underline">
   Open this edition on its own &rarr;</a>
@@ -329,7 +410,8 @@ footer a{text-decoration:underline}
 </section>
 <footer class="sans">
   <div>The Newsstand &middot; Written and researched weekly.</div>
-  <div><a href="/feed.xml">RSS</a> &middot; <a href="/archive.html">Full archive</a></div>
+  <div><a href="/about.html">About</a> &middot; <a href="/search.html">Search</a> &middot;
+  <a href="/feed.xml">RSS</a> &middot; <a href="/archive.html">Full archive</a></div>
 </footer>
 <script>
 /* The edition renders in a same-origin iframe so its own styling survives

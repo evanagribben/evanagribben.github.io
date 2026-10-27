@@ -13,9 +13,11 @@ collisions against the site and full formatting fidelity.
 Usage:  python3 build.py
 """
 
+import html as htmlmod
 import json
 import os
-from datetime import datetime, timezone
+import re
+from datetime import date, datetime, timezone
 from email.utils import format_datetime
 
 from theme import (PUBS, PUB_ORDER, shell, esc, masthead, footer, section,
@@ -143,12 +145,13 @@ def build_pub(slug, eds):
     body.append(subscribe_block(only=slug))
     body.append(footer())
     return shell(p["title"] + " · The Newsstand", "\n".join(body),
-                 desc=p["blurb"], canonical=f"{SITE_URL}/{slug}/")
+                 desc=p["blurb"], canonical=f"{SITE_URL}/{slug}/",
+                 og_title=p["title"], og_image=slug)
 
 
 def build_archive(eds):
     body = [masthead(["Full archive", plural(len(eds)),
-                      "Three publications"])]
+                      "Three publications"], current="archive")]
     by_year = {}
     for e in eds:
         by_year.setdefault(e["date"][:4], []).append(e)
@@ -160,6 +163,8 @@ def build_archive(eds):
                     'Nothing archived yet.</p>')
     body.append(footer())
     return shell("Archive · The Newsstand", "\n".join(body),
+                 desc="Every edition of The Bay Weekender, The Weekly Soccer "
+                      "Digest and The Weekly Arsenal Digest.",
                  canonical=SITE_URL + "/archive.html")
 
 
@@ -171,14 +176,23 @@ def build_edition(e, eds):
     older = same[i + 1] if i + 1 < len(same) else None
 
     nav = [
-        (f'<a href="/editions/{newer["slug"]}.html">&larr; Newer</a>'
-         if newer else "<span></span>"),
-        f'<a href="/{e["pub"]}/">All {esc(p["short"])} editions</a>',
-        (f'<a href="/editions/{older["slug"]}.html">Older &rarr;</a>'
+        (f'<a href="/editions/{older["slug"]}.html">&larr; Previous: {short(older["date"])}</a>'
          if older else "<span></span>"),
+        f'<a href="/{e["pub"]}/">All {esc(p["short"])} editions</a>',
+        (f'<a href="/editions/{newer["slug"]}.html">Next: {short(newer["date"])} &rarr;</a>'
+         if newer else "<span></span>"),
     ]
 
     body = [masthead([p["title"], pretty(e["date"]), p["cadence"]])]
+    prev_a = (f'<a class="pv" href="/editions/{older["slug"]}.html" rel="prev">'
+              f'<span class="lbl">&larr; Previous edition</span>{short(older["date"])}</a>'
+              if older else "")
+    next_a = (f'<a class="nx" href="/editions/{newer["slug"]}.html" rel="next">'
+              f'<span class="lbl">Next edition &rarr;</span>{short(newer["date"])}</a>'
+              if newer else "")
+    if prev_a or next_a:
+        body.append(f'<nav class="ed-topnav sans" aria-label="Other editions">'
+                    f'{prev_a}{next_a}</nav>')
     body.append(f"""<div class="ed-head">
   <a class="back sans" href="/{e['pub']}/">&larr; {esc(p['title'])}</a>
   <div class="pubname sans" style="color:var(--pub-{e['pub']})">{esc(p['title'])}</div>
@@ -540,7 +554,336 @@ def build_edition(e, eds):
     return shell(f"{e['title']} · {p['title']}", "\n".join(body),
                  desc=e.get("dek", ""),
                  canonical=f"{SITE_URL}/editions/{e['slug']}.html",
-                 wide=True)
+                 wide=True, og_title=f"{p['title']}: {pretty(e['date'])}",
+                 og_image=e["pub"], og_type="article")
+
+
+# ---------------------------------------------------------------------- search
+
+def edition_text(slug):
+    """The readable words of an edition, for the search index."""
+    path = os.path.join(ROOT, "editions", "raw", slug + ".html")
+    try:
+        with open(path, encoding="utf-8") as f:
+            t = f.read()
+    except OSError:
+        return ""
+    t = re.sub(r"<(script|style|head|svg)\b[\s\S]*?</\1>", " ", t, flags=re.I)
+    t = re.sub(r"<[^>]+>", " ", t)
+    t = htmlmod.unescape(t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def build_search_index(eds):
+    rows = [{"s": e["slug"], "p": e["pub"], "d": e["date"],
+             "t": f"{PUBS[e['pub']]['title']}: {pretty(e['date'])}",
+             "k": e.get("dek", ""), "x": edition_text(e["slug"])} for e in eds]
+    return json.dumps(rows, ensure_ascii=False, separators=(",", ":"))
+
+
+def build_search(eds):
+    pubs = json.dumps({s: {"t": PUBS[s]["title"]} for s in PUB_ORDER})
+    checks = "".join(
+        f'<label><input type="checkbox" data-pub="{s}" checked> '
+        f'<span style="color:var(--pub-{s})">{esc(PUBS[s]["short"])}</span></label>'
+        for s in PUB_ORDER)
+    body = [masthead(["Search", plural(len(eds)), "Three publications"],
+                     current="search")]
+    body.append(section("Search every edition"))
+    body.append(f"""<form class="searchbox sans" role="search" onsubmit="return false">
+  <label for="q" style="position:absolute;left:-9999px">Search all editions</label>
+  <input id="q" type="search" placeholder="Try Saka, Outside Lands, Chase Center" autocomplete="off">
+</form>
+<div class="searchfilters sans">{checks}</div>
+<p class="searchstatus sans" id="status" aria-live="polite">Type a word or name to search all {len(eds)} editions.</p>
+<ul class="hits" id="hits"></ul>
+<noscript><p class="nowempty">Search needs JavaScript. The <a href="/archive.html">full archive</a> lists every edition.</p></noscript>""")
+    body.append(footer())
+    body.append(r"""<script>
+(function(){
+  var PUBS=""" + pubs + r""", DATA=null, q=document.getElementById('q'),
+      hits=document.getElementById('hits'), status=document.getElementById('status'),
+      boxes=document.querySelectorAll('[data-pub]');
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+  function load(cb){
+    if(DATA)return cb();
+    status.textContent='Loading the archive…';
+    fetch('/search-index.json').then(function(r){return r.json();}).then(function(d){
+      DATA=d.map(function(e){e.n=norm(e.x);return e;}); cb();
+    }).catch(function(){status.textContent='Search could not load. Try again in a moment.';});
+  }
+  function snippet(e,terms){
+    var at=-1;
+    for(var i=0;i<terms.length&&at<0;i++)at=e.n.indexOf(terms[i]);
+    var s=Math.max(0,at-90), raw=e.x.slice(s,s+260);
+    var out=esc((s>0?'…':'')+raw+(s+260<e.x.length?'…':''));
+    terms.forEach(function(t){
+      if(t.length<2)return;
+      out=out.replace(new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');
+    });
+    return out;
+  }
+  function run(){
+    var raw=q.value.trim();
+    try{history.replaceState(null,'',raw?('?q='+encodeURIComponent(raw)):location.pathname);}catch(e){}
+    if(raw.length<2){hits.innerHTML='';status.textContent='Type a word or name to search all editions.';return;}
+    load(function(){
+      var terms=norm(raw).split(/\s+/).filter(Boolean), on={};
+      boxes.forEach(function(b){on[b.getAttribute('data-pub')]=b.checked;});
+      var res=[];
+      DATA.forEach(function(e){
+        if(!on[e.p])return;
+        var score=0;
+        for(var i=0;i<terms.length;i++){
+          var c=e.n.split(terms[i]).length-1;
+          if(!c)return;
+          score+=c;
+        }
+        res.push({e:e,score:score});
+      });
+      res.sort(function(a,b){return b.score-a.score||(a.e.d<b.e.d?1:-1);});
+      status.textContent=res.length?(res.length+' edition'+(res.length===1?'':'s')+' mention “'+raw+'”'):'No editions mention “'+raw+'”.';
+      hits.innerHTML=res.slice(0,40).map(function(r){
+        var e=r.e;
+        return '<li><a href="/editions/'+e.s+'.html"><span class="hp sans" style="color:var(--pub-'+e.p+')">'
+          +esc(PUBS[e.p].t)+'</span><span class="hd sans">'+esc(e.t.split(': ')[1]||'')+' · '+r.score+' mention'+(r.score===1?'':'s')
+          +'</span><p class="hs">'+snippet(e,terms)+'</p></a></li>';
+      }).join('');
+    });
+  }
+  var t=null;
+  q.addEventListener('input',function(){clearTimeout(t);t=setTimeout(run,180);});
+  boxes.forEach(function(b){b.addEventListener('change',run);});
+  var m=location.search.match(/[?&]q=([^&]+)/);
+  if(m){q.value=decodeURIComponent(m[1].replace(/\+/g,' '));run();}
+})();
+</script>""")
+    return shell("Search · The Newsstand", "\n".join(body),
+                 desc="Search every edition of The Bay Weekender, The Weekly "
+                      "Soccer Digest and The Weekly Arsenal Digest.",
+                 canonical=SITE_URL + "/search.html")
+
+
+# ------------------------------------------------------------ what's on now
+
+MONTHS = {m: i for i, m in enumerate(
+    ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct",
+     "nov", "dec"], 1)}
+CATS = {"music": ("Music, Arts & Nightlife", "#0e7c86"),
+        "food": ("Food, Drink & Festivals", "#c85a2b"),
+        "outdoors": ("Outdoors, Sports & Active", "#3b7a57")}
+
+
+def _clean(s):
+    s = re.sub(r"<br\s*/?>", " · ", s or "", flags=re.I)
+    s = re.sub(r"<[^>]+>", " ", s)
+    return re.sub(r"\s+", " ", htmlmod.unescape(s)).strip(" ·")
+
+
+def _row(chunk, label):
+    """A labelled detail (When, Time, Where, Price) in either edition style."""
+    m = re.search(r"<dt>\s*" + label + r"\s*</dt>\s*<dd>([\s\S]*?)</dd>", chunk, re.I)
+    if m:
+        return _clean(m.group(1))
+    m = re.search(r"<b>\s*" + label + r"\s*</b>([\s\S]*?)(?:<br\s*/?>\s*<b>|</p>)", chunk, re.I)
+    return _clean(m.group(1)) if m else ""
+
+
+def _dates(text, ed_date):
+    """Every calendar date mentioned in a When line, as date objects.
+    Handles 'Friday October 30', 'Oct 15 & 17', 'November 7 to December 19'."""
+    out, month = [], None
+    for tok in re.finditer(r"([A-Za-z]{3,9})\.?|(?<!\d)(\d{1,2})(?:st|nd|rd|th)?\b(?!:|\d)", text):
+        word, num = tok.group(1), tok.group(2)
+        if word:
+            k = word[:3].lower()
+            month = MONTHS.get(k, month) if k in MONTHS else month
+            continue
+        if month and num:
+            d = int(num)
+            if not 1 <= d <= 31:
+                continue
+            y = ed_date.year + (1 if month < ed_date.month - 2 else 0)
+            try:
+                out.append(date(y, month, d))
+            except ValueError:
+                pass
+    return out
+
+
+def bay_events(e):
+    path = os.path.join(ROOT, "editions", "raw", e["slug"] + ".html")
+    try:
+        with open(path, encoding="utf-8") as f:
+            t = f.read()
+    except OSError:
+        return []
+    ed_date = datetime.strptime(e["date"], "%Y-%m-%d").date()
+    out = []
+    for m in re.finditer(r'<details\b([^>]*\bclass="ev\b[^"]*"[^>]*)>([\s\S]*?)</details>', t):
+        attrs, chunk = m.group(1), m.group(2)
+        idm = re.search(r'\bid="([^"]+)"', attrs)
+        cat = re.search(r'data-cat="(\w+)"', attrs) or re.search(r'\b(?:ev|c)-(music|food|outdoors)\b', attrs)
+        name = re.search(r'class="(?:evname|en)"[^>]*>([\s\S]*?)</span>', chunk)
+        hook = re.search(r'class="(?:hook|ek)"[^>]*>([\s\S]*?)</span>', chunk)
+        link = re.search(r'<p class="(?:golink|el)"[^>]*>\s*<a href="([^"]+)"', chunk)
+        when = _row(chunk, "When")
+        ds = re.search(r'data-start="(\d{4}-\d{2}-\d{2})"', attrs)
+        de = re.search(r'data-end="(\d{4}-\d{2}-\d{2})"', attrs)
+        if ds:
+            start = datetime.strptime(ds.group(1), "%Y-%m-%d").date()
+            end = datetime.strptime(de.group(1), "%Y-%m-%d").date() if de else start
+        else:
+            found = _dates(when, ed_date)
+            if not found:
+                continue
+            start, end = min(found), max(found)
+        if not name:
+            continue
+        out.append({
+            "id": idm.group(1) if idm else "",
+            "slug": e["slug"],
+            "cat": cat.group(1) if cat else "",
+            "name": _clean(name.group(1)),
+            "hook": _clean(hook.group(1)) if hook else "",
+            "when": when, "time": _row(chunk, "Time"),
+            "where": _row(chunk, "Where"), "price": _row(chunk, "Price"),
+            "link": htmlmod.unescape(link.group(1)) if link else "",
+            "start": start.isoformat(), "end": end.isoformat(),
+        })
+    return out
+
+
+def build_now(eds):
+    # Only the newest edition. It already looks five weeks ahead, and anything
+    # still upcoming from an older edition either reappears in it or was
+    # dropped on purpose, so mixing editions only adds duplicates.
+    bay = [e for e in eds if e["pub"] == "bay-weekender"][:1]
+    seen, events = set(), []
+    for e in bay:
+        for ev in bay_events(e):
+            key = re.sub(r"[^a-z0-9]", "", ev["name"].lower())[:40] + ev["start"]
+            addr = re.sub(r"[^a-z0-9]", "", ev["where"].split("·")[-1].lower())[:24]
+            key2 = ev["start"] + addr if addr else None
+            if key in seen or (key2 and key2 in seen):
+                continue          # the newer edition's version wins
+            seen.add(key)
+            if key2:
+                seen.add(key2)
+            events.append(ev)
+    events.sort(key=lambda v: (v["start"], v["name"]))
+    checks = "".join(
+        f'<label><input type="checkbox" data-cat="{k}" checked> '
+        f'<span class="sw" style="background:{c}"></span>{esc(lbl)}</label>'
+        for k, (lbl, c) in CATS.items())
+    latest = bay[0] if bay else None
+    body = [masthead(["The Bay Weekender", "What's on now",
+                      "Updated with every edition"], current="now")]
+    body.append(section("What's on in the Bay"))
+    intro = ("Everything from the latest Bay Weekender that has not happened yet, "
+             "soonest first. Past events drop off on their own.")
+    if latest:
+        intro += (f' The latest edition, from {pretty(latest["date"])}, is '
+                  f'<a href="/editions/{latest["slug"]}.html" style="text-decoration:underline">here</a>.')
+    body.append(f'<p class="nowintro">{intro}</p>')
+    body.append(f'<div class="nowfilters sans">{checks}</div>')
+    body.append('<p class="searchstatus sans" id="nowcount" aria-live="polite"></p>')
+    body.append('<div id="nowlist"></div>')
+    body.append('<noscript><p class="nowempty">This page needs JavaScript to hide '
+                'past events. The latest edition lists everything.</p></noscript>')
+    body.append(subscribe_block(only="bay-weekender"))
+    body.append(footer())
+    data = json.dumps(events, ensure_ascii=False).replace("</", "<\\/")
+    cats = json.dumps({k: c for k, (_, c) in CATS.items()})
+    body.append(r"""<script>
+(function(){
+  var EV=""" + data + """, COL=""" + cats + r""";
+  var list=document.getElementById('nowlist'), count=document.getElementById('nowcount'),
+      boxes=document.querySelectorAll('[data-cat]');
+  function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  /* Today in San Francisco, whatever time zone the reader is in. */
+  function today(){
+    try{return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles'}).format(new Date());}
+    catch(e){return new Date().toISOString().slice(0,10);}
+  }
+  function nice(iso){
+    var p=iso.split('-'), d=new Date(Date.UTC(+p[0],+p[1]-1,+p[2],12));
+    return d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',timeZone:'UTC'});
+  }
+  function draw(){
+    var t=today(), on={}, groups={}, order=[], n=0;
+    boxes.forEach(function(b){on[b.getAttribute('data-cat')]=b.checked;});
+    EV.forEach(function(e){
+      if(e.end<t)return;
+      if(e.cat&&on[e.cat]===false)return;
+      var key=e.start<t?t:e.start;          /* already running: file under today */
+      if(!groups[key]){groups[key]=[];order.push(key);}
+      groups[key].push(e); n++;
+    });
+    order.sort();
+    count.textContent=n?(n+' upcoming event'+(n===1?'':'s')):'';
+    if(!n){list.innerHTML='<p class="nowempty">Nothing upcoming from recent editions. The next Bay Weekender will fill this up.</p>';return;}
+    list.innerHTML=order.map(function(k){
+      return '<div class="nowday"><h3 class="sans">'+(k===t?'Today &middot; ':'')+esc(nice(k))+'</h3>'
+        +groups[k].map(function(e){
+          var multi=e.end!==e.start?' &middot; runs through '+esc(nice(e.end).replace(/^\w+, /,'')):'';
+          var meta=[e.time,e.where,e.price].filter(Boolean).map(esc).join(' &middot; ');
+          return '<div class="nowev"><span class="spine" style="background:'+(COL[e.cat]||'#999')+'"></span><div>'
+            +'<h4>'+esc(e.name)+'</h4><div class="m sans">'+meta+multi+'</div>'
+            +(e.hook?'<p>'+esc(e.hook)+'</p>':'')
+            +'<div class="lk sans"><a href="/editions/'+e.slug+'.html'+(e.id?'#'+e.id:'')+'">In the edition</a>'
+            +(e.link?'<a href="'+esc(e.link)+'" target="_blank" rel="noopener noreferrer">Tickets and details</a>':'')
+            +'</div></div></div>';
+        }).join('')+'</div>';
+    }).join('');
+  }
+  boxes.forEach(function(b){b.addEventListener('change',draw);});
+  draw();
+})();
+</script>""")
+    return shell("What's on in the Bay · The Newsstand", "\n".join(body),
+                 desc="Upcoming Bay Area events from The Bay Weekender, soonest "
+                      "first. Past events drop off on their own.",
+                 canonical=SITE_URL + "/bay-weekender/now.html",
+                 og_title="What's on in the Bay", og_image="bay-weekender")
+
+
+# ----------------------------------------------------------------------- about
+
+def build_about(eds):
+    body = [masthead(["About", "Three publications", plural(len(eds))],
+                     current="about")]
+    body.append(section("About The Newsstand"))
+    parts = ['<div class="prose">',
+             "<p>The Newsstand is the home of three free newsletters. Each one is "
+             "published here first and emailed to subscribers the same day. Every "
+             "past edition stays here, so you can catch up on anything you "
+             "missed, search the whole archive, or share a single edition with "
+             "a friend.</p>"]
+    for s in PUB_ORDER:
+        p = PUBS[s]
+        n = sum(1 for e in eds if e["pub"] == s)
+        parts.append(f'<h3 style="color:var(--pub-{s})">{esc(p["title"])}</h3>'
+                     f'<div class="cad sans">{esc(p["cadence"])} &middot; {plural(n)} so far</div>'
+                     f'<p>{esc(p["blurb"])} <a href="/{s}/" style="text-decoration:underline">'
+                     f'Read past editions</a>.</p>')
+    parts.append(
+        "<h3>How it works</h3><p>Every story is checked against the original "
+        "source before it runs, and anything unconfirmed is labelled as a rumour. "
+        "Kickoff and event times are given in Pacific time. Each edition says "
+        "what it covers and when it was written, so an older edition is still "
+        "useful as a record of that week.</p>"
+        "<h3>Subscribing</h3><p>All three are free. Pick the ones you want "
+        "below, and stop any time.</p>")
+    parts.append("</div>")
+    body.append("".join(parts))
+    body.append(subscribe_block())
+    body.append(footer())
+    return shell("About · The Newsstand", "\n".join(body),
+                 desc="What The Newsstand is: three free newsletters about Bay "
+                      "Area events, world football and Arsenal.",
+                 canonical=SITE_URL + "/about.html")
 
 
 def build_feed(eds):
@@ -591,6 +934,10 @@ def main():
     for e in eds:
         written.append(write(f"editions/{e['slug']}.html", build_edition(e, eds)))
     written.append(write("feed.xml", build_feed(eds)))
+    written.append(write("search.html", build_search(eds)))
+    written.append(write("search-index.json", build_search_index(eds)))
+    written.append(write("bay-weekender/now.html", build_now(eds)))
+    written.append(write("about.html", build_about(eds)))
     print(f"built {len(written)} files from {len(eds)} editions")
 
 
