@@ -758,9 +758,28 @@ footer a{text-decoration:underline}
       {attributes:true,attributeFilter:['data-theme']});
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',paint);
   }catch(e){}
+  /* Links from the emails point at a section of the edition, for example
+     .../arsenal-digest-2026-11-03.html#transfer-news. The section lives inside
+     the frame, so the browser cannot find it on its own. Once the edition has
+     loaded, open whatever it is folded inside and scroll it into view. */
+  function hashJump(){
+    var id='';
+    try{ id=decodeURIComponent((location.hash||'').slice(1)); }catch(e){}
+    if(!id)return;
+    var d,el=null;
+    try{ d=f.contentDocument; el=d&&d.getElementById(id); }catch(e){}
+    if(!el)return;
+    var p=el;
+    while(p&&p!==d.body){ if(p.tagName==='DETAILS'&&!p.open)p.open=true; p=p.parentElement; }
+    fit();
+    var top=f.getBoundingClientRect().top+window.scrollY+el.getBoundingClientRect().top;
+    window.scrollTo({top:Math.max(0,top-window.innerHeight*0.12),behavior:'auto'});
+  }
   f.addEventListener('load',function(){
     run();setTimeout(run,300);setTimeout(run,1200);
+    setTimeout(hashJump,450);setTimeout(hashJump,1400);
   });
+  window.addEventListener('hashchange',hashJump);
   window.addEventListener('resize',run);
 })();
 </script>
