@@ -107,7 +107,7 @@ def build_home(eds):
                     'margin:0 auto">This week\'s editions appear here as they '
                     'are written. The Bay Weekender publishes Monday, '
                     'The Weekly Arsenal Digest Tuesday, and '
-                    'The Weekly Soccer Digest Wednesday.</p>')
+                    'The Weekly Soccer Digest Friday.</p>')
 
     body.append(section("The Publications"))
     body.append('<div class="pubs">')

@@ -31,7 +31,7 @@ PUBS = {
                  "are fully public.",
         "spine": "#0f7a4e",
         "text": "#0f7a4e",
-        "cadence": "Wednesdays",
+        "cadence": "Fridays",
     },
     "arsenal-digest": {
         "title": "The Weekly Arsenal Digest",
@@ -472,6 +472,18 @@ def og_tags(title, desc, url, image_slug="newsstand", kind="website"):
     ])
 
 
+# Free, privacy-friendly visitor counts (goatcounter.com). Empty until Evan
+# makes a free account; put its code here (the part before .goatcounter.com).
+GOATCOUNTER_CODE = ""
+
+
+def goatcounter():
+    if not GOATCOUNTER_CODE:
+        return ""
+    return (f'<script data-goatcounter="https://{GOATCOUNTER_CODE}.goatcounter.com/count" '
+            f'async src="//gc.zgo.at/count.js"></script>')
+
+
 def shell(title, body, desc="", canonical="", wide=False, og_title=None,
           og_image="newsstand", og_type="website"):
     meta_desc = f'<meta name="description" content="{esc(desc)}">' if desc else ""
@@ -490,6 +502,7 @@ def shell(title, body, desc="", canonical="", wide=False, og_title=None,
 {og}
 <link rel="alternate" type="application/rss+xml" title="The Newsstand" href="/feed.xml">
 <style>{BASE_CSS}</style>
+{goatcounter()}
 </head>
 <body>
 <div class="{wrapcls}">
