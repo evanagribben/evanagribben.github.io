@@ -93,19 +93,21 @@ a{color:inherit;text-decoration:none}
 .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,3vw,40px)}
 /* Edition pages run wider on desktop so the newsletter itself can breathe. */
 .wrap.wide{max-width:1440px}
-/* Option C: sleek sans for headlines and labels, modern serif for reading.
-   The site nameplate keeps the serif. */
+/* Type: Georgia nameplate, Helvetica small-caps labels, Figtree headlines,
+   Source Serif 4 for reading. */
 h1,h2,h3,h4{font-family:Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif}
+/* Small uppercase labels stay in Helvetica, like the masthead rows. */
+.sec h2,.nowday h3{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
 .ed h3,.pub h3,.subcard h3,.prose h3{font-weight:700;letter-spacing:-0.018em}
 .ed-head h1{font-weight:700!important}
-.sans{font-family:Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif}
+.sans{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
 
 /* theme toggle */
 .themebar{display:flex;justify-content:flex-end;align-items:center;gap:.6rem;
   padding:14px 0 0;min-height:1px;flex-wrap:wrap}
 .themetoggle{display:inline-flex;align-items:center;gap:.5rem;background:none;
   border:1px solid var(--rule);color:var(--muted);cursor:pointer;
-  font-family:Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:.625rem;
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:.625rem;
   letter-spacing:.2em;text-transform:uppercase;padding:.5rem .7rem;
   min-height:36px;transition:color .12s,border-color .12s}
 .themetoggle:hover{color:var(--ink);border-color:var(--ink)}
@@ -114,7 +116,7 @@ h1,h2,h3,h4{font-family:Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif}
 /* text size control */
 .textsize{display:inline-flex;align-items:center;border:1px solid var(--rule)}
 .textsize button{background:none;border:0;color:var(--muted);cursor:pointer;
-  font-family:Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif;line-height:1;
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;line-height:1;
   padding:0 .65rem;min-height:36px;min-width:36px;transition:color .12s}
 .textsize button:hover{color:var(--ink)}
 .textsize button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
@@ -373,7 +375,7 @@ footer a{text-decoration:underline}
 </div>
 <header class="mast sans">
   <div class="kick">Independent &middot; Weekly &middot; San Francisco</div>
-  <h1 style="font-family:&#39;Source Serif 4&#39;,Georgia,&#39;Times New Roman&#39;,serif"><a href="/">The Newsstand</a></h1>
+  <h1 style="font-family:Georgia,serif"><a href="/">The Newsstand</a></h1>
   <div class="rule"></div>
   <div class="dateline"><span>The Weekly Soccer Digest</span><span>September 2, 2026</span><span>Fridays</span></div>
 </header>
@@ -484,6 +486,8 @@ footer a{text-decoration:underline}
      the ones that name a font of their own get touched. */
   var NS_SANS="Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif";
   var NS_SERIF="'Source Serif 4',Georgia,'Times New Roman',serif";
+  var NS_LABEL="'Helvetica Neue',Helvetica,Arial,sans-serif";
+  var NS_PLATE="Georgia,'Times New Roman',serif";
   function unifyFonts(d){
     if(!d||!d.body)return;
     if(!d.getElementById('ns-fonts')){
@@ -495,12 +499,20 @@ footer a{text-decoration:underline}
     var w=d.defaultView, els=d.body.getElementsByTagName('*');
     var all=[d.body].concat(Array.prototype.slice.call(els));
     for(var i=0;i<all.length;i++){
-      var el=all[i], ff=(w.getComputedStyle(el).fontFamily||'').toLowerCase();
+      var el=all[i];
+      if(el.dataset&&el.dataset.nsf)continue;
+      var cs=w.getComputedStyle(el), ff=(cs.fontFamily||'').toLowerCase();
       if(!ff||/mono|courier|emoji/.test(ff))continue;
       var first=ff.split(',')[0].replace(/["']/g,'').trim();
-      if(first==='figtree'||first==='source serif 4')continue;
-      var serif=/georgia|times|garamond|palatino|cambria|baskerville|merriweather|serif$/.test(first)&&!/sans/.test(first);
-      el.style.setProperty('font-family',serif?NS_SERIF:NS_SANS,'important');
+      var size=parseFloat(cs.fontSize)||16, ls=parseFloat(cs.letterSpacing)||0;
+      var serif=/source serif|georgia|times|garamond|palatino|cambria|baskerville|merriweather|serif$/.test(first)&&!/sans/.test(first);
+      var stack;
+      if(serif) stack = size>=30 ? NS_PLATE : NS_SERIF;   /* nameplates keep Georgia */
+      else stack = (cs.textTransform==='uppercase'||ls>size*0.05) ? NS_LABEL : NS_SANS; /* small caps labels keep Helvetica */
+      var want=stack.split(',')[0].replace(/["']/g,'').toLowerCase();
+      if(first===want)continue;          /* already right, usually by inheritance */
+      el.style.setProperty('font-family',stack,'important');
+      el.dataset.nsf='1';
     }
   }
 

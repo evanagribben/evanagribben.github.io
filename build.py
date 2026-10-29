@@ -263,6 +263,8 @@ def build_edition(e, eds):
      the ones that name a font of their own get touched. */
   var NS_SANS="Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif";
   var NS_SERIF="'Source Serif 4',Georgia,'Times New Roman',serif";
+  var NS_LABEL="'Helvetica Neue',Helvetica,Arial,sans-serif";
+  var NS_PLATE="Georgia,'Times New Roman',serif";
   function unifyFonts(d){
     if(!d||!d.body)return;
     if(!d.getElementById('ns-fonts')){
@@ -274,12 +276,20 @@ def build_edition(e, eds):
     var w=d.defaultView, els=d.body.getElementsByTagName('*');
     var all=[d.body].concat(Array.prototype.slice.call(els));
     for(var i=0;i<all.length;i++){
-      var el=all[i], ff=(w.getComputedStyle(el).fontFamily||'').toLowerCase();
+      var el=all[i];
+      if(el.dataset&&el.dataset.nsf)continue;
+      var cs=w.getComputedStyle(el), ff=(cs.fontFamily||'').toLowerCase();
       if(!ff||/mono|courier|emoji/.test(ff))continue;
       var first=ff.split(',')[0].replace(/["']/g,'').trim();
-      if(first==='figtree'||first==='source serif 4')continue;
-      var serif=/georgia|times|garamond|palatino|cambria|baskerville|merriweather|serif$/.test(first)&&!/sans/.test(first);
-      el.style.setProperty('font-family',serif?NS_SERIF:NS_SANS,'important');
+      var size=parseFloat(cs.fontSize)||16, ls=parseFloat(cs.letterSpacing)||0;
+      var serif=/source serif|georgia|times|garamond|palatino|cambria|baskerville|merriweather|serif$/.test(first)&&!/sans/.test(first);
+      var stack;
+      if(serif) stack = size>=30 ? NS_PLATE : NS_SERIF;   /* nameplates keep Georgia */
+      else stack = (cs.textTransform==='uppercase'||ls>size*0.05) ? NS_LABEL : NS_SANS; /* small caps labels keep Helvetica */
+      var want=stack.split(',')[0].replace(/["']/g,'').toLowerCase();
+      if(first===want)continue;          /* already right, usually by inheritance */
+      el.style.setProperty('font-family',stack,'important');
+      el.dataset.nsf='1';
     }
   }
 
