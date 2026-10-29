@@ -138,6 +138,26 @@ def download(f):
     return get(f"{API}/files/{f['id']}?alt=media&key={KEY}")
 
 
+def extract_title(html, slug, date):
+    """The headline the website shows for an edition. Prefer an explicit
+    <meta name="headline"> in the edition itself; then the hand-kept
+    titles.json; and only as a last resort the date."""
+    m = re.search(r'<meta\s+name=["\']headline["\']\s+content=(["\'])(.*?)\1',
+                  html, re.I | re.S)
+    if m:
+        t = htmllib.unescape(re.sub(r"\s+", " ", m.group(2))).strip()
+        if t:
+            return t[:160]
+    try:
+        with open(os.path.join(ROOT, "titles.json"), encoding="utf-8") as fh:
+            t = json.load(fh).get(slug, "").strip()
+        if t:
+            return t
+    except (OSError, ValueError):
+        pass
+    return datetime.strptime(date, "%Y-%m-%d").strftime("%B %-d, %Y")
+
+
 def extract_dek(html, fallback):
     """Prefer an explicit <meta name="dek">; otherwise take the first real
     sentence of visible text. Never invent anything."""
@@ -310,7 +330,7 @@ def main():
                       encoding="utf-8") as fh:
                 fh.write(html)
 
-            title = datetime.strptime(date, "%Y-%m-%d").strftime("%B %-d, %Y")
+            title = extract_title(html, slug, date)
             entry = {
                 "slug": slug, "pub": pub, "date": date, "title": title,
                 "dek": extract_dek(html, title), "src": src,
@@ -337,12 +357,17 @@ def main():
         if not os.path.isfile(path):
             continue
         with open(path, encoding="utf-8", errors="replace") as fh:
-            new_dek = extract_dek(fh.read(), e.get("title", ""))
+            raw = fh.read()
+        new_title = extract_title(raw, e["slug"], e["date"])
+        if new_title and new_title != e.get("title"):
+            e["title"] = new_title
+            refreshed += 1
+        new_dek = extract_dek(raw, e.get("title", ""))
         if new_dek and new_dek != e.get("dek"):
             e["dek"] = new_dek
             refreshed += 1
     if refreshed:
-        log(f"refreshed {refreshed} dek(s)")
+        log(f"refreshed {refreshed} title(s)/dek(s)")
 
     # ALWAYS write the manifest, never conditionally. An earlier version only
     # wrote it when something was added or a dek changed, which meant a

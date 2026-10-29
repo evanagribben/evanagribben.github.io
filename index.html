@@ -87,9 +87,9 @@ body{margin:0;background:var(--bg);color:var(--ink);
   font-family:Georgia,'Times New Roman',serif;line-height:1.68;
   -webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:900px;margin:0 auto;padding:0 30px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,3vw,40px)}
 /* Edition pages run wider on desktop so the newsletter itself can breathe. */
-.wrap.wide{max-width:1180px}
+.wrap.wide{max-width:1440px}
 .sans{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
 
 /* theme toggle */
@@ -168,7 +168,7 @@ a{color:inherit;text-decoration:none}
 .ed .when{font-size:0.6562rem;letter-spacing:0.152em;text-transform:uppercase;
   color:var(--muted);margin-top:7px}
 .ed h3{font-size:1.625rem;margin:0 0 8px;line-height:1.22;letter-spacing:-0.012em}
-.ed p{margin:0;font-size:1.0312rem;color:var(--body);max-width:60ch}
+.ed p{margin:0;font-size:1.0312rem;color:var(--body);max-width:80ch}
 .ed .go{margin-top:12px;font-size:0.6562rem;letter-spacing:0.21em;
   text-transform:uppercase;color:var(--muted)}
 
@@ -184,7 +184,7 @@ a{color:inherit;text-decoration:none}
   font-weight:700}
 
 /* publication page intro */
-.pubintro{text-align:center;max-width:60ch;margin:0 auto}
+.pubintro{text-align:center;max-width:72ch;margin:0 auto}
 .pubintro p{font-size:1.0625rem;color:var(--body)}
 
 /* compact archive list */
@@ -205,7 +205,7 @@ a{color:inherit;text-decoration:none}
 .sub{margin:66px 0 0;border:1px solid var(--ink);padding:44px 42px;
   text-align:center;background:var(--panel)}
 .sub h2{font-size:2rem;margin:0 0 8px;letter-spacing:-0.016em}
-.sub .lede{margin:0 auto 28px;color:var(--body-soft);font-size:1rem;max-width:48ch}
+.sub .lede{margin:0 auto 28px;color:var(--body-soft);font-size:1rem;max-width:60ch}
 /* One publication per row, so each signup form gets enough width to show the
    whole email field and button instead of being squeezed into a third. */
 .subrow{display:flex;flex-direction:column;gap:48px;text-align:center;margin-top:14px}
@@ -243,7 +243,7 @@ footer a{text-decoration:underline}
   font-weight:700;margin:18px 0 10px}
 .ed-head h1{font-size:2.625rem;margin:0 0 12px;line-height:1.12;letter-spacing:-0.024em;
   font-weight:400}
-.ed-head .dek{font-size:1.0938rem;color:var(--body);max-width:58ch;margin:0 auto 14px}
+.ed-head .dek{font-size:1.0938rem;color:var(--body);max-width:72ch;margin:0 auto 14px}
 .ed-head .meta{font-size:0.6562rem;letter-spacing:0.19em;text-transform:uppercase;
   color:var(--muted)}
 /* Contents shortcuts above the edition. Built by the site from the edition's
@@ -283,7 +283,7 @@ footer a{text-decoration:underline}
 .ed-topnav .nx{margin-left:auto;text-align:right}
 
 /* plain prose pages (About) */
-.prose{max-width:62ch;margin:0 auto}
+.prose{max-width:72ch;margin:0 auto}
 .prose p{font-size:1.0625rem;color:var(--body)}
 .prose h3{font-size:1.375rem;margin:34px 0 4px}
 .prose .cad{font-size:0.625rem;letter-spacing:0.22em;text-transform:uppercase;
@@ -312,7 +312,7 @@ footer a{text-decoration:underline}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .hits mark{background:#5a4a17}}
 
 /* What's on now */
-.nowintro{text-align:center;max-width:58ch;margin:0 auto 6px;color:var(--body);font-size:1rem}
+.nowintro{text-align:center;max-width:72ch;margin:0 auto 6px;color:var(--body);font-size:1rem}
 .nowfilters{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-size:0.75rem;
   color:var(--muted-2);margin:12px 0 4px}
 .nowfilters label{display:inline-flex;align-items:center;gap:6px;min-height:36px;cursor:pointer}
@@ -378,7 +378,7 @@ footer a{text-decoration:underline}
     <div class="when">Oct 28, 2026</div>
   </div>
   <div>
-    <h3>October 28, 2026</h3>
+    <h3>Kane's Crown, and the Klassiker That Follows</h3>
     <p>Harry Kane collected the Ballon d'Or in London on Monday and now walks into a first-against-second Klassiker at the Allianz Arena with Bayern's head coach in hospital.</p>
     <div class="go sans">Read the edition &rarr;</div>
   </div>
@@ -388,7 +388,7 @@ footer a{text-decoration:underline}
     <div class="when">Oct 27, 2026</div>
   </div>
   <div>
-    <h3>October 27, 2026</h3>
+    <h3>Anfield, Without Him</h3>
     <p>Arsenal go to Anfield on Sunday level on points with Manchester City but without Bukayo Saka, who faces weeks out with a quad injury.</p>
     <div class="go sans">Read the edition &rarr;</div>
   </div>
@@ -398,7 +398,7 @@ footer a{text-decoration:underline}
     <div class="when">Oct 26, 2026</div>
   </div>
   <div>
-    <h3>October 26, 2026</h3>
+    <h3>Five weeks, three holidays, and one deadline this Saturday</h3>
     <p>Day of the Dead fills the Mission, nine Warriors home dates land at Chase Center, and Dickens Fair Early Bird pricing ends October 31.</p>
     <div class="go sans">Read the edition &rarr;</div>
   </div>

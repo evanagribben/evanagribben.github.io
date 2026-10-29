@@ -87,9 +87,9 @@ body{margin:0;background:var(--bg);color:var(--ink);
   font-family:Georgia,'Times New Roman',serif;line-height:1.68;
   -webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:900px;margin:0 auto;padding:0 30px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,3vw,40px)}
 /* Edition pages run wider on desktop so the newsletter itself can breathe. */
-.wrap.wide{max-width:1180px}
+.wrap.wide{max-width:1440px}
 .sans{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
 
 /* theme toggle */
@@ -168,7 +168,7 @@ a{color:inherit;text-decoration:none}
 .ed .when{font-size:0.6562rem;letter-spacing:0.152em;text-transform:uppercase;
   color:var(--muted);margin-top:7px}
 .ed h3{font-size:1.625rem;margin:0 0 8px;line-height:1.22;letter-spacing:-0.012em}
-.ed p{margin:0;font-size:1.0312rem;color:var(--body);max-width:60ch}
+.ed p{margin:0;font-size:1.0312rem;color:var(--body);max-width:80ch}
 .ed .go{margin-top:12px;font-size:0.6562rem;letter-spacing:0.21em;
   text-transform:uppercase;color:var(--muted)}
 
@@ -184,7 +184,7 @@ a{color:inherit;text-decoration:none}
   font-weight:700}
 
 /* publication page intro */
-.pubintro{text-align:center;max-width:60ch;margin:0 auto}
+.pubintro{text-align:center;max-width:72ch;margin:0 auto}
 .pubintro p{font-size:1.0625rem;color:var(--body)}
 
 /* compact archive list */
@@ -205,7 +205,7 @@ a{color:inherit;text-decoration:none}
 .sub{margin:66px 0 0;border:1px solid var(--ink);padding:44px 42px;
   text-align:center;background:var(--panel)}
 .sub h2{font-size:2rem;margin:0 0 8px;letter-spacing:-0.016em}
-.sub .lede{margin:0 auto 28px;color:var(--body-soft);font-size:1rem;max-width:48ch}
+.sub .lede{margin:0 auto 28px;color:var(--body-soft);font-size:1rem;max-width:60ch}
 /* One publication per row, so each signup form gets enough width to show the
    whole email field and button instead of being squeezed into a third. */
 .subrow{display:flex;flex-direction:column;gap:48px;text-align:center;margin-top:14px}
@@ -243,7 +243,7 @@ footer a{text-decoration:underline}
   font-weight:700;margin:18px 0 10px}
 .ed-head h1{font-size:2.625rem;margin:0 0 12px;line-height:1.12;letter-spacing:-0.024em;
   font-weight:400}
-.ed-head .dek{font-size:1.0938rem;color:var(--body);max-width:58ch;margin:0 auto 14px}
+.ed-head .dek{font-size:1.0938rem;color:var(--body);max-width:72ch;margin:0 auto 14px}
 .ed-head .meta{font-size:0.6562rem;letter-spacing:0.19em;text-transform:uppercase;
   color:var(--muted)}
 /* Contents shortcuts above the edition. Built by the site from the edition's
@@ -283,7 +283,7 @@ footer a{text-decoration:underline}
 .ed-topnav .nx{margin-left:auto;text-align:right}
 
 /* plain prose pages (About) */
-.prose{max-width:62ch;margin:0 auto}
+.prose{max-width:72ch;margin:0 auto}
 .prose p{font-size:1.0625rem;color:var(--body)}
 .prose h3{font-size:1.375rem;margin:34px 0 4px}
 .prose .cad{font-size:0.625rem;letter-spacing:0.22em;text-transform:uppercase;
@@ -312,7 +312,7 @@ footer a{text-decoration:underline}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .hits mark{background:#5a4a17}}
 
 /* What's on now */
-.nowintro{text-align:center;max-width:58ch;margin:0 auto 6px;color:var(--body);font-size:1rem}
+.nowintro{text-align:center;max-width:72ch;margin:0 auto 6px;color:var(--body);font-size:1rem}
 .nowfilters{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-size:0.75rem;
   color:var(--muted-2);margin:12px 0 4px}
 .nowfilters label{display:inline-flex;align-items:center;gap:6px;min-height:36px;cursor:pointer}
@@ -375,142 +375,142 @@ footer a{text-decoration:underline}
 <ul class="arch"><li><a href="/editions/soccer-digest-2026-10-28.html">
   <span class="dot" style="background:var(--spine-soccer-digest)"></span>
   <span class="d sans">Oct 28, 2026</span>
-  <span class="t">October 28, 2026</span>
+  <span class="t">Kane's Crown, and the Klassiker That Follows</span>
   <span class="p sans" style="color:var(--pub-soccer-digest)">Soccer Digest</span>
 </a></li><li><a href="/editions/arsenal-digest-2026-10-27.html">
   <span class="dot" style="background:var(--spine-arsenal-digest)"></span>
   <span class="d sans">Oct 27, 2026</span>
-  <span class="t">October 27, 2026</span>
+  <span class="t">Anfield, Without Him</span>
   <span class="p sans" style="color:var(--pub-arsenal-digest)">Arsenal Digest</span>
 </a></li><li><a href="/editions/bay-weekender-2026-10-26.html">
   <span class="dot" style="background:var(--spine-bay-weekender)"></span>
   <span class="d sans">Oct 26, 2026</span>
-  <span class="t">October 26, 2026</span>
+  <span class="t">Five weeks, three holidays, and one deadline this Saturday</span>
   <span class="p sans" style="color:var(--pub-bay-weekender)">Bay Weekender</span>
 </a></li><li><a href="/editions/soccer-digest-2026-10-21.html">
   <span class="dot" style="background:var(--spine-soccer-digest)"></span>
   <span class="d sans">Oct 21, 2026</span>
-  <span class="t">October 21, 2026</span>
+  <span class="t">Mourinho Walks Back Into the Camp Nou</span>
   <span class="p sans" style="color:var(--pub-soccer-digest)">Soccer Digest</span>
 </a></li><li><a href="/editions/arsenal-digest-2026-10-20.html">
   <span class="dot" style="background:var(--spine-arsenal-digest)"></span>
   <span class="d sans">Oct 20, 2026</span>
-  <span class="t">October 20, 2026</span>
+  <span class="t">Back to Munich, Carrying a Different Kind of Problem</span>
   <span class="p sans" style="color:var(--pub-arsenal-digest)">Arsenal Digest</span>
 </a></li><li><a href="/editions/soccer-digest-2026-10-14.html">
   <span class="dot" style="background:var(--spine-soccer-digest)"></span>
   <span class="d sans">Oct 14, 2026</span>
-  <span class="t">October 14, 2026</span>
+  <span class="t">The champions of Europe walk into the one place nobody is losing</span>
   <span class="p sans" style="color:var(--pub-soccer-digest)">Soccer Digest</span>
 </a></li><li><a href="/editions/arsenal-digest-2026-10-13.html">
   <span class="dot" style="background:var(--spine-arsenal-digest)"></span>
   <span class="d sans">Oct 13, 2026</span>
-  <span class="t">October 13, 2026</span>
+  <span class="t">A new contract, two wins in four days, and the answer last month's defeat demanded</span>
   <span class="p sans" style="color:var(--pub-arsenal-digest)">Arsenal Digest</span>
 </a></li><li><a href="/editions/bay-weekender-2026-10-12.html">
   <span class="dot" style="background:var(--spine-bay-weekender)"></span>
   <span class="d sans">Oct 12, 2026</span>
-  <span class="t">October 12, 2026</span>
+  <span class="t">Five weeks, and a Finals in our own building</span>
   <span class="p sans" style="color:var(--pub-bay-weekender)">Bay Weekender</span>
 </a></li><li><a href="/editions/soccer-digest-2026-10-07.html">
   <span class="dot" style="background:var(--spine-soccer-digest)"></span>
   <span class="d sans">Oct 7, 2026</span>
-  <span class="t">October 7, 2026</span>
+  <span class="t">The clock started at 7pm on Thursday</span>
   <span class="p sans" style="color:var(--pub-soccer-digest)">Soccer Digest</span>
 </a></li><li><a href="/editions/arsenal-digest-2026-10-06.html">
   <span class="dot" style="background:var(--spine-arsenal-digest)"></span>
   <span class="d sans">Oct 6, 2026</span>
-  <span class="t">October 6, 2026</span>
+  <span class="t">Twenty-one days to fix the thing nobody has fixed</span>
   <span class="p sans" style="color:var(--pub-arsenal-digest)">Arsenal Digest</span>
 </a></li><li><a href="/editions/soccer-digest-2026-09-30.html">
   <span class="dot" style="background:var(--spine-soccer-digest)"></span>
   <span class="d sans">Sep 30, 2026</span>
-  <span class="t">September 30, 2026</span>
+  <span class="t">Guilty: the verdict that rewrites nine seasons of English football</span>
   <span class="p sans" style="color:var(--pub-soccer-digest)">Soccer Digest</span>
 </a></li><li><a href="/editions/arsenal-digest-2026-09-29.html">
   <span class="dot" style="background:var(--spine-arsenal-digest)"></span>
   <span class="d sans">Sep 29, 2026</span>
-  <span class="t">September 29, 2026</span>
+  <span class="t">No match, no peace: Arteta signs up for four more years</span>
   <span class="p sans" style="color:var(--pub-arsenal-digest)">Arsenal Digest</span>
 </a></li><li><a href="/editions/bay-weekender-2026-09-28.html">
   <span class="dot" style="background:var(--spine-bay-weekender)"></span>
   <span class="d sans">Sep 28, 2026</span>
-  <span class="t">September 28, 2026</span>
+  <span class="t">Five weeks of the real San Francisco summer, ending on a Saturday Halloween</span>
   <span class="p sans" style="color:var(--pub-bay-weekender)">Bay Weekender</span>
 </a></li><li><a href="/editions/soccer-digest-2026-09-23.html">
   <span class="dot" style="background:var(--spine-soccer-digest)"></span>
   <span class="d sans">Sep 23, 2026</span>
-  <span class="t">September 23, 2026</span>
+  <span class="t">Football's Cold War Reaches the Ballot Box</span>
   <span class="p sans" style="color:var(--pub-soccer-digest)">Soccer Digest</span>
 </a></li><li><a href="/editions/arsenal-digest-2026-09-22.html">
   <span class="dot" style="background:var(--spine-arsenal-digest)"></span>
   <span class="d sans">Sep 22, 2026</span>
-  <span class="t">September 22, 2026</span>
+  <span class="t">Arteta Gets His Deal. His Champions Get a Warning.</span>
   <span class="p sans" style="color:var(--pub-arsenal-digest)">Arsenal Digest</span>
 </a></li><li><a href="/editions/soccer-digest-2026-09-16.html">
   <span class="dot" style="background:var(--spine-soccer-digest)"></span>
   <span class="d sans">Sep 16, 2026</span>
-  <span class="t">September 16, 2026</span>
+  <span class="t">The Great Reshuffle Meets Its First Reckoning</span>
   <span class="p sans" style="color:var(--pub-soccer-digest)">Soccer Digest</span>
 </a></li><li><a href="/editions/arsenal-digest-2026-09-15.html">
   <span class="dot" style="background:var(--spine-arsenal-digest)"></span>
   <span class="d sans">Sep 15, 2026</span>
-  <span class="t">September 15, 2026</span>
+  <span class="t">The one trophy that keeps getting away</span>
   <span class="p sans" style="color:var(--pub-arsenal-digest)">Arsenal Digest</span>
 </a></li><li><a href="/editions/bay-weekender-2026-09-14.html">
   <span class="dot" style="background:var(--spine-bay-weekender)"></span>
   <span class="d sans">Sep 14, 2026</span>
-  <span class="t">September 14, 2026</span>
+  <span class="t">Five weeks from the Moon Festival to the pumpkin fields</span>
   <span class="p sans" style="color:var(--pub-bay-weekender)">Bay Weekender</span>
 </a></li><li><a href="/editions/soccer-digest-2026-09-09.html">
   <span class="dot" style="background:var(--spine-soccer-digest)"></span>
   <span class="d sans">Sep 9, 2026</span>
-  <span class="t">September 9, 2026</span>
+  <span class="t">Europe Reopens on a Map Nobody Recognises</span>
   <span class="p sans" style="color:var(--pub-soccer-digest)">Soccer Digest</span>
 </a></li><li><a href="/editions/arsenal-digest-2026-09-08.html">
   <span class="dot" style="background:var(--spine-arsenal-digest)"></span>
   <span class="d sans">Sep 8, 2026</span>
-  <span class="t">September 8, 2026</span>
+  <span class="t">Naples, a grounded plane and a back four held together by faith</span>
   <span class="p sans" style="color:var(--pub-arsenal-digest)">Arsenal Digest</span>
 </a></li><li><a href="/editions/soccer-digest-2026-09-02.html">
   <span class="dot" style="background:var(--spine-soccer-digest)"></span>
   <span class="d sans">Sep 2, 2026</span>
-  <span class="t">September 2, 2026</span>
+  <span class="t">The night the window broke its own record, then broke its word</span>
   <span class="p sans" style="color:var(--pub-soccer-digest)">Soccer Digest</span>
 </a></li><li><a href="/editions/arsenal-digest-2026-09-01.html">
   <span class="dot" style="background:var(--spine-arsenal-digest)"></span>
   <span class="d sans">Sep 1, 2026</span>
-  <span class="t">September 1, 2026</span>
+  <span class="t">Arsenal Sell the Summer and Back What They Already Have</span>
   <span class="p sans" style="color:var(--pub-arsenal-digest)">Arsenal Digest</span>
 </a></li><li><a href="/editions/bay-weekender-2026-08-31.html">
   <span class="dot" style="background:var(--spine-bay-weekender)"></span>
   <span class="d sans">Aug 31, 2026</span>
-  <span class="t">August 31, 2026</span>
+  <span class="t">Five weeks, and the best free weekend of the year at the end of them</span>
   <span class="p sans" style="color:var(--pub-bay-weekender)">Bay Weekender</span>
 </a></li><li><a href="/editions/soccer-digest-2026-08-26.html">
   <span class="dot" style="background:var(--spine-soccer-digest)"></span>
   <span class="d sans">Aug 26, 2026</span>
-  <span class="t">August 26, 2026</span>
+  <span class="t">Six days left, and the money has not stopped moving</span>
   <span class="p sans" style="color:var(--pub-soccer-digest)">Soccer Digest</span>
 </a></li><li><a href="/editions/arsenal-digest-2026-08-25.html">
   <span class="dot" style="background:var(--spine-arsenal-digest)"></span>
   <span class="d sans">Aug 25, 2026</span>
-  <span class="t">August 25, 2026</span>
+  <span class="t">Six Days to Remake a Forward Line</span>
   <span class="p sans" style="color:var(--pub-arsenal-digest)">Arsenal Digest</span>
 </a></li><li><a href="/editions/soccer-digest-2026-08-19.html">
   <span class="dot" style="background:var(--spine-soccer-digest)"></span>
   <span class="d sans">Aug 19, 2026</span>
-  <span class="t">August 19, 2026</span>
+  <span class="t">Ten New Voices, One Compressed Summer</span>
   <span class="p sans" style="color:var(--pub-soccer-digest)">Soccer Digest</span>
 </a></li><li><a href="/editions/arsenal-digest-2026-08-18.html">
   <span class="dot" style="background:var(--spine-arsenal-digest)"></span>
   <span class="d sans">Aug 18, 2026</span>
-  <span class="t">August 18, 2026</span>
+  <span class="t">Champions Again, and Already One Defender Short</span>
   <span class="p sans" style="color:var(--pub-arsenal-digest)">Arsenal Digest</span>
 </a></li><li><a href="/editions/bay-weekender-2026-08-17.html">
   <span class="dot" style="background:var(--spine-bay-weekender)"></span>
   <span class="d sans">Aug 17, 2026</span>
-  <span class="t">August 17, 2026</span>
+  <span class="t">Festival season just ended and the city is better for it</span>
   <span class="p sans" style="color:var(--pub-bay-weekender)">Bay Weekender</span>
 </a></li></ul>
 <footer class="sans">
