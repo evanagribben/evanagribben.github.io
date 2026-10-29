@@ -474,7 +474,7 @@ def og_tags(title, desc, url, image_slug="newsstand", kind="website"):
 
 # Free, privacy-friendly visitor counts (goatcounter.com). Empty until Evan
 # makes a free account; put its code here (the part before .goatcounter.com).
-GOATCOUNTER_CODE = ""
+GOATCOUNTER_CODE = "thenewsstand"
 
 
 def goatcounter():
