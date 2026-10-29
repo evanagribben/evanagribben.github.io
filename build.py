@@ -254,6 +254,35 @@ def build_edition(e, eds):
     (d.head||d.documentElement).appendChild(s);
   }
 
+
+  /* Option C type on the site. Editions are written with email-safe fonts
+     (Georgia, Helvetica Neue, sometimes Arial or Times). On the website we
+     load Figtree and Source Serif 4 and swap them in: anything set in a serif
+     becomes Source Serif 4, anything in a sans becomes Figtree. Monospace and
+     emoji are left alone. Elements that simply inherit are skipped, so only
+     the ones that name a font of their own get touched. */
+  var NS_SANS="Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif";
+  var NS_SERIF="'Source Serif 4',Georgia,'Times New Roman',serif";
+  function unifyFonts(d){
+    if(!d||!d.body)return;
+    if(!d.getElementById('ns-fonts')){
+      var l=d.createElement('link');
+      l.id='ns-fonts';l.rel='stylesheet';
+      l.href='https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&display=swap';
+      (d.head||d.documentElement).appendChild(l);
+    }
+    var w=d.defaultView, els=d.body.getElementsByTagName('*');
+    var all=[d.body].concat(Array.prototype.slice.call(els));
+    for(var i=0;i<all.length;i++){
+      var el=all[i], ff=(w.getComputedStyle(el).fontFamily||'').toLowerCase();
+      if(!ff||/mono|courier|emoji/.test(ff))continue;
+      var first=ff.split(',')[0].replace(/["']/g,'').trim();
+      if(first==='figtree'||first==='source serif 4')continue;
+      var serif=/georgia|times|garamond|palatino|cambria|baskerville|merriweather|serif$/.test(first)&&!/sans/.test(first);
+      el.style.setProperty('font-family',serif?NS_SERIF:NS_SANS,'important');
+    }
+  }
+
   /* Trim the event detail rows on older Bay editions. "Getting there" and
      "Good for" were dropped from the publication, and the date and start time
      are now labelled separately. Editions written after that change already
@@ -535,7 +564,7 @@ def build_edition(e, eds):
 
   function run(){
     try{ var d=f.contentDocument;
-         if(d){inject(d);externalLinks(d);trimDetails(d);anchorJump(d);} }catch(e){}
+         if(d){inject(d);unifyFonts(d);externalLinks(d);trimDetails(d);anchorJump(d);} }catch(e){}
     widen(); fit(); buildToc(); paint();
     if(TEXT!==1)scaleText();
   }
