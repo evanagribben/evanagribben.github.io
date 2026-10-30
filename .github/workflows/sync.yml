@@ -9,7 +9,7 @@ name: Sync editions from Drive
 on:
   schedule:
     # Every hour, at :20. Cron here is UTC.
-    - cron: "20 * * * *"
+    - cron: "20,50 * * * *"
   workflow_dispatch:        # the "Run workflow" button
 
 permissions:
