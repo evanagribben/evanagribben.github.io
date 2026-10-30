@@ -459,10 +459,28 @@ footer a{text-decoration:underline}
       /* Measure the BODY only. documentElement.scrollHeight is at least the
          frame's own height, so feeding it back in grows the frame a little
          on every call. */
-      var h=Math.max(d.body.scrollHeight,
-                     Math.ceil(d.body.getBoundingClientRect().height));
+      /* A zero-height marker at the very end of the body tells us where the
+         content really stops. scrollHeight alone never shrinks once the
+         frame is tall, which left a big gap after sections were folded. */
+      var end=d.getElementById('ns-end');
+      if(!end){end=d.createElement('div');end.id='ns-end';
+               end.style.cssText='height:0;margin:0;padding:0;clear:both';
+               d.body.appendChild(end);}
+      var bs=d.defaultView.getComputedStyle(d.body);
+      var h=Math.ceil(end.getBoundingClientRect().bottom+(d.defaultView.scrollY||0)
+                      +(parseFloat(bs.paddingBottom)||0)+(parseFloat(bs.marginBottom)||0));
       if(h>200)f.style.height=(h+40)+'px';
     }catch(e){}
+  }
+  /* Refit whenever something inside the edition opens, closes or resizes. */
+  var fitT=0;
+  function refit(){ clearTimeout(fitT); fitT=setTimeout(fit,60); }
+  function watch(d){
+    if(!d||d.__nsWatch)return; d.__nsWatch=true;
+    d.addEventListener('toggle',refit,true);
+    d.addEventListener('click',function(){ setTimeout(refit,30); setTimeout(refit,400); },true);
+    d.addEventListener('transitionend',refit,true);
+    try{ new d.defaultView.ResizeObserver(refit).observe(d.body); }catch(e){}
   }
 
   /* Fixed-width tables in the source overflow a phone screen. This is
@@ -797,7 +815,7 @@ footer a{text-decoration:underline}
 
   function run(){
     try{ var d=f.contentDocument;
-         if(d){inject(d);unifyFonts(d);externalLinks(d);trimDetails(d);anchorJump(d);} }catch(e){}
+         if(d){inject(d);unifyFonts(d);externalLinks(d);trimDetails(d);anchorJump(d);watch(d);} }catch(e){}
     widen(); fit(); buildToc(); paint();
     if(TEXT!==1)scaleText();
   }
