@@ -30,7 +30,9 @@ SITE_URL = "https://evanagribben.github.io"
 def load():
     with open(os.path.join(ROOT, "manifest.json")) as f:
         m = json.load(f)
-    eds = m.get("editions", [])
+    # The manifest also holds the Stoppage Time club newsletters, which are
+    # fetched here only so that site can copy them. This site shows just its own.
+    eds = [e for e in m.get("editions", []) if e.get("pub") in PUBS]
     eds.sort(key=lambda e: (e["date"], e["slug"]), reverse=True)
     return m, eds
 

@@ -37,6 +37,23 @@ FOLDERS = {
     "bay-weekender":  "1-8m1qdNphhUprVn7Um98j8UX9r1nmAon",
     "soccer-digest":  "1iLxnfixwH3AprW5Y9BI2aZGv6tryQtTy",
     "arsenal-digest": "1OGM0twyssyxMghwMkAymHsbp2jNG4n89",
+    # Club newsletters for Stoppage Time (stoppagetimefc.com). This site does
+    # not show them; it only fetches them so the Stoppage Time site, which has
+    # no Drive key of its own, can copy them from here.
+    "liverpool-digest": "1sfscTxvDVqJn9r1CIOkx4DVWHYhDiB6k",
+    "man-city-digest": "1tmqK5sbGXccfs3q-LGa1f8XS8UQmsBiH",
+    "man-united-digest": "1_uvT_rKFcK0-8ZKS6NFUlTCav_HiIw5E",
+    "chelsea-digest": "1Z9emnPs4LyxWErjabbtMket7eFApywNg",
+    "barcelona-digest": "1fI-C3Pv2vT0flxmOH7CtGxEebje6x3SA",
+    "real-madrid-digest": "1WqS8d9tzhmt7icY7BGmTQMY4SxeRx4YW",
+    "atletico-digest": "1A5GAqajEZh9qvPuEdfNHOBdbk3i338RT",
+    "bayern-digest": "1sxWJioEFZQ7RkMAanBDlRwEDS9VBwEc7",
+    "dortmund-digest": "1veuW3CLbyH6j5ragJwWu7m8lr5qWnmbc",
+    "psg-digest": "1mR1d6zWproYwuKwVBPWNiRMIqSpP0EDa",
+    "inter-digest": "12JJEoU7de4OEgte1wv8_pjoVa3E5AyGO",
+    "ac-milan-digest": "1DLEg6iixe_k0UvW-liNTskstXFMK4BIl",
+    "juventus-digest": "106dfwrwogwPpv_dOS-LG9Mnb8TeIbk_V",
+    "como-digest": "1HQgeilvK7rDqqjQyT19AcYQRYE0lpf7W",
 }
 
 GDOC = "application/vnd.google-apps.document"
@@ -270,6 +287,10 @@ def main():
         except Exception as e:
             log(f"  ! cannot list folder: {e}")
             log("    Is it shared 'Anyone with the link -> Viewer'?")
+            # A club folder for the Stoppage Time site must never stop this
+            # site from updating, so it is a warning, not a failure.
+            if pub not in ("bay-weekender", "soccer-digest", "arsenal-digest"):
+                continue
             failed.append(pub)
             continue
 
