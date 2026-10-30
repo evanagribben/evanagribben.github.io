@@ -20,7 +20,7 @@ import re
 from datetime import date, datetime, timezone
 from email.utils import format_datetime
 
-from theme import (PUBS, PUB_ORDER, shell, esc, masthead, footer, section,
+from theme import (PUBS, PUB_ORDER, MOVED, NEW_SITE, shell, esc, masthead, footer, section,
                    subscribe_block)
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -32,7 +32,7 @@ def load():
         m = json.load(f)
     # The manifest also holds the Stoppage Time club newsletters, which are
     # fetched here only so that site can copy them. This site shows just its own.
-    eds = [e for e in m.get("editions", []) if e.get("pub") in PUBS]
+    eds = [e for e in m.get("editions", []) if e.get("pub") in PUB_ORDER]
     eds.sort(key=lambda e: (e["date"], e["slug"]), reverse=True)
     return m, eds
 
@@ -96,7 +96,7 @@ def build_home(eds):
             latest.append(e)
 
     body = [masthead([
-        "Three publications",
+        "The Bay Weekender",
         plural(len(eds)) + " archived",
         "Updated " + datetime.now(timezone.utc).strftime("%B %-d, %Y"),
     ])]
@@ -107,9 +107,7 @@ def build_home(eds):
     else:
         body.append('<p style="color:#8f8571;text-align:center;max-width:52ch;'
                     'margin:0 auto">This week\'s editions appear here as they '
-                    'are written. The Bay Weekender publishes Monday, '
-                    'The Weekly Arsenal Digest Tuesday, and '
-                    'The Weekly Soccer Digest Friday.</p>')
+                    'are written. The Bay Weekender publishes every other Monday.</p>')
 
     body.append(section("The Publications"))
     body.append('<div class="pubs">')
@@ -124,11 +122,16 @@ def build_home(eds):
 </div>""")
     body.append("</div>")
 
+    body.append(section("Looking for the soccer newsletters?"))
+    body.append('<div class="pubintro"><p>The Weekly Soccer Digest, The Weekly '
+                'Arsenal Digest and fourteen new club newsletters now live on '
+                'their own site. <a href="https://stoppagetimefc.com/" '
+                'style="text-decoration:underline">Go to Stoppage Time &rarr;</a></p></div>')
     body.append(subscribe_block())
     body.append(footer())
     return shell("The Newsstand", "\n".join(body),
-                 desc="Three independent weekly publications: Bay Area events, "
-                      "world football, and Arsenal.",
+                 desc="The Bay Weekender: San Francisco and Bay Area events, every "
+                      "other Monday.",
                  canonical=SITE_URL + "/")
 
 
@@ -153,7 +156,7 @@ def build_pub(slug, eds):
 
 def build_archive(eds):
     body = [masthead(["Full archive", plural(len(eds)),
-                      "Three publications"], current="archive")]
+                      "The Bay Weekender"], current="archive")]
     by_year = {}
     for e in eds:
         by_year.setdefault(e["date"][:4], []).append(e)
@@ -665,7 +668,7 @@ def build_search(eds):
         f'<label><input type="checkbox" data-pub="{s}" checked> '
         f'<span style="color:var(--pub-{s})">{esc(PUBS[s]["short"])}</span></label>'
         for s in PUB_ORDER)
-    body = [masthead(["Search", plural(len(eds)), "Three publications"],
+    body = [masthead(["Search", plural(len(eds)), "The Bay Weekender"],
                      current="search")]
     body.append(section("Search every edition"))
     body.append(f"""<form class="searchbox sans" role="search" onsubmit="return false">
@@ -930,11 +933,15 @@ def build_now(eds):
 # ----------------------------------------------------------------------- about
 
 def build_about(eds):
-    body = [masthead(["About", "Three publications", plural(len(eds))],
+    body = [masthead(["About", "The Bay Weekender", plural(len(eds))],
                      current="about")]
     body.append(section("About The Newsstand"))
     parts = ['<div class="prose">',
-             "<p>The Newsstand is the home of three free newsletters. Each one is "
+             "<p>The Newsstand is the home of The Bay Weekender. The soccer "
+             "newsletters, The Weekly Soccer Digest, The Weekly Arsenal Digest "
+             "and one for each of fourteen more clubs, now live on their own "
+             "site, <a href=\"https://stoppagetimefc.com/\" style=\"text-decoration:underline\">"
+             "Stoppage Time</a>. Each edition here is "
              "published here first and emailed to subscribers the same day. Every "
              "past edition stays here, so you can catch up on anything you "
              "missed, search the whole archive, or share a single edition with "
@@ -952,15 +959,15 @@ def build_about(eds):
         "Kickoff and event times are given in Pacific time. Each edition says "
         "what it covers and when it was written, so an older edition is still "
         "useful as a record of that week.</p>"
-        "<h3>Subscribing</h3><p>All three are free. Pick the ones you want "
+        "<h3>Subscribing</h3><p>It is free. Sign up "
         "below, and stop any time.</p>")
     parts.append("</div>")
     body.append("".join(parts))
     body.append(subscribe_block())
     body.append(footer())
     return shell("About · The Newsstand", "\n".join(body),
-                 desc="What The Newsstand is: three free newsletters about Bay "
-                      "Area events, world football and Arsenal.",
+                 desc="What The Newsstand is: the home of The Bay Weekender, a free "
+                      "newsletter about Bay Area events.",
                  canonical=SITE_URL + "/about.html")
 
 
@@ -984,7 +991,7 @@ def build_feed(eds):
   <title>The Newsstand</title>
   <link>{SITE_URL}/</link>
   <atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
-  <description>Three independent weekly publications.</description>
+  <description>The Bay Weekender: Bay Area events.</description>
   <language>en-us</language>
   <lastBuildDate>{format_datetime(datetime.now(timezone.utc))}</lastBuildDate>
 {chr(10).join(items)}
@@ -994,6 +1001,22 @@ def build_feed(eds):
 
 
 # ------------------------------------------------------------------------ main
+
+def redirect_page(path):
+    """A tiny page that sends the reader on to the same address on the new
+    site, keeping any #section so email section links still land."""
+    url = NEW_SITE + path
+    return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>Moved to Stoppage Time</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="{url}">
+<meta http-equiv="refresh" content="0; url={url}">
+<script>location.replace({json.dumps(url)} + location.hash);</script>
+</head><body style="font-family:Georgia,serif;background:#f3efe6;color:#1a1713;padding:40px">
+<p>This newsletter moved to Stoppage Time. <a href="{url}">Continue to the new page</a>.</p>
+</body></html>
+"""
+
 
 def write(rel, content):
     path = os.path.join(ROOT, rel)
@@ -1016,6 +1039,13 @@ def main():
     written.append(write("search-index.json", build_search_index(eds)))
     written.append(write("bay-weekender/now.html", build_now(eds)))
     written.append(write("about.html", build_about(eds)))
+    m, _ = load()
+    for slug in MOVED:
+        written.append(write(f"{slug}/index.html", redirect_page(f"/{slug}/")))
+    for e in m.get("editions", []):
+        if e.get("pub") in MOVED:
+            written.append(write(f"editions/{e['slug']}.html",
+                                 redirect_page(f"/editions/{e['slug']}.html")))
     print(f"built {len(written)} files from {len(eds)} editions")
 
 

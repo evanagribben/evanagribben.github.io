@@ -45,7 +45,12 @@ PUBS = {
     },
 }
 
-PUB_ORDER = ["bay-weekender", "soccer-digest", "arsenal-digest"]
+PUB_ORDER = ["bay-weekender"]
+
+# The two soccer newsletters moved to their own site, Stoppage Time. Their old
+# pages and editions here become redirects so every old link still works.
+MOVED = ["soccer-digest", "arsenal-digest"]
+NEW_SITE = "https://stoppagetimefc.com"
 
 # ------------------------------------------------------------------ design css
 
@@ -554,6 +559,7 @@ def masthead(dateline=None, current=None):
 
 
 SUBNAV = [("now", "/bay-weekender/now.html", "What's on in the Bay"),
+          ("soccer", "https://stoppagetimefc.com/", "Soccer: Stoppage Time"),
           ("search", "/search.html", "Search"),
           ("archive", "/archive.html", "Archive"),
           ("about", "/about.html", "About")]

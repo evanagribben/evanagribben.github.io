@@ -4,25 +4,9 @@
   <title>The Newsstand</title>
   <link>https://evanagribben.github.io/</link>
   <atom:link href="https://evanagribben.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-  <description>Three independent weekly publications.</description>
+  <description>The Bay Weekender: Bay Area events.</description>
   <language>en-us</language>
-  <lastBuildDate>Fri, 30 Oct 2026 02:15:42 +0000</lastBuildDate>
-  <item>
-    <title>The Weekly Soccer Digest: Kane's Crown, and the Klassiker That Follows</title>
-    <link>https://evanagribben.github.io/editions/soccer-digest-2026-10-28.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-10-28.html</guid>
-    <category>The Weekly Soccer Digest</category>
-    <pubDate>Wed, 28 Oct 2026 00:00:00 +0000</pubDate>
-    <description>Harry Kane collected the Ballon d'Or in London on Monday and now walks into a first-against-second Klassiker at the Allianz Arena with Bayern's head coach in hospital.</description>
-  </item>
-  <item>
-    <title>The Weekly Arsenal Digest: Anfield, Without Him</title>
-    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-10-27.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-10-27.html</guid>
-    <category>The Weekly Arsenal Digest</category>
-    <pubDate>Tue, 27 Oct 2026 00:00:00 +0000</pubDate>
-    <description>Arsenal go to Anfield on Sunday level on points with Manchester City but without Bukayo Saka, who faces weeks out with a quad injury.</description>
-  </item>
+  <lastBuildDate>Fri, 30 Oct 2026 06:45:21 +0000</lastBuildDate>
   <item>
     <title>The Bay Weekender: Five weeks, three holidays, and one deadline this Saturday</title>
     <link>https://evanagribben.github.io/editions/bay-weekender-2026-10-26.html</link>
@@ -30,38 +14,6 @@
     <category>The Bay Weekender</category>
     <pubDate>Mon, 26 Oct 2026 00:00:00 +0000</pubDate>
     <description>Day of the Dead fills the Mission, nine Warriors home dates land at Chase Center, and Dickens Fair Early Bird pricing ends October 31.</description>
-  </item>
-  <item>
-    <title>The Weekly Soccer Digest: Mourinho Walks Back Into the Camp Nou</title>
-    <link>https://evanagribben.github.io/editions/soccer-digest-2026-10-21.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-10-21.html</guid>
-    <category>The Weekly Soccer Digest</category>
-    <pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate>
-    <description>Jose Mourinho takes Real Madrid back to the Camp Nou on Sunday six points adrift of an unbeaten Barcelona and without Vinicius Junior.</description>
-  </item>
-  <item>
-    <title>The Weekly Arsenal Digest: Back to Munich, Carrying a Different Kind of Problem</title>
-    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-10-20.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-10-20.html</guid>
-    <category>The Weekly Arsenal Digest</category>
-    <pubDate>Tue, 20 Oct 2026 00:00:00 +0000</pubDate>
-    <description>Arsenal go to the Allianz Arena as English champions with a perfect Champions League record and a scoring problem nobody has solved yet.</description>
-  </item>
-  <item>
-    <title>The Weekly Soccer Digest: The champions of Europe walk into the one place nobody is losing</title>
-    <link>https://evanagribben.github.io/editions/soccer-digest-2026-10-14.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-10-14.html</guid>
-    <category>The Weekly Soccer Digest</category>
-    <pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate>
-    <description>Paris Saint-Germain, winners of the last two Champions Leagues, visit an unbeaten Manchester City on a matchday that has already produced 32 goals in nine games.</description>
-  </item>
-  <item>
-    <title>The Weekly Arsenal Digest: A new contract, two wins in four days, and the answer last month's defeat demanded</title>
-    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-10-13.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-10-13.html</guid>
-    <category>The Weekly Arsenal Digest</category>
-    <pubDate>Tue, 13 Oct 2026 00:00:00 +0000</pubDate>
-    <description>Arsenal followed Mikel Arteta's new contract to 2030 with a comeback win over Leeds and a 3-0 Champions League rout of Lille, in a week that ended with the death of Ken Friar.</description>
   </item>
   <item>
     <title>The Bay Weekender: Five weeks, and a Finals in our own building</title>
@@ -72,76 +24,12 @@
     <description>The Valkyries host the first WNBA Finals games ever played in San Francisco, the Warriors open at home, and autumn festivals run from Half Moon Bay to Sonoma.</description>
   </item>
   <item>
-    <title>The Weekly Soccer Digest: The clock started at 7pm on Thursday</title>
-    <link>https://evanagribben.github.io/editions/soccer-digest-2026-10-07.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-10-07.html</guid>
-    <category>The Weekly Soccer Digest</category>
-    <pubDate>Wed, 07 Oct 2026 00:00:00 +0000</pubDate>
-    <description>Manchester City lodged their appeal against the guilty verdict at 7pm on 1 October, starting a twelve-week clock that will decide when, and how hard, any punishment lands.</description>
-  </item>
-  <item>
-    <title>The Weekly Arsenal Digest: Twenty-one days to fix the thing nobody has fixed</title>
-    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-10-06.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-10-06.html</guid>
-    <category>The Weekly Arsenal Digest</category>
-    <pubDate>Tue, 06 Oct 2026 00:00:00 +0000</pubDate>
-    <description>Arsenal return from a three week international break second in the table with eight goals in five games and the sharpest question of their season still unanswered.</description>
-  </item>
-  <item>
-    <title>The Weekly Soccer Digest: Guilty: the verdict that rewrites nine seasons of English football</title>
-    <link>https://evanagribben.github.io/editions/soccer-digest-2026-09-30.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-09-30.html</guid>
-    <category>The Weekly Soccer Digest</category>
-    <pubDate>Wed, 30 Sep 2026 00:00:00 +0000</pubDate>
-    <description>An independent commission found Manchester City guilty of serious financial breaches across nine seasons, and the sanction is still to come.</description>
-  </item>
-  <item>
-    <title>The Weekly Arsenal Digest: No match, no peace: Arteta signs up for four more years</title>
-    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-09-29.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-09-29.html</guid>
-    <category>The Weekly Arsenal Digest</category>
-    <pubDate>Tue, 29 Sep 2026 00:00:00 +0000</pubDate>
-    <description>With no Arsenal men's match all week, Mikel Arteta agreed a reported four-year deal and Manchester City were found guilty of breaking Premier League financial rules.</description>
-  </item>
-  <item>
     <title>The Bay Weekender: Five weeks of the real San Francisco summer, ending on a Saturday Halloween</title>
     <link>https://evanagribben.github.io/editions/bay-weekender-2026-09-28.html</link>
     <guid isPermaLink="true">https://evanagribben.github.io/editions/bay-weekender-2026-09-28.html</guid>
     <category>The Bay Weekender</category>
     <pubDate>Mon, 28 Sep 2026 00:00:00 +0000</pubDate>
     <description>A catch-up edition for five weeks of fall: Fleet Week, Hardly Strictly, Valkyries playoff nights, pumpkins on the coast and a Halloween weekend.</description>
-  </item>
-  <item>
-    <title>The Weekly Soccer Digest: Football's Cold War Reaches the Ballot Box</title>
-    <link>https://evanagribben.github.io/editions/soccer-digest-2026-09-23.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-09-23.html</guid>
-    <category>The Weekly Soccer Digest</category>
-    <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
-    <description>UEFA and FIFA are at war over who owns the World Cup, and this week the fight moved openly into the 2027 election campaign.</description>
-  </item>
-  <item>
-    <title>The Weekly Arsenal Digest: Arteta Gets His Deal. His Champions Get a Warning.</title>
-    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-09-22.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-09-22.html</guid>
-    <category>The Weekly Arsenal Digest</category>
-    <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
-    <description>Arsenal and Mikel Arteta have agreed a new long-term contract, the BBC reports, three days after Brighton beat the champions 3-0 on the south coast.</description>
-  </item>
-  <item>
-    <title>The Weekly Soccer Digest: The Great Reshuffle Meets Its First Reckoning</title>
-    <link>https://evanagribben.github.io/editions/soccer-digest-2026-09-16.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-09-16.html</guid>
-    <category>The Weekly Soccer Digest</category>
-    <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
-    <description>Europe's great managerial reshuffle faces its first verdicts as Maresca's Manchester City go four from four and Mourinho's Real Madrid chase Barcelona.</description>
-  </item>
-  <item>
-    <title>The Weekly Arsenal Digest: The one trophy that keeps getting away</title>
-    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-09-15.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-09-15.html</guid>
-    <category>The Weekly Arsenal Digest</category>
-    <pubDate>Tue, 15 Sep 2026 00:00:00 +0000</pubDate>
-    <description>Arsenal begin the Carabao Cup at Ipswich six months after losing its final, unbeaten in six and missing half a back four.</description>
   </item>
   <item>
     <title>The Bay Weekender: Five weeks from the Moon Festival to the pumpkin fields</title>
@@ -152,76 +40,12 @@
     <description>A catch-up edition for mid-September to mid-October: Portola, Folsom, Hardly Strictly, Fleet Week, the Giants' last homestand and the Valkyries' run-in.</description>
   </item>
   <item>
-    <title>The Weekly Soccer Digest: Europe Reopens on a Map Nobody Recognises</title>
-    <link>https://evanagribben.github.io/editions/soccer-digest-2026-09-09.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-09-09.html</guid>
-    <category>The Weekly Soccer Digest</category>
-    <pubDate>Wed, 09 Sep 2026 00:00:00 +0000</pubDate>
-    <description>The Champions League league phase opens on a redrawn map of Europe, with Mourinho at Real Madrid, Maresca at City and the holders PSG 14th in France.</description>
-  </item>
-  <item>
-    <title>The Weekly Arsenal Digest: Naples, a grounded plane and a back four held together by faith</title>
-    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-09-08.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-09-08.html</guid>
-    <category>The Weekly Arsenal Digest</category>
-    <pubDate>Tue, 08 Sep 2026 00:00:00 +0000</pubDate>
-    <description>Arsenal open their Champions League campaign at Napoli on Wednesday with William Saliba out, Ezri Konsa two games into his Arsenal career and Martin Odegaard in the form of his life.</description>
-  </item>
-  <item>
-    <title>The Weekly Soccer Digest: The night the window broke its own record, then broke its word</title>
-    <link>https://evanagribben.github.io/editions/soccer-digest-2026-09-02.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-09-02.html</guid>
-    <category>The Weekly Soccer Digest</category>
-    <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
-    <description>A record 3.46 billion pound Premier League window closed with Enzo Fernandez joining Manchester City for 125m and two agreed deals collapsing after the buzzer.</description>
-  </item>
-  <item>
-    <title>The Weekly Arsenal Digest: Arsenal Sell the Summer and Back What They Already Have</title>
-    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-09-01.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-09-01.html</guid>
-    <category>The Weekly Arsenal Digest</category>
-    <pubDate>Tue, 01 Sep 2026 00:00:00 +0000</pubDate>
-    <description>Arsenal close the window having sold Gabriel Jesus and Gabriel Martinelli, missed out on Malick Fofana and loaned Ethan Nwaneri to Dortmund, all while unbeaten and yet to concede.</description>
-  </item>
-  <item>
     <title>The Bay Weekender: Five weeks, and the best free weekend of the year at the end of them</title>
     <link>https://evanagribben.github.io/editions/bay-weekender-2026-08-31.html</link>
     <guid isPermaLink="true">https://evanagribben.github.io/editions/bay-weekender-2026-08-31.html</guid>
     <category>The Bay Weekender</category>
     <pubDate>Mon, 31 Aug 2026 00:00:00 +0000</pubDate>
     <description>Labor Day weekend opens a five-week run that ends with Hardly Strictly free in the park, plus Portola, Folsom and the Giants' last homestand.</description>
-  </item>
-  <item>
-    <title>The Weekly Soccer Digest: Six days left, and the money has not stopped moving</title>
-    <link>https://evanagribben.github.io/editions/soccer-digest-2026-08-26.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-08-26.html</guid>
-    <category>The Weekly Soccer Digest</category>
-    <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
-    <description>Six days from the September 1 deadline, a World Cup summer has pushed Europe's most expensive week into the middle of the season.</description>
-  </item>
-  <item>
-    <title>The Weekly Arsenal Digest: Six Days to Remake a Forward Line</title>
-    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-08-25.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-08-25.html</guid>
-    <category>The Weekly Arsenal Digest</category>
-    <pubDate>Tue, 25 Aug 2026 00:00:00 +0000</pubDate>
-    <description>Arsenal open the title defence with two 3-0 wins and six days left to remake a forward line, with Gabriel Martinelli close to a record Saudi exit.</description>
-  </item>
-  <item>
-    <title>The Weekly Soccer Digest: Ten New Voices, One Compressed Summer</title>
-    <link>https://evanagribben.github.io/editions/soccer-digest-2026-08-19.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/soccer-digest-2026-08-19.html</guid>
-    <category>The Weekly Soccer Digest</category>
-    <pubDate>Wed, 19 Aug 2026 00:00:00 +0000</pubDate>
-    <description>Europe restarts 33 days after the World Cup with ten new Premier League managers, Rodri sold to Barcelona and Pep Guardiola gone after a decade.</description>
-  </item>
-  <item>
-    <title>The Weekly Arsenal Digest: Champions Again, and Already One Defender Short</title>
-    <link>https://evanagribben.github.io/editions/arsenal-digest-2026-08-18.html</link>
-    <guid isPermaLink="true">https://evanagribben.github.io/editions/arsenal-digest-2026-08-18.html</guid>
-    <category>The Weekly Arsenal Digest</category>
-    <pubDate>Tue, 18 Aug 2026 00:00:00 +0000</pubDate>
-    <description>Arsenal begin their Premier League title defence against Coventry on Friday, three days after a 3-0 Community Shield win and with the centre-back department still unfixed.</description>
   </item>
   <item>
     <title>The Bay Weekender: Festival season just ended and the city is better for it</title>

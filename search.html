@@ -377,17 +377,17 @@ footer a{text-decoration:underline}
   <div class="kick">Independent &middot; Weekly &middot; San Francisco</div>
   <h1 style="font-family:Georgia,serif"><a href="/">The Newsstand</a></h1>
   <div class="rule"></div>
-  <div class="dateline"><span>Search</span><span>28 editions</span><span>Three publications</span></div>
+  <div class="dateline"><span>Search</span><span>6 editions</span><span>The Bay Weekender</span></div>
 </header>
-<nav class="nav sans"><a href="/bay-weekender/" style="color:var(--pub-bay-weekender)">The Bay Weekender</a><a href="/soccer-digest/" style="color:var(--pub-soccer-digest)">The Weekly Soccer Digest</a><a href="/arsenal-digest/" style="color:var(--pub-arsenal-digest)">The Weekly Arsenal Digest</a></nav>
-<nav class="subnav sans" aria-label="More"><a href="/bay-weekender/now.html">What's on in the Bay</a><a href="/search.html" aria-current="page">Search</a><a href="/archive.html">Archive</a><a href="/about.html">About</a></nav>
+<nav class="nav sans"><a href="/bay-weekender/" style="color:var(--pub-bay-weekender)">The Bay Weekender</a></nav>
+<nav class="subnav sans" aria-label="More"><a href="/bay-weekender/now.html">What's on in the Bay</a><a href="https://stoppagetimefc.com/">Soccer: Stoppage Time</a><a href="/search.html" aria-current="page">Search</a><a href="/archive.html">Archive</a><a href="/about.html">About</a></nav>
 <div class="sec sans"><h2>Search every edition</h2></div><div class="secline"></div>
 <form class="searchbox sans" role="search" onsubmit="return false">
   <label for="q" style="position:absolute;left:-9999px">Search all editions</label>
   <input id="q" type="search" placeholder="Try Saka, Outside Lands, Chase Center" autocomplete="off">
 </form>
-<div class="searchfilters sans"><label><input type="checkbox" data-pub="bay-weekender" checked> <span style="color:var(--pub-bay-weekender)">Bay Weekender</span></label><label><input type="checkbox" data-pub="soccer-digest" checked> <span style="color:var(--pub-soccer-digest)">Soccer Digest</span></label><label><input type="checkbox" data-pub="arsenal-digest" checked> <span style="color:var(--pub-arsenal-digest)">Arsenal Digest</span></label></div>
-<p class="searchstatus sans" id="status" aria-live="polite">Type a word or name to search all 28 editions.</p>
+<div class="searchfilters sans"><label><input type="checkbox" data-pub="bay-weekender" checked> <span style="color:var(--pub-bay-weekender)">Bay Weekender</span></label></div>
+<p class="searchstatus sans" id="status" aria-live="polite">Type a word or name to search all 6 editions.</p>
 <ul class="hits" id="hits"></ul>
 <noscript><p class="nowempty">Search needs JavaScript. The <a href="/archive.html">full archive</a> lists every edition.</p></noscript>
 <footer class="sans">
@@ -397,7 +397,7 @@ footer a{text-decoration:underline}
 </footer>
 <script>
 (function(){
-  var PUBS={"bay-weekender": {"t": "The Bay Weekender"}, "soccer-digest": {"t": "The Weekly Soccer Digest"}, "arsenal-digest": {"t": "The Weekly Arsenal Digest"}}, DATA=null, q=document.getElementById('q'),
+  var PUBS={"bay-weekender": {"t": "The Bay Weekender"}}, DATA=null, q=document.getElementById('q'),
       hits=document.getElementById('hits'), status=document.getElementById('status'),
       boxes=document.querySelectorAll('[data-pub]');
   function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
