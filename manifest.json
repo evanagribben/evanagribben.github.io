@@ -3,12 +3,28 @@
   "url": "https://evanagribben.github.io",
   "editions": [
     {
+      "slug": "juventus-digest-2026-11-05",
+      "pub": "juventus-digest",
+      "date": "2026-11-05",
+      "title": "Ten days on a knife edge: Spalletti's Juventus fight for air",
+      "dek": "After a retreat and a rare speech from the chief executive, Juventus beat Napoli and AZ Alkmaar in five days, but a thin squad and a wary club keep Spalletti on edge.",
+      "src": "1EZSLrP2ElAU5ANmVU9T5oZSZ5Oh61Vub@2026-11-05T22:11:15.739Z"
+    },
+    {
       "slug": "inter-digest-2026-11-05",
       "pub": "inter-digest",
       "date": "2026-11-05",
       "title": "Stung by the derby, revived in Rotterdam: Inter face Como's test",
       "dek": "After a first league defeat in the derby, Inter rebuilt with a 3-0 win in Rotterdam and now host high-flying Como in a Serie A top-four clash on Sunday.",
       "src": "1iGbBDYVoLwG0HuFB5adh4kiHnmH8VmQo@2026-11-05T13:22:26.006Z"
+    },
+    {
+      "slug": "como-digest-2026-11-05",
+      "pub": "como-digest",
+      "date": "2026-11-05",
+      "title": "Nine at Bollaert: Como rewrite the Champions League record book",
+      "dek": "Como's 9-1 win at Lens equalled the Champions League record winning margin and set an Italian scoring mark, with a trip to Inter at San Siro up next.",
+      "src": "1YSykXUPbCOeDsDSyQoNbX5wsMjeHqxbV@2026-11-05T19:48:52.501Z"
     },
     {
       "slug": "ac-milan-digest-2026-11-05",
