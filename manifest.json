@@ -3,6 +3,30 @@
   "url": "https://evanagribben.github.io",
   "editions": [
     {
+      "slug": "juventus-digest-2026-11-12",
+      "pub": "juventus-digest",
+      "date": "2026-11-12",
+      "title": "Six points off fourth, and a fortnight to fix it",
+      "dek": "Juventus drew 2-2 at Fiorentina to sit seventh, six points off fourth, as Spalletti faces growing scrutiny heading into the international break and a home game with Venezia.",
+      "src": "10WFGGtyIS7uuMJOK4RGozk3NqISiowHn@2026-11-12T18:34:03.878Z"
+    },
+    {
+      "slug": "inter-digest-2026-11-12",
+      "pub": "inter-digest",
+      "date": "2026-11-12",
+      "title": "Inter give Como the ball and take the points",
+      "dek": "Inter beat Como 2-0 with only 43 percent of the ball to go into the international break a point behind Lazio, with Sarri's injury-hit Atalanta up next.",
+      "src": "1XTdnTHIB8FMuLEjpyb7MdchOw_II4Nll@2026-11-12T13:11:01.618Z"
+    },
+    {
+      "slug": "ac-milan-digest-2026-11-12",
+      "pub": "ac-milan-digest",
+      "date": "2026-11-12",
+      "title": "Amorim's split season: a Serie A contender, a Europa League emergency",
+      "dek": "Milan sit fourth on 24 points after winning at Genoa, but a 2-0 home loss to Ferencvaros leaves them 28th in the Europa League and Amorim admitting the squad is not ready.",
+      "src": "1X_XUdoiG848Hc-saQ8TnqGr2GJ-VGp_2@2026-11-12T14:05:45.079Z"
+    },
+    {
       "slug": "psg-digest-2026-11-11",
       "pub": "psg-digest",
       "date": "2026-11-11",
