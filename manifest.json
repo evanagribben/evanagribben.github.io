@@ -3,12 +3,28 @@
   "url": "https://evanagribben.github.io",
   "editions": [
     {
+      "slug": "juventus-digest-2026-11-19",
+      "pub": "juventus-digest",
+      "date": "2026-11-19",
+      "title": "Venezia at home, and no more room for drift",
+      "dek": "Juventus return from the break seventh and 11 points off the top, with Venezia at home, a long injury list easing and Conte openly talking about a comeback.",
+      "src": "1wuifioE4A4uRjZOlkzIlr9b5CAabpt8u@2026-11-19T18:35:31.205Z"
+    },
+    {
       "slug": "inter-digest-2026-11-19",
       "pub": "inter-digest",
       "date": "2026-11-19",
       "title": "Lautaro and Thuram return as Inter restart the chase in Bergamo",
       "dek": "Lautaro Martinez and Marcus Thuram are back in training as second-placed Inter visit Atalanta on Sunday, a point behind Lazio, with Stuttgart three days later.",
       "src": "1Dnh1LKjEpCSXualga2YJPE5jsE1oxSQj@2026-11-19T13:11:15.102Z"
+    },
+    {
+      "slug": "como-digest-2026-11-19",
+      "pub": "como-digest",
+      "date": "2026-11-19",
+      "title": "Douvikas alone: Como's striker crisis meets four games in 12 days",
+      "dek": "A new tibia setback for Moise Kean leaves Tasos Douvikas as the only fit Como striker for four home games in 12 days, starting with Cagliari on Saturday and AEK Athens on Tuesday.",
+      "src": "1Yaf4yQ3dW8EjaGWPJbS9YU6hDF0Cr9Zp@2026-11-19T19:37:14.982Z"
     },
     {
       "slug": "ac-milan-digest-2026-11-19",
