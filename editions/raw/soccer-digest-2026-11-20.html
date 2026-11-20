@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Weekly Soccer Digest</title>
+<meta name="dek" content="Mauricio Pochettino takes charge of Manchester United for the first time at Anfield on Sunday, four days into the job with his club in the relegation zone.">
+<meta name="headline" content="Pochettino Walks Into The Oldest Fight In England">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16181a;
+    --paper:#ffffff;
+    --page:#f1f1ee;
+    --pitch:#0f2e22;
+    --accent:#0f7a4e;
+    --bright:#2fbf71;
+    --muted:#5b625e;
+    --rule:#d9d9d4;
+    --tint:#eef5f0;
+    --label:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --head:Figtree,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --text:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --name:Georgia,'Times New Roman',serif;
+  }
+  html{font-size:100%;}
+  body{
+    margin:0;
+    background:var(--page);
+    color:var(--ink);
+    font-family:var(--text);
+    font-size:1.0625rem;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{width:100%;padding:1.5rem 0.75rem 3rem;box-sizing:border-box;}
+  .sheet{
+    width:100%;
+    max-width:980px;
+    margin:0 auto;
+    background:var(--paper);
+    padding:1.75rem 2rem 2.25rem;
+    box-sizing:border-box;
+    border:1px solid var(--rule);
+  }
+  .stamp{
+    font-family:var(--label);
+    font-size:0.6875rem;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:#6b6b6b;
+    text-align:center;
+    padding-bottom:0.75rem;
+  }
+  .nameplate{
+    font-family:var(--name);
+    color:var(--pitch);
+    font-size:clamp(1.9rem,8.5vw,3.25rem);
+    line-height:1.12;
+    text-align:center;
+    margin:0;
+    padding:0.9rem 0 0.4rem;
+    letter-spacing:-0.01em;
+    overflow-wrap:break-word;
+  }
+  .rule-heavy{border-top:3px solid var(--pitch);}
+  .rule-thin{border-top:1px solid var(--pitch);}
+  .tagline{
+    font-family:var(--label);
+    font-size:0.6875rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--accent);
+    text-align:center;
+    padding:0.5rem 0 0.75rem;
+  }
+  .dateline{
+    font-family:var(--label);
+    font-size:0.6875rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--muted);
+    text-align:center;
+    padding:0.6rem 0;
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+    margin-top:0.25rem;
+  }
+  .toc{padding:1.1rem 0 0.9rem;border-bottom:1px solid var(--rule);}
+  .toc-label{
+    font-family:var(--label);
+    font-size:0.6875rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--accent);
+    padding-bottom:0.45rem;
+  }
+  .toc a{
+    font-family:var(--label);
+    font-size:0.75rem;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    color:var(--pitch);
+    text-decoration:none;
+    border-bottom:1px solid var(--bright);
+    padding-bottom:1px;
+  }
+  .toc a:hover,.toc a:focus{color:var(--accent);}
+  .toc .sep{color:#aeb3b0;padding:0 0.35rem;}
+  .toc-line{line-height:2.2;}
+  @media (max-width:620px){
+    .toc a{font-size:0.6875rem;letter-spacing:0.06em;}
+    .toc .sep{padding:0 0.2rem;}
+    .toc-line{line-height:2;}
+    .sheet{padding:1.25rem 1rem 1.75rem;}
+  }
+  #collapse-all{
+    font-family:var(--label);
+    font-size:0.6875rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    background:var(--paper);
+    color:var(--pitch);
+    border:1px solid var(--pitch);
+    padding:0.55rem 0.85rem;
+    margin-top:0.7rem;
+    cursor:pointer;
+    min-height:44px;
+  }
+  #collapse-all:focus-visible,a:focus-visible{outline:3px solid var(--bright);outline-offset:2px;}
+  .kicker-bar{border-top:2px solid var(--pitch);margin-top:2.2rem;padding-top:0.5rem;}
+  .kicker{
+    font-family:var(--label);
+    font-size:0.75rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 1rem;
+    font-weight:700;
+  }
+  h2.hed{
+    font-family:var(--head);
+    font-weight:800;
+    letter-spacing:-0.015em;
+    font-size:clamp(1.5rem,6vw,2.05rem);
+    line-height:1.18;
+    margin:0.35rem 0 0.6rem;
+    color:var(--ink);
+    overflow-wrap:break-word;
+  }
+  h3.hed{
+    font-family:var(--head);
+    font-weight:700;
+    letter-spacing:-0.015em;
+    font-size:clamp(1.2rem,4.6vw,1.4rem);
+    line-height:1.25;
+    margin:1.9rem 0 0.5rem;
+    overflow-wrap:break-word;
+  }
+  h4.sub{
+    font-family:var(--head);
+    font-weight:700;
+    letter-spacing:-0.01em;
+    font-size:1.05rem;
+    line-height:1.35;
+    margin:1.6rem 0 0.45rem;
+    color:var(--pitch);
+    overflow-wrap:break-word;
+  }
+  p,li,.dek,.fixteams,.cap{overflow-wrap:break-word;}
+  .dek{
+    font-family:var(--text);
+    font-style:italic;
+    font-size:1.1rem;
+    line-height:1.55;
+    color:var(--muted);
+    margin:0 0 1.1rem;
+  }
+  p{margin:0 0 1rem;}
+  .lead-body > p:first-of-type::first-letter{
+    font-family:var(--name);
+    color:var(--pitch);
+    float:left;
+    font-size:3.6rem;
+    line-height:0.84;
+    padding:0.18rem 0.5rem 0 0;
+  }
+  .pull{
+    border-left:4px solid var(--accent);
+    padding:0.35rem 0 0.35rem 1.1rem;
+    margin:1.6rem 0;
+    font-family:var(--text);
+    font-style:italic;
+    font-size:1.25rem;
+    line-height:1.45;
+    color:var(--pitch);
+  }
+  .pull cite{
+    display:block;
+    font-style:normal;
+    font-family:var(--label);
+    font-size:0.6875rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding-top:0.6rem;
+  }
+  .box{
+    border-top:3px solid var(--pitch);
+    padding:0.9rem 1rem 1rem;
+    margin:1.6rem 0;
+    background:var(--paper);
+  }
+  .box.tint{background:var(--tint);}
+  .box.plain{border-top:1px solid var(--pitch);}
+  .box-label{
+    font-family:var(--label);
+    font-size:0.6875rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:#0d6b44;
+    margin:0 0 0.6rem;
+    font-weight:700;
+  }
+  .box ul{margin:0;padding-left:1.1rem;}
+  .box li{margin-bottom:0.45rem;}
+  .box p{margin:0 0 0.6rem;}
+  .box p:last-child{margin-bottom:0;}
+  .person{font-family:var(--text);font-weight:600;}
+  .club{font-family:var(--text);font-weight:600;color:var(--accent);}
+  a{color:var(--accent);}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr);gap:1.75rem;}
+  .grid > *{min-width:0;}
+  @media (min-width:900px){
+    .grid{grid-template-columns:minmax(0,640px) minmax(0,240px);gap:1.75rem;align-items:start;}
+  }
+  table.mini td.l{overflow-wrap:normal;word-break:keep-all;}
+  .side-card{border-top:2px solid var(--pitch);padding-top:0.6rem;margin-bottom:1.6rem;}
+  .side-label{
+    font-family:var(--label);
+    font-size:0.625rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+    margin-bottom:0.45rem;
+  }
+  table.mini{width:100%;border-collapse:collapse;font-family:var(--head);font-size:0.8125rem;line-height:1.5;}
+  table.mini th{
+    font-family:var(--label);
+    font-size:0.5625rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    text-align:right;
+    padding:0.25rem 0.2rem;
+    border-bottom:1px solid var(--rule);
+    font-weight:700;
+  }
+  table.mini th.l,table.mini td.l{text-align:left;}
+  table.mini td{padding:0.3rem 0.15rem;border-bottom:1px solid #eeeeea;text-align:right;}
+  table.mini td.l:nth-child(2){width:99%;padding-right:0.4rem;}
+  table.mini th:first-child,table.mini td:first-child{padding-right:0.35rem;}
+  table.mini tr.hi td{background:var(--tint);font-weight:700;}
+  .cap{
+    font-family:var(--text);
+    font-size:0.8125rem;
+    line-height:1.5;
+    color:var(--muted);
+    margin-top:0.5rem;
+  }
+  .fixstrip{border-top:2px solid var(--pitch);border-bottom:1px solid var(--rule);margin:1.4rem 0 0.4rem;padding:0.7rem 0 0.3rem;}
+  .fixrow{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:0.15rem 1rem;
+    padding:0.42rem 0;
+    border-bottom:1px solid #eeeeea;
+    align-items:baseline;
+  }
+  .fixrow:last-child{border-bottom:0;}
+  .fixteams{font-family:var(--head);font-weight:700;font-size:0.95rem;line-height:1.35;flex:1 1 60%;min-width:0;}
+  .fixcomp{
+    font-family:var(--label);
+    font-size:0.625rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:block;
+    font-weight:700;
+    padding-top:0.15rem;
+  }
+  .fixtime{
+    font-family:var(--head);
+    font-weight:700;
+    font-size:0.85rem;
+    color:var(--pitch);
+    text-align:right;
+    flex:0 1 auto;
+    min-width:0;
+  }
+  .nums{display:grid;grid-template-columns:1fr;gap:0.9rem;}
+  @media (min-width:560px){.nums{grid-template-columns:1fr 1fr;}}
+  .num{border-top:1px solid var(--pitch);padding-top:0.6rem;}
+  .num b{
+    display:block;
+    font-family:var(--head);
+    font-weight:800;
+    font-size:2.3rem;
+    line-height:1.1;
+    color:var(--pitch);
+    letter-spacing:-0.02em;
+  }
+  .num span{display:block;font-size:0.9375rem;line-height:1.5;padding-top:0.25rem;}
+  .brief{border-top:1px solid var(--rule);padding:0.75rem 0 0.1rem;}
+  .brief b{font-family:var(--head);font-weight:700;}
+  .bar-row{display:grid;grid-template-columns:minmax(0,7em) minmax(0,1fr) minmax(0,2.5em);gap:0.5rem;align-items:center;padding:0.22rem 0;font-family:var(--head);font-size:0.75rem;}
+  .bar-row > div{min-width:0;}
+  .bar-row > div:last-child{text-align:right;}
+  .bar-track{background:#ebebe7;}
+  .bar-fill{background:var(--accent);min-height:0.75rem;}
+  .feedback{
+    text-align:center;
+    border-top:1px solid var(--rule);
+    margin-top:2.5rem;
+    padding-top:1.3rem;
+    font-size:0.9375rem;
+  }
+  .footer{
+    background:var(--pitch);
+    color:#e7ece9;
+    margin-top:1.6rem;
+    padding:1.4rem 1.25rem;
+    font-size:0.875rem;
+    line-height:1.65;
+  }
+  .footer a{color:#9fe3bf;}
+  .footer .fl{
+    font-family:var(--label);
+    font-size:0.625rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:#9fe3bf;
+    display:block;
+    padding-bottom:0.5rem;
+    font-weight:700;
+  }
+  .footer .pst{text-align:center;padding-top:0.9rem;font-family:var(--label);font-size:0.625rem;letter-spacing:0.2em;text-transform:uppercase;}
+  section[hidden]{display:none;}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ink:#ececea;--paper:#15171a;--page:#0c0d0f;--rule:#2d3134;--tint:#17261f;--muted:#a7afaa;--accent:#45c98a;--bright:#2fbf71;--pitch:#8fdcb4;
+    }
+    :root:not([data-theme="light"]) .footer{background:#102019;}
+    :root:not([data-theme="light"]) table.mini td{border-bottom-color:#23272a;}
+    :root:not([data-theme="light"]) .bar-track{background:#262a2d;}
+  }
+  :root[data-theme="dark"]{
+    --ink:#ececea;--paper:#15171a;--page:#0c0d0f;--rule:#2d3134;--tint:#17261f;--muted:#a7afaa;--accent:#45c98a;--bright:#2fbf71;--pitch:#8fdcb4;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="sheet">
+
+  <div class="stamp">Stoppage Time</div>
+  <div class="rule-heavy"></div>
+  <h1 class="nameplate">The Weekly Soccer Digest</h1>
+  <div class="rule-thin"></div>
+  <div class="tagline">World football, every Friday, in full</div>
+  <div class="rule-heavy"></div>
+  <div class="dateline">Edition No. 1 &nbsp;&middot;&nbsp; Friday, November 20, 2026 &nbsp;&middot;&nbsp; All times Pacific</div>
+
+  <nav class="toc" aria-label="Sections in this edition">
+    <div class="toc-label">In this edition</div>
+    <div class="toc-line">
+      <a href="#this-weekend">This Weekend</a><span class="sep">&middot;</span><a href="#the-lead">The Lead</a><span class="sep">&middot;</span><a href="#transfer-news">Transfer News</a><span class="sep">&middot;</span><a href="#around-the-leagues">Around the Leagues</a><span class="sep">&middot;</span><a href="#numbers-of-the-week">Numbers of the Week</a><span class="sep">&middot;</span><a href="#in-brief">In Brief</a><span class="sep">&middot;</span><a href="#what-to-watch">What to Watch</a>
+    </div>
+    <button id="collapse-all" type="button" aria-expanded="true">Collapse all sections</button>
+  </nav>
+
+  <div class="box tint">
+    <p class="box-label">If you read nothing else</p>
+    <ul>
+      <li>Mauricio Pochettino takes charge of Manchester United for the first time at Anfield on Sunday, four days after starting work.</li>
+      <li>Manchester City were found guilty on 114 of 115 financial charges; their appeal is set for mid-December, sanctions for 2027.</li>
+      <li>Lazio lead Serie A unbeaten on 29 points, their first solo spell on top of the Italian league since 2010.</li>
+    </ul>
+  </div>
+
+  <section id="this-weekend" data-toc="This Weekend">
+    <div class="kicker-bar"></div>
+    <p class="kicker">This Weekend</p>
+    <h2 class="hed">Eight Matches That Shape The Next Seven Days</h2>
+    <p class="dek">Europe's leagues restart together after the November international break. These are the games worth setting an alarm for, with kickoff times converted to Pacific.</p>
+    <div class="fixstrip">
+      <div class="fixrow"><div class="fixteams">Manchester City v Fulham<span class="fixcomp">Premier League</span></div><div class="fixtime">Sat 4:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Borussia M&ouml;nchengladbach v Borussia Dortmund<span class="fixcomp">Bundesliga</span></div><div class="fixtime">Sat 6:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Nice v Paris Saint-Germain<span class="fixcomp">Ligue 1</span></div><div class="fixtime">Sat 8:15am</div></div>
+      <div class="fixrow"><div class="fixteams">Newcastle United v Arsenal<span class="fixcomp">Premier League</span></div><div class="fixtime">Sat 9:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Real Madrid v Celta Vigo<span class="fixcomp">La Liga</span></div><div class="fixtime">Sat 12:00pm</div></div>
+      <div class="fixrow"><div class="fixteams">Barcelona v Villarreal<span class="fixcomp">La Liga</span></div><div class="fixtime">Sun 5:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Liverpool v Manchester United<span class="fixcomp">Premier League</span></div><div class="fixtime">Sun 8:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Atalanta v Inter Milan<span class="fixcomp">Serie A</span></div><div class="fixtime">Sun 11:45am</div></div>
+    </div>
+  </section>
+
+  <div class="grid">
+  <main>
+
+  <section id="the-lead" data-toc="The Lead">
+    <div class="kicker-bar"></div>
+    <p class="kicker">The Lead</p>
+    <h2 class="hed">Pochettino Walks Into The Oldest Fight In England</h2>
+    <p class="dek">Four days into the job, with a squad he has barely met and a club sitting in the relegation zone, Manchester United's eighth permanent manager since Alex Ferguson begins at Anfield. The tactical problem, the personnel, and why the hardest possible start may also be the kindest.</p>
+
+    <div class="lead-body">
+    <p>There is no gentle way to begin at <span class="club">Manchester United</span>, but there are degrees of cruelty, and the fixture computer has chosen the far end of the scale. <span class="person">Mauricio Pochettino</span> officially became United's head coach on November 18. On Tuesday he was still on a touchline in another hemisphere, finishing his last assignment as head coach of the United States. On Sunday at 8:30am Pacific he walks out at Anfield.</p>
+
+    <p>He will have had roughly three days of training with his new players. Three of his staff, including long-time assistant <span class="person">Jes&uacute;s P&eacute;rez</span>, went ahead to Manchester after the first leg of the United States' double-header so that something resembling preparation could begin without him.</p>
+
+    <h4 class="sub">How United got here</h4>
+    <p>Badly, and in public. <span class="person">Michael Carrick</span> was dismissed on November 12 after one win in ten league matches. United sit 18th with eight points from ten games, a record of one win, five draws and four defeats, and a goal difference of minus five. It is the club's worst start to a league season in forty years.</p>
+
+    <p>The underlying numbers are worse than the table. United have not kept a clean sheet all season. They drew 4-4 at home with <span class="club">Aston Villa</span> on November 8, a scoreline that functions as a diagnosis rather than a result. Only one league win separates them from the bottom two.</p>
+
+    <h4 class="sub">The buyout, and the hurry</h4>
+    <p>Pochettino had been under contract with US Soccer through the 2030 World Cup following an extension. United activated his buyout clause in November and agreed a deal reported at two and a half years. He becomes the eighth permanent manager at Old Trafford since Ferguson left in May 2013, and the club have now circled him three times across a decade, passing him over for <span class="person">Jos&eacute; Mourinho</span> and then <span class="person">Erik ten Hag</span> before finally moving.</p>
+
+    <p>United's statement leaned on his reputation for high-intensity attacking football, cohesive team-building and player development. All three are long-horizon qualities. None of them is likely to be visible on Sunday.</p>
+
+    <h4 class="sub">The tactical problem</h4>
+    <p>A Pochettino side presses high and runs a lot, and both of those things require a level of conditioning this United squad has not demonstrated. <span class="person">Jamie Redknapp</span> has argued that the first job is simply to get the group fit and to repair the back four. <span class="person">Gary Neville</span>, long an advocate of the appointment, has been blunter still, saying Pochettino must take control of recruitment for any of it to matter.</p>
+
+    <p>There is, though, one asset a brand-new manager carries that nobody can scout. Liverpool head coach <span class="person">Andoni Iraola</span> conceded this week that United arrive with an edge nobody at Anfield can prepare for, because nobody knows how Pochettino will set them up.</p>
+
+    <div class="pull">
+      Only one of United's last nine managers, caretakers included, has lost his first Premier League match in charge.
+      <cite>The Analyst, on the one statistic working in Pochettino's favour</cite>
+    </div>
+
+    <h4 class="sub">Liverpool are not what they were</h4>
+    <p>This is the part of the equation that makes Sunday live. Liverpool sit fourth on 18 points with five wins, three draws and two defeats, a goal difference of plus four from ten games. That is a long way from a side cruising.</p>
+
+    <p>Iraola, appointed in June after <span class="person">Arne Slot</span> was dismissed at the end of last season, has not yet made Anfield the fortress it was. His team have created plenty at home without converting it, and their clearest advantage on Sunday is from set pieces. <span class="person">Virgil van Dijk</span>, <span class="person">Dominik Szoboszlai</span> and <span class="person">Ryan Gravenberch</span> are all fit. <span class="person">Alexander Isak</span> leads the line.</p>
+
+    <h4 class="sub">The record, and the history</h4>
+    <p>Pochettino's personal history against Liverpool is poor: three wins from nineteen meetings. His first match as <span class="club">Chelsea</span> manager was also against Liverpool, which is either a pleasing symmetry or an omen, depending on temperament.</p>
+
+    <p>He is the first United manager whose opening league fixture is against Liverpool. Against that, eight of the previous twelve United managers won their first match in charge, and only one of the last nine lost. The Analyst's pre-match model ran ten thousand simulations and gave Liverpool a 57.3 percent chance of winning to United's 20.5 percent.</p>
+
+    <h4 class="sub">What he actually has available</h4>
+    <p><span class="person">Harry Maguire</span> and <span class="person">Patrick Dorgu</span> both trained on Thursday. <span class="person">Lisandro Mart&iacute;nez</span> returns from suspension. That is a stronger defensive hand than looked likely a week ago, which matters for a side yet to keep a clean sheet.</p>
+
+    <p>Chief executive <span class="person">Omar Berrada</span> has insisted publicly this week that the club is heading in the right direction, a sentence that lands differently from 18th place. The Manchester United Supporters' Trust responded to the appointment by calling on the club to back its new manager properly. January, as the transfer section below sets out, is where that promise gets tested.</p>
+    </div>
+
+    <div class="box tint">
+      <p class="box-label">The Anfield File</p>
+      <ul>
+        <li><b>Match</b>: Liverpool v Manchester United, Premier League Matchday 11, Anfield.</li>
+        <li><b>Kickoff</b>: Sunday, November 22, 8:30am Pacific (4:30pm UK).</li>
+        <li><b>Form</b>: Liverpool 4th, 18 points (W5 D3 L2). Manchester United 18th, 8 points (W1 D5 L4).</li>
+        <li><b>Pochettino v Liverpool</b>: three wins in nineteen meetings.</li>
+        <li><b>United managers since Ferguson</b>: Pochettino is the eighth permanent appointment since May 2013.</li>
+        <li><b>Model</b>: Liverpool 57.3 percent, Manchester United 20.5 percent (The Analyst, 10,000 simulations).</li>
+      </ul>
+    </div>
+
+    <h3 class="hed">The Other Manchester Story Is A Courtroom One</h3>
+    <p class="dek">City were found guilty on 114 of 115 charges. The appeal is set for mid-December, the sanction will not land until 2027, and in the meantime the team has lost three league matches in a row.</p>
+
+    <p>On September 29 the Premier League announced that <span class="club">Manchester City</span> had been found guilty of all charges relating to serious breaches of its financial rules across the nine seasons from 2009-10 to 2017-18, and of the majority of charges relating to a failure to cooperate with the investigation. An independent commission upheld 114 of the 115 charges and described sponsorship arrangements as sham deals, finding that the club benefited from more than &pound;900 million of disguised funding. Chief executive <span class="person">Richard Masters</span> called it the most significant disciplinary case in the league's history.</p>
+
+    <p>City lodged what they termed a comprehensive appeal at 7pm on October 1, calling the verdict unsafe and arguing it contains material errors of law, principle and fact. Part of the appeal is expected to rest on the claim that the money came from the Abu Dhabi government as a sovereign body rather than from the club's owners.</p>
+
+    <h4 class="sub">The timetable that emerged this week</h4>
+    <p>The Financial Times reported on November 13 that the appeal will be heard in mid-December and could run for several days. Football finance analyst <span class="person">Stefan Borson</span> told talkSPORT this week that he expects the hearing to last between five and ten days, with a decision perhaps thirty to forty-five days afterwards, and he stressed that no sanction hearing has taken place at all yet. That comes after the appeal.</p>
+
+    <p>The available sanctions range from a reprimand and a fine through transfer bans and points deductions to expulsion from the competition. Rival clubs have briefed that they do not expect City to be in the Premier League next season if the appeal fails. Under Premier League rules the club cannot take a sanction to the Court of Arbitration for Sport.</p>
+
+    <h4 class="sub">And the football, which has not helped</h4>
+    <p>City opened the season with seven straight wins and have since lost three consecutive league matches, the last a 3-1 defeat at <span class="club">Nottingham Forest</span>. They are third on 21 points, six behind the leaders. <span class="person">Enzo Maresca</span>, who replaced <span class="person">Pep Guardiola</span> in the summer after Guardiola resigned in May, hosts Fulham on Saturday, <span class="club">Napoli</span> in the Champions League on Tuesday and travels to the Emirates a week on Sunday.</p>
+
+    <p><span class="person">Erling Haaland</span> addressed the case during the international break and pushed back firmly. He pointed to a five-year contract signed in 2022 and a further extension in late 2024 that runs to 2034, and said plainly that he is a City player and is happy there. Reports in Spain that <span class="person">Florentino P&eacute;rez</span> expects to sign him eventually are, for now, exactly that: reports.</p>
+  </section>
+
+  <section id="transfer-news" data-toc="Transfer News">
+    <div class="kicker-bar"></div>
+    <p class="kicker">Transfer News</p>
+
+    <h3 class="hed">United's January Is Already Being Written</h3>
+    <p class="dek">A new manager, two named priority positions, one departure that looks settled and a Barcelona left-back whose situation has become untenable.</p>
+
+    <p>The message coming out of Old Trafford, relayed by <span class="person">Fabrizio Romano</span>, is unambiguous: in January, United will do things. Pochettino will be part of those conversations rather than a bystander, and two positions have been identified as priorities. The first is centre-back. The second is a striker.</p>
+
+    <p>On the striker, Romano reported on Friday that United have already started exploring opportunities regardless of what happens with <span class="person">Joshua Zirkzee</span>, whose exit would accelerate matters rather than cause them. Left-back could be added once Pochettino completes detailed recruitment discussions with the club.</p>
+
+    <h4 class="sub">Balde: serious and concrete, but not yet advanced</h4>
+    <p>The name to watch is <span class="person">Alejandro Balde</span>. The <span class="club">Barcelona</span> left-back is barely playing, and Romano's framing has hardened over three weeks from a situation to watch into a chance he described as serious and concrete. Certainty tier: concrete interest. No fee has been agreed and no talks between clubs have been reported.</p>
+
+    <h4 class="sub">Gabriel to Madrid looks closest to done</h4>
+    <p>The deal furthest along involves a player leaving. Romano has said that <span class="club">Real Madrid</span> are set to make United teenager <span class="person">JJ Gabriel</span> their first signing of the January window, with a here-we-go on the way. Gabriel cannot sign anything or complete a transfer before January 1. An earlier link to <span class="club">Paris Saint-Germain</span> is dead. Certainty tier: agreement reported, not yet official.</p>
+
+    <h4 class="sub">And one that is not happening</h4>
+    <p>Italian outlets linked <span class="person">Benjamin &Scaron;e&scaron;ko</span> with <span class="club">Juventus</span> in January. Romano has reported that &Scaron;e&scaron;ko wants to stay at United. Gazzetta dello Sport has also connected Pochettino with his former United States midfielder <span class="person">Weston McKennie</span>, though Juventus's stance makes a January departure unlikely. Both sit at the rumour tier.</p>
+
+    <h3 class="hed">Milan Look North For A Leader</h3>
+    <p class="dek">Italy's winter planning has begun early, and the most striking name on it plays at Anfield.</p>
+
+    <p>Reports in Italy this week, led by <span class="person">Luca Bianchin</span> of Gazzetta dello Sport, have <span class="club">AC Milan</span> considering <span class="person">Virgil van Dijk</span> their number one defensive target ahead of next summer, with the captaincy floated as part of the pitch. It is a summer idea rather than a January one, and it sits firmly at the rumour tier: no approach, no valuation, no indication from <span class="club">Liverpool</span> that the player is available.</p>
+
+    <p>The wider context is that Milan have set guidelines for their 2027 business under sporting leadership that Gazzetta characterised as ambitious, surprising and Italian. Milan sit fourth in Serie A on 24 points and host Frosinone on Sunday.</p>
+
+    <h4 class="sub">Juventus want another striker anyway</h4>
+    <p>Juventus signed <span class="person">Randal Kolo Muani</span> from Paris Saint-Germain and <span class="person">Nick Woltemade</span> from <span class="club">Newcastle United</span> in the summer and may still enter the market for a forward in January. They are seventh on 18 points, which is not where the club expects to be in late November, and the January window is the only lever available before the spring.</p>
+
+    <h3 class="hed">Germany Is Where The Prices Get Set</h3>
+    <p class="dek">Leipzig are holding, Dortmund have a clause that does not bite until summer, and Bayern have not let go of a Liverpool teenager.</p>
+
+    <p><span class="club">RB Leipzig</span> have made their position clear on <span class="person">Antonio Nusa</span>. Romano reports that Leipzig are not pushing to sell, are demanding a substantial fee and would prefer to keep the Norway winger until the summer. Their reasoning is commercial and blunt: having already generated a large sum last summer from the sale of <span class="person">Ousmane Diomand&eacute;</span>, selling Nusa in January would gut the attack mid-season. Romano expects him to move in 2027. Certainty tier: interest, with the selling club resisting.</p>
+
+    <p>Mundo Deportivo reports from Germany that <span class="person">Nico Schlotterbeck</span>, following his contract renewal at <span class="club">Borussia Dortmund</span> last April, carries a release clause that only becomes affordable in next summer's window. Not a January story.</p>
+
+    <h4 class="sub">Two to file away</h4>
+    <p><span class="person">Christian Falk</span> of Bild reports that <span class="club">Bayern Munich</span> retain their interest in Liverpool teenager <span class="person">Rio Ngumoha</span> after exploring a deal in the summer, with a vacancy possibly opening on their left side. Separately, Bild reports Liverpool among the clubs interested in <span class="person">Wael Mohya</span>, the 17-year-old M&ouml;nchengladbach attacking midfielder, with a price point around 20 million euros shaped by his contract position and his club's dire league situation. Both are rumour tier.</p>
+
+    <h3 class="hed">The Rumour Mill</h3>
+    <p class="dek">Everything still simmering, sorted by how close it actually is. The ladder runs: rumour, concrete interest, advanced talks, fee agreed, personal terms, medical, official.</p>
+
+    <p><b>Alexander-Arnold to Liverpool, ruled out.</b> Romano reported on November 18 that <span class="person">Trent Alexander-Arnold</span> has no intention of leaving Real Madrid in January and that a return to Anfield is not being considered by any party. Mourinho wants him to stay. No concrete discussions between the clubs have taken place. Treat the loan reports as dead.</p>
+
+    <p><b>Ronald Ara&uacute;jo's buyout clause, decision taken.</b> Romano has reported Liverpool's position on whether to trigger the Barcelona defender's clause, reported in England at around &pound;46 million. Advanced interest has not materialised into action.</p>
+
+    <p><b>Luka Vu&scaron;kovi&cacute; to Liverpool, summer.</b> <span class="person">Florian Plettenberg</span> of Sky Germany reports the centre-back is on Liverpool's shortlist for a summer move, with <span class="club">Brighton</span> valuing him at over 100 million dollars. Plettenberg adds that the Croatian's own ambition is eventually to play for Real Madrid. Rumour tier, long horizon.</p>
+
+    <p><b>Nico Paz to Manchester United.</b> Romano has addressed United's chances of signing the <span class="club">Como</span> playmaker in January. Como's own situation complicates it: they are fourth in the Champions League league phase and fifth in Serie A, and forward <span class="person">Moise Kean</span> is now out for at least two months. Selling their creative hub mid-season would be extraordinary. Rumour tier.</p>
+
+    <p><b>Also live.</b> United are exploring a deal for <span class="person">Rayan A&iuml;t-Nouri</span>. Romano flags <span class="person">Johan Bakayoko</span> as a genuine January possibility. Bournemouth's <span class="person">Alex Scott</span> has multiple suitors. And the perennial: <span class="club">Real Madrid</span> and Barcelona are both described as monitoring Haaland's situation should City's sanction change his calculus, which is speculation stacked on an appeal that has not been heard.</p>
+  </section>
+
+  <section id="around-the-leagues" data-toc="Around the Leagues">
+    <div class="kicker-bar"></div>
+    <p class="kicker">Around the Leagues</p>
+    <h2 class="hed">Six Competitions, Restarting At Once</h2>
+    <p class="dek">Where every league stands as domestic football returns from the November international break.</p>
+
+    <h3 class="hed">Premier League</h3>
+    <p>The table has a settled look at the top and chaos everywhere else. <span class="club">Brighton</span> are second on 22 points with a goal difference of plus nineteen, the best in the division, built on results like a 5-0 home win over Crystal Palace in October and a 5-0 win at Coventry in September. For a club that has spent a decade being described as well-run, this is the season the description has started to look like an understatement.</p>
+
+    <p>Behind them, <span class="club">Manchester City</span> have gone from seven straight wins to three straight defeats and sit third on 21. <span class="club">Liverpool</span> are fourth on 18 under <span class="person">Andoni Iraola</span>, who replaced <span class="person">Arne Slot</span> in June. <span class="club">Chelsea</span> are fifth on 16 in <span class="person">Xabi Alonso</span>'s first season, a campaign that has already produced wins over Brighton and Manchester United alongside defeats to Tottenham and Sunderland, a League Cup exit to Liverpool and a 5-1 thrashing of Bournemouth. Alonso also inherited a change of ownership: Clearlake Capital took full control in September, ending <span class="person">Todd Boehly</span>'s chairmanship in a deal valuing the club at &pound;5 billion.</p>
+
+    <h4 class="sub">The bottom is where the managers are changing</h4>
+    <p>Two clubs have changed manager this season and both did it on the same day. United sacked Carrick on November 12 and appointed Pochettino. <span class="club">Crystal Palace</span> sacked <span class="person">Pierre Sage</span> on the same date with the club bottom on seven points, after four straight league defeats and a sixteen-game tenure. On November 16 Palace appointed <span class="person">Thomas Frank</span> on a deal running to June 2029, chairman <span class="person">Steve Parish</span> citing his Premier League experience. Frank, who took Brentford into the top flight and then endured a bruising eight months at Tottenham, begins away at <span class="club">Coventry City</span> on Saturday. Coventry are themselves back in the Premier League after a twenty-five-year absence, the longest of any returning club in the competition's history.</p>
+
+    <p>The relegation picture is genuinely open: Nottingham Forest on nine, Coventry on nine, Manchester United on eight, Sunderland on eight and Palace on seven are separated by two points. Hull City, promoted this season, sit 13th on eleven and have the longest winless run in the division alongside United.</p>
+
+    <h3 class="hed">La Liga</h3>
+    <p>Three clubs, twelve games, five points between them. <span class="club">Barcelona</span> lead on 33 points with eleven wins and one defeat, a goal difference of plus thirty-five that dwarfs everything else in Spain. <span class="person">Hansi Flick</span>'s side host Villarreal on Sunday with Jules Kound&eacute;, Dani Olmo, Pau Cubars&iacute; and Frenkie de Jong all back in training.</p>
+
+    <p>The story of the autumn, though, has been the club in second. <span class="person">Jos&eacute; Mourinho</span> returned to <span class="club">Real Madrid</span> this season and, after a start one ESPN writer described as flawed, won his first Cl&aacute;sico since coming back, 2-1 at Camp Nou on October 25. Madrid are second on 30 points and have a perfect record in the Champions League league phase. The next Cl&aacute;sico is not until May 9. <span class="club">Atl&eacute;tico Madrid</span> are third on 28 under <span class="person">Diego Simeone</span>, who has not won the league since 2020-21 and has a case this time.</p>
+
+    <p>Elsewhere, Real Betis are fourth on 26 and Real Sociedad fifth on 22. Saturday brings the Seville derby, Sevilla against Betis, with sixth-placed Sevilla eight points adrift of their neighbours. At the other end, newly promoted M&aacute;laga are last on five points and still looking for a first win of the season from twelve attempts.</p>
+
+    <h3 class="hed">Bundesliga</h3>
+    <p>Nine matches in, Germany has a title race. <span class="club">Bayern Munich</span> and <span class="club">Borussia Dortmund</span> are level on 21 points, both unbeaten with six wins and three draws, separated only by goal difference: Bayern plus twenty, Dortmund plus nine. They drew 2-2 in the first Klassiker on October 31. <span class="club">SC Freiburg</span> are a point back in third on 19, then RB Leipzig on 18 and Bayer Leverkusen on 16.</p>
+
+    <p>Bayern opened Matchday 10 at home to 1. FC K&ouml;ln on Friday evening in Munich, a match under way as this edition went to press. <span class="person">Vincent Kompany</span> returned to the touchline for it after recent health problems. Dortmund travel to <span class="club">Borussia M&ouml;nchengladbach</span> on Saturday morning Pacific; Gladbach are bottom on four points with one win in nine, which gives the fixture an edge it would not otherwise have.</p>
+
+    <p>The season's genuine curiosity is <span class="club">SV Elversberg</span>, who are making their Bundesliga debut as the 59th club in the competition's history and sit seventh on 13 points, ahead of Stuttgart, Hoffenheim and Eintracht Frankfurt. They host Freiburg on Saturday in a 10,000-capacity stadium. Schalke 04, back after three years away, are 17th.</p>
+
+    <h3 class="hed">Serie A</h3>
+    <p>The best story in European football right now is in Rome, and it is not the one you would expect. <span class="club">Lazio</span> lead Serie A on 29 points from eleven games, unbeaten with nine wins and two draws. They went alone to the top on November 1 with a 2-1 comeback win over Cagliari, <span class="person">Andrea Pinamonti</span> scoring in the 83rd minute. It ended a wait of 5,836 days since the club last stood alone at the summit of Italian football, in 2010 under Edy Reja.</p>
+
+    <p>What makes it improbable is the starting point. Lazio were banned from transfer activity last summer for failing financial tests, sold two key players in January without replacing them adequately and finished ninth, their worst in twelve years. <span class="person">Gennaro Gattuso</span> arrived in June and has asked his players not to look at the table, saying they might get dizzy, while setting a public target of forty points. TNT Sports this week ran the Italian Leicester City comparison seriously.</p>
+
+    <p>Behind them: <span class="club">Inter Milan</span>, the reigning champions, second on 28 with a perfect home record. <span class="club">Roma</span> third on 27 under <span class="person">Gian Piero Gasperini</span>, one of only four teams in sixty-five years to score more than thirty goals in their opening eleven Serie A matches. <span class="club">AC Milan</span> fourth on 24. <span class="club">Como</span> fifth on 23, which understates them: they also sit fourth in the Champions League league phase, having beaten Lens 9-1. <span class="club">Napoli</span>, champions two seasons ago, are tenth on 15 and lost 2-0 at Juventus on November 1.</p>
+
+    <h3 class="hed">Ligue 1</h3>
+    <p><span class="club">Paris Saint-Germain</span> lead on 23 points and arrive at Nice on Saturday having won their last eleven matches in all competitions. <span class="person">Luis Enrique</span>'s side are the reigning European champions and are top of the Champions League league phase with a perfect twelve points and a goal difference of plus fifteen, including a 6-0 win over Villarreal and a 4-2 win over Barcelona.</p>
+
+    <p>The chasing pack is unfamiliar. <span class="club">Lille</span> are second on 21 and host fifth-placed <span class="club">Lyon</span> on Saturday. <span class="club">Paris FC</span>, in only their second season back in the top flight, are third on 20. <span class="club">Marseille</span> are fourth on 18 under <span class="person">Bruno G&eacute;n&eacute;sio</span>, having won their last five. Nice, PSG's opponents, are sixth on 17 and have won five of their last six.</p>
+
+    <p>France has also had the busiest managerial month in Europe. Lyon's <span class="person">Paulo Fonseca</span> resigned on November 4 with the club third, replaced by <span class="person">Carlos Vicens</span> on November 9. Lens sacked <span class="person">Yannick Cahuzac</span> on November 10 and hired <span class="person">Didier Digard</span> on November 13, which is notable because Le Havre had sacked Digard on October 31. Le Havre, bottom at the time, appointed <span class="person">Val&eacute;rien Isma&euml;l</span> on November 12.</p>
+
+    <h3 class="hed">Major League Soccer</h3>
+    <p>The regular season ended on November 7 and the postseason began on Thursday. Both wild-card matches went to the visitors. <span class="club">FC Cincinnati</span> came from a goal down to win 3-1 at Orlando City, <span class="person">Evander</span> scoring twice within five minutes of the restart to eliminate <span class="person">Antoine Griezmann</span>'s side. In the West, <span class="club">Real Salt Lake</span> drew 1-1 at Seattle and won 4-2 on penalties at Lumen Field, goalkeeper <span class="person">Rafael Cabral</span> saving twice.</p>
+
+    <p>Round One is a best-of-three series and starts this weekend. <span class="club">Nashville SC</span>, Supporters' Shield winners, face Cincinnati. <span class="club">Inter Miami</span>, the defending MLS Cup champions with <span class="person">Lionel Messi</span>, face Columbus Crew. Real Salt Lake meet Vancouver, last season's runners-up. The conference semifinals are December 5 and 6, the conference finals December 11 and 12, and MLS Cup is on Friday, December 18. One footnote from the regular season: for the first time since 2009, no club from the New York metropolitan area qualified.</p>
+  </section>
+
+  </main>
+
+  <aside aria-label="League tables">
+    <div class="side-card">
+      <div class="side-label">Premier League</div>
+      <table class="mini">
+        <thead><tr><th class="l">#</th><th class="l">Club</th><th>P</th><th>GD</th><th>Pts</th></tr></thead>
+        <tbody>
+          <tr><td class="l">1</td><td class="l">Arsenal</td><td>10</td><td>+10</td><td>27</td></tr>
+          <tr><td class="l">2</td><td class="l">Brighton</td><td>10</td><td>+19</td><td>22</td></tr>
+          <tr><td class="l">3</td><td class="l">Man City</td><td>10</td><td>+8</td><td>21</td></tr>
+          <tr><td class="l">4</td><td class="l">Liverpool</td><td>10</td><td>+4</td><td>18</td></tr>
+          <tr><td class="l">5</td><td class="l">Chelsea</td><td>10</td><td>+3</td><td>16</td></tr>
+          <tr class="hi"><td class="l">18</td><td class="l">Man Utd</td><td>10</td><td>-5</td><td>8</td></tr>
+          <tr class="hi"><td class="l">20</td><td class="l">Crystal Palace</td><td>10</td><td>-14</td><td>7</td></tr>
+        </tbody>
+      </table>
+      <p class="cap">Top five plus the two clubs that changed manager. Arsenal lead on 27 points, Manchester United are 18th on 8 and Crystal Palace bottom on 7.</p>
+    </div>
+
+    <div class="side-card">
+      <div class="side-label">Serie A</div>
+      <table class="mini">
+        <thead><tr><th class="l">#</th><th class="l">Club</th><th>P</th><th>GD</th><th>Pts</th></tr></thead>
+        <tbody>
+          <tr class="hi"><td class="l">1</td><td class="l">Lazio</td><td>11</td><td>+16</td><td>29</td></tr>
+          <tr><td class="l">2</td><td class="l">Inter</td><td>11</td><td>+15</td><td>28</td></tr>
+          <tr><td class="l">3</td><td class="l">Roma</td><td>11</td><td>+21</td><td>27</td></tr>
+          <tr><td class="l">4</td><td class="l">AC Milan</td><td>11</td><td>+10</td><td>24</td></tr>
+          <tr><td class="l">5</td><td class="l">Como</td><td>11</td><td>+8</td><td>23</td></tr>
+          <tr class="hi"><td class="l">10</td><td class="l">Napoli</td><td>11</td><td>+4</td><td>15</td></tr>
+        </tbody>
+      </table>
+      <p class="cap">Lazio lead on 29 points, Inter have 28 and Roma 27. Napoli, champions two seasons ago, are 10th on 15.</p>
+    </div>
+
+    <div class="side-card">
+      <div class="side-label">La Liga</div>
+      <table class="mini">
+        <thead><tr><th class="l">#</th><th class="l">Club</th><th>P</th><th>GD</th><th>Pts</th></tr></thead>
+        <tbody>
+          <tr><td class="l">1</td><td class="l">Barcelona</td><td>12</td><td>+35</td><td>33</td></tr>
+          <tr><td class="l">2</td><td class="l">Real Madrid</td><td>12</td><td>+21</td><td>30</td></tr>
+          <tr><td class="l">3</td><td class="l">Atl&eacute;tico</td><td>12</td><td>+13</td><td>28</td></tr>
+          <tr><td class="l">4</td><td class="l">Real Betis</td><td>12</td><td>+5</td><td>26</td></tr>
+          <tr><td class="l">5</td><td class="l">Real Sociedad</td><td>12</td><td>+1</td><td>22</td></tr>
+          <tr class="hi"><td class="l">20</td><td class="l">M&aacute;laga</td><td>12</td><td>-14</td><td>5</td></tr>
+        </tbody>
+      </table>
+      <p class="cap">Barcelona lead on 33 points from Real Madrid on 30 and Atl&eacute;tico on 28. M&aacute;laga are bottom on 5 and still winless.</p>
+    </div>
+
+    <div class="side-card">
+      <div class="side-label">Bundesliga</div>
+      <table class="mini">
+        <thead><tr><th class="l">#</th><th class="l">Club</th><th>P</th><th>GD</th><th>Pts</th></tr></thead>
+        <tbody>
+          <tr><td class="l">1</td><td class="l">Bayern</td><td>9</td><td>+20</td><td>21</td></tr>
+          <tr><td class="l">2</td><td class="l">Dortmund</td><td>9</td><td>+9</td><td>21</td></tr>
+          <tr><td class="l">3</td><td class="l">Freiburg</td><td>9</td><td>+10</td><td>19</td></tr>
+          <tr><td class="l">4</td><td class="l">RB Leipzig</td><td>9</td><td>+14</td><td>18</td></tr>
+          <tr><td class="l">5</td><td class="l">Leverkusen</td><td>9</td><td>+3</td><td>16</td></tr>
+          <tr class="hi"><td class="l">7</td><td class="l">Elversberg</td><td>9</td><td>-1</td><td>13</td></tr>
+          <tr class="hi"><td class="l">18</td><td class="l">M'gladbach</td><td>9</td><td>-13</td><td>4</td></tr>
+        </tbody>
+      </table>
+      <p class="cap">Bayern and Dortmund are level on 21 points, split by goal difference. Debutants Elversberg are 7th on 13; M&ouml;nchengladbach are bottom on 4.</p>
+    </div>
+
+    <div class="side-card">
+      <div class="side-label">Ligue 1</div>
+      <table class="mini">
+        <thead><tr><th class="l">#</th><th class="l">Club</th><th>P</th><th>GD</th><th>Pts</th></tr></thead>
+        <tbody>
+          <tr><td class="l">1</td><td class="l">PSG</td><td>10</td><td>+12</td><td>23</td></tr>
+          <tr><td class="l">2</td><td class="l">Lille</td><td>10</td><td>+7</td><td>21</td></tr>
+          <tr><td class="l">3</td><td class="l">Paris FC</td><td>10</td><td>+7</td><td>20</td></tr>
+          <tr><td class="l">4</td><td class="l">Marseille</td><td>10</td><td>+8</td><td>18</td></tr>
+          <tr><td class="l">5</td><td class="l">Lyon</td><td>10</td><td>+6</td><td>17</td></tr>
+        </tbody>
+      </table>
+      <p class="cap">PSG lead on 23 points, two clear of Lille, with Paris FC third on 20 in their second season back in the top flight.</p>
+    </div>
+  </aside>
+  </div>
+
+  <section id="numbers-of-the-week" data-toc="Numbers of the Week">
+    <div class="kicker-bar"></div>
+    <p class="kicker">Numbers of the Week</p>
+    <div class="box tint">
+      <p class="box-label">Four figures that explain the week</p>
+      <div class="nums">
+        <div class="num"><b>114</b><span>Charges upheld against Manchester City out of 115 by the independent commission. The appeal is heard in mid-December.</span></div>
+        <div class="num"><b>5,836</b><span>Days between Lazio's previous spell alone at the top of Serie A and the one they are enjoying now.</span></div>
+        <div class="num"><b>8</b><span>Manchester United's points after ten league games, their worst start to a season in forty years.</span></div>
+        <div class="num"><b>11</b><span>Consecutive wins in all competitions for Paris Saint-Germain going into Saturday at Nice.</span></div>
+      </div>
+    </div>
+
+    <div class="box plain">
+      <p class="box-label">Champions League league phase, top eight after four rounds</p>
+      <div class="bar-row"><div>PSG</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div>12</div></div>
+      <div class="bar-row"><div>Real Madrid</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div>12</div></div>
+      <div class="bar-row"><div>Arsenal</div><div class="bar-track"><div class="bar-fill" style="width:83%"></div></div><div>10</div></div>
+      <div class="bar-row"><div>Como</div><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><div>9</div></div>
+      <div class="bar-row"><div>Barcelona</div><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><div>9</div></div>
+      <div class="bar-row"><div>Aston Villa</div><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><div>9</div></div>
+      <div class="bar-row"><div>Man City</div><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><div>9</div></div>
+      <div class="bar-row"><div>Liverpool</div><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><div>9</div></div>
+      <p class="cap">Points from four matchdays. PSG and Real Madrid lead on 12 points each, both with perfect records. Arsenal have 10. Como, Barcelona, Aston Villa, Manchester City and Liverpool are on 9, separated only by goal difference. Matchday 5 is November 24 and 25.</p>
+    </div>
+  </section>
+
+  <section id="in-brief" data-toc="In Brief">
+    <div class="kicker-bar"></div>
+    <p class="kicker">In Brief</p>
+
+    <div class="brief"><p><b>Kean out for two months.</b> Como forward <span class="person">Moise Kean</span> faces at least two months out injured and could miss Champions League fixtures against Paris Saint-Germain and Barcelona.</p></div>
+    <div class="brief"><p><b>Kompany back on the touchline.</b> The <span class="club">Bayern Munich</span> head coach returned for Friday's home game with K&ouml;ln after a spell away with health problems.</p></div>
+    <div class="brief"><p><b>Pochettino's farewell.</b> The Argentine took charge of the United States for the last time on Tuesday against Haiti before flying to Manchester. US Soccer has begun its search for a replacement.</p></div>
+    <div class="brief"><p><b>Milan beaten at home in Europe.</b> <span class="club">AC Milan</span> lost 2-0 to Ferencv&aacute;ros at San Siro on Europa League Matchday 4. They travel to Olympiacos on November 26.</p></div>
+    <div class="brief"><p><b>Marseille win in Leverkusen.</b> <span class="club">Marseille</span> beat Bayer Leverkusen 1-0 away in the Europa League on November 5, and <span class="club">Juventus</span> won 2-1 at AZ Alkmaar on the same night.</p></div>
+    <div class="brief"><p><b>Bottom of the Bundesliga.</b> <span class="club">Borussia M&ouml;nchengladbach</span> have four points from nine games with one win, a goal difference of minus thirteen, and host Dortmund on Saturday.</p></div>
+    <div class="brief"><p><b>M&aacute;laga still waiting.</b> The promoted Spanish side have five points from twelve games, all from draws, and have yet to win in La Liga this season.</p></div>
+    <div class="brief"><p><b>Haaland leads the scoring charts.</b> The Norwegian is the Premier League's top scorer this season and scored in each of Manchester City's away matches before the break, despite the team's recent slump.</p></div>
+  </section>
+
+  <section id="what-to-watch" data-toc="What to Watch">
+    <div class="kicker-bar"></div>
+    <p class="kicker">What to Watch</p>
+    <h2 class="hed">The Weekend, Then The Week</h2>
+    <p class="dek">All kickoff times converted to Pacific. Europe returns on Saturday morning, and the Champions League follows on Tuesday.</p>
+
+    <h4 class="sub">Saturday, November 21</h4>
+    <div class="fixstrip">
+      <div class="fixrow"><div class="fixteams">Manchester City v Fulham<span class="fixcomp">Premier League</span></div><div class="fixtime">4:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Lazio v Lecce<span class="fixcomp">Serie A</span></div><div class="fixtime">6:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Como v Cagliari<span class="fixcomp">Serie A</span></div><div class="fixtime">6:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Borussia M&ouml;nchengladbach v Borussia Dortmund<span class="fixcomp">Bundesliga</span></div><div class="fixtime">6:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Elversberg v Freiburg<span class="fixcomp">Bundesliga</span></div><div class="fixtime">6:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Union Berlin v RB Leipzig<span class="fixcomp">Bundesliga</span></div><div class="fixtime">6:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Bournemouth v Nottingham Forest<span class="fixcomp">Premier League</span></div><div class="fixtime">7:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Chelsea v Leeds United<span class="fixcomp">Premier League</span></div><div class="fixtime">7:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Coventry City v Crystal Palace<span class="fixcomp">Premier League</span></div><div class="fixtime">7:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Tottenham Hotspur v Ipswich Town<span class="fixcomp">Premier League</span></div><div class="fixtime">7:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Aston Villa v Sunderland<span class="fixcomp">Premier League</span></div><div class="fixtime">7:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Nice v Paris Saint-Germain<span class="fixcomp">Ligue 1</span></div><div class="fixtime">8:15am</div></div>
+      <div class="fixrow"><div class="fixteams">Parma v Roma<span class="fixcomp">Serie A</span></div><div class="fixtime">9:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Newcastle United v Arsenal<span class="fixcomp">Premier League</span></div><div class="fixtime">9:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Sevilla v Real Betis<span class="fixcomp">La Liga</span></div><div class="fixtime">9:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Schalke 04 v VfB Stuttgart<span class="fixcomp">Bundesliga</span></div><div class="fixtime">9:30am</div></div>
+      <div class="fixrow"><div class="fixteams">New England Revolution v Philadelphia Union<span class="fixcomp">MLS, Round One</span></div><div class="fixtime">11:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Napoli v Torino<span class="fixcomp">Serie A</span></div><div class="fixtime">11:45am</div></div>
+      <div class="fixrow"><div class="fixteams">Lille v Lyon<span class="fixcomp">Ligue 1</span></div><div class="fixtime">11:45am</div></div>
+      <div class="fixrow"><div class="fixteams">Monaco v Auxerre<span class="fixcomp">Ligue 1</span></div><div class="fixtime">11:45am</div></div>
+      <div class="fixrow"><div class="fixteams">Real Madrid v Celta Vigo<span class="fixcomp">La Liga</span></div><div class="fixtime">12:00pm</div></div>
+      <div class="fixrow"><div class="fixteams">FC Dallas v Portland Timbers<span class="fixcomp">MLS, Round One</span></div><div class="fixtime">1:00pm</div></div>
+      <div class="fixrow"><div class="fixteams">Inter Miami v Columbus Crew<span class="fixcomp">MLS, Round One</span></div><div class="fixtime">3:00pm</div></div>
+    </div>
+
+    <h4 class="sub">Sunday, November 22</h4>
+    <div class="fixstrip">
+      <div class="fixrow"><div class="fixteams">Juventus v Venezia<span class="fixcomp">Serie A</span></div><div class="fixtime">3:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Barcelona v Villarreal<span class="fixcomp">La Liga</span></div><div class="fixtime">5:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Sassuolo v Genoa<span class="fixcomp">Serie A</span></div><div class="fixtime">6:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Hull City v Brighton<span class="fixcomp">Premier League</span></div><div class="fixtime">6:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Paris FC v Angers<span class="fixcomp">Ligue 1</span></div><div class="fixtime">6:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Augsburg v Mainz<span class="fixcomp">Bundesliga</span></div><div class="fixtime">6:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Liverpool v Manchester United<span class="fixcomp">Premier League</span></div><div class="fixtime">8:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Werder Bremen v Hamburger SV<span class="fixcomp">Bundesliga</span></div><div class="fixtime">8:30am</div></div>
+      <div class="fixrow"><div class="fixteams">AC Milan v Frosinone<span class="fixcomp">Serie A</span></div><div class="fixtime">9:00am</div></div>
+      <div class="fixrow"><div class="fixteams">Osasuna v M&aacute;laga<span class="fixcomp">La Liga</span></div><div class="fixtime">9:30am</div></div>
+      <div class="fixrow"><div class="fixteams">Atalanta v Inter Milan<span class="fixcomp">Serie A</span></div><div class="fixtime">11:45am</div></div>
+      <div class="fixrow"><div class="fixteams">Marseille v Le Mans<span class="fixcomp">Ligue 1</span></div><div class="fixtime">11:45am</div></div>
+      <div class="fixrow"><div class="fixteams">Getafe v Atl&eacute;tico Madrid<span class="fixcomp">La Liga</span></div><div class="fixtime">12:00pm</div></div>
+      <div class="fixrow"><div class="fixteams">Nashville SC v FC Cincinnati<span class="fixcomp">MLS, Round One</span></div><div class="fixtime">1:00pm</div></div>
+      <div class="fixrow"><div class="fixteams">Chicago Fire v Charlotte FC<span class="fixcomp">MLS, Round One</span></div><div class="fixtime">3:30pm</div></div>
+    </div>
+
+    <h4 class="sub">The week ahead</h4>
+    <div class="fixstrip">
+      <div class="fixrow"><div class="fixteams">Brentford v Everton<span class="fixcomp">Premier League, Monday</span></div><div class="fixtime">12:00pm</div></div>
+      <div class="fixrow"><div class="fixteams">St. Louis City v LAFC<span class="fixcomp">MLS Round One, Monday</span></div><div class="fixtime">5:00pm</div></div>
+      <div class="fixrow"><div class="fixteams">Champions League Matchday 5<span class="fixcomp">Tuesday and Wednesday, including Manchester City v Napoli and PSG v Roma</span></div><div class="fixtime">Nov 24 to 25</div></div>
+      <div class="fixrow"><div class="fixteams">San Jose Earthquakes v Houston Dynamo<span class="fixcomp">MLS Round One, Tuesday</span></div><div class="fixtime">7:00pm</div></div>
+      <div class="fixrow"><div class="fixteams">Inter Milan v Stuttgart<span class="fixcomp">Champions League, Wednesday</span></div><div class="fixtime">12:00pm</div></div>
+      <div class="fixrow"><div class="fixteams">Europa League Matchday 5<span class="fixcomp">Thursday, including Olympiacos v Milan and Juventus v Omonia</span></div><div class="fixtime">Nov 26</div></div>
+      <div class="fixrow"><div class="fixteams">Conference League Matchday 4<span class="fixcomp">Thursday</span></div><div class="fixtime">Nov 26</div></div>
+      <div class="fixrow"><div class="fixteams">Nottingham Forest v Chelsea<span class="fixcomp">Premier League, Friday</span></div><div class="fixtime">Nov 27, 12:00pm</div></div>
+    </div>
+  </section>
+
+  <div class="feedback">
+    <p>Was this edition useful?<br>
+      <a href="mailto:evanagribben@gmail.com?subject=The%20Weekly%20Soccer%20Digest%20feedback%3A%20November%2020%2C%202026%3A%20useful&amp;body=Anything%20you%20would%20add%20or%20change%3F%20(optional)">Yes, it was</a>
+      &nbsp;&nbsp;
+      <a href="mailto:evanagribben@gmail.com?subject=The%20Weekly%20Soccer%20Digest%20feedback%3A%20November%2020%2C%202026%3A%20not%20useful&amp;body=Anything%20you%20would%20add%20or%20change%3F%20(optional)">Not really</a>
+    </p>
+  </div>
+
+  <div class="footer">
+    <span class="fl">Sources</span>
+    <p><a href="https://www.skysports.com/football/news/13610882/mauricio-pochettino-appointed-as-manchester-united-head-coach-after-michael-carricks-sacking-at-old-trafford" target="_blank" rel="noopener noreferrer">Sky Sports</a>,
+      <a href="https://theanalyst.com/articles/liverpool-vs-man-utd-prediction-premier-league-11-2026" target="_blank" rel="noopener noreferrer">The Analyst</a>,
+      <a href="https://www.espn.com/soccer/story/_/id/50083711/man-city-financial-breaches-appeal-guilty-verdict-premier-league" target="_blank" rel="noopener noreferrer">ESPN</a>,
+      <a href="https://www.skysports.com/football/news/13290810/man-city-charges-verdict-club-found-guilty-of-all-charges-related-to-serious-breaches-of-premier-league-financial-rules" target="_blank" rel="noopener noreferrer">Sky Sports on the City verdict</a>,
+      <a href="https://www.beinsports.com/en-asia/football/serie-a/articles/lazio-might-get-dizzy-if-they-focus-on-serie-a-table-says-gattuso-2026-11-01" target="_blank" rel="noopener noreferrer">beIN Sports</a>,
+      <a href="https://www.bundesliga.com/en/bundesliga/table" target="_blank" rel="noopener noreferrer">Bundesliga</a>,
+      <a href="https://www.cbssports.com/soccer/la-liga/standings/" target="_blank" rel="noopener noreferrer">CBS Sports</a>,
+      <a href="https://www.foxsports.com/soccer/serie-a/standings" target="_blank" rel="noopener noreferrer">Fox Sports</a>,
+      <a href="https://www.football365.com/news/romano-reveals-man-utd-now-really-serious-chance-signing-barcelona-star-january" target="_blank" rel="noopener noreferrer">Football365 on Fabrizio Romano</a>,
+      <a href="https://www.teamtalk.com/manchester-united/man-utd-transfer-news-fabrizio-romano-january-double-swoop-defender-striker" target="_blank" rel="noopener noreferrer">TEAMtalk</a>,
+      <a href="https://www.cpfc.co.uk/news/announcement/thomas-frank-appointed-crystal-palace-manager/" target="_blank" rel="noopener noreferrer">Crystal Palace</a>,
+      <a href="https://www.socceramerica.com/mls-playoffs-cincinnati-and-real-salt-lake-advance-with-wild-card-wins/" target="_blank" rel="noopener noreferrer">Soccer America</a>,
+      <a href="https://www.uefa.com/uefaeuropaleague/news/02a8-2174cafa5bb6-82bbc20c9b92-1000--2026-27-europa-league-all-the-league-phase-fixtures-and-re/" target="_blank" rel="noopener noreferrer">UEFA</a>,
+      <a href="https://www.premierleague.com/en/news/4725574/fixture-amendments-for-premier-league-matches-in-november" target="_blank" rel="noopener noreferrer">Premier League</a>.</p>
+    <p style="padding-top:0.6rem"><a href="https://stoppagetimefc.com/" target="_blank" rel="noopener noreferrer">Follow one club in depth: Stoppage Time has a weekly newsletter for each of fifteen clubs.</a></p>
+    <div class="pst"><a href="https://stoppagetimefc.com/" target="_blank" rel="noopener noreferrer">Part of Stoppage Time</a></div>
+  </div>
+
+</div>
+</div>
+
+<script>
+(function(){
+  var btn = document.getElementById('collapse-all');
+  if(!btn) return;
+  var ids = ['this-weekend','the-lead','transfer-news','around-the-leagues','numbers-of-the-week','in-brief','what-to-watch'];
+  var open = true;
+  btn.addEventListener('click', function(){
+    open = !open;
+    ids.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el){ el.hidden = !open; }
+    });
+    btn.setAttribute('aria-expanded', String(open));
+    btn.textContent = open ? 'Collapse all sections' : 'Expand all sections';
+  });
+})();
+</script>
+</body>
+</html>
